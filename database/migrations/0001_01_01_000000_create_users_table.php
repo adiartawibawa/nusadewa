@@ -16,9 +16,20 @@ return new class extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
+            $table->string('username')->unique()->nullable();
             $table->string('password');
+            $table->text('summary')->nullable();
+            $table->string('avatar')->nullable();
+            $table->tinyInteger('dark_mode')->nullable();
+            $table->tinyInteger('digest')->nullable();
+            $table->string('locale')->nullable();
+            $table->tinyInteger('role')->nullable();
+            $table->boolean('is_team_member')->default(false); // Flag anggota tim
+            $table->string('position')->nullable(); // Posisi di tim
+            $table->json('social_links')->nullable();
             $table->rememberToken();
             $table->timestamps();
+            $table->softDeletes();
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
