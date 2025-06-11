@@ -86,7 +86,7 @@ class Post extends Model
     {
         return $this->belongsToMany(ProductCategory::class, 'post_product_categories', 'post_id', 'category_id')
             ->withPivot('order')
-            ->orderBy('order');
+            ->orderBy('post_product_categories.order'); // Spesifikasikan tabel pivot
     }
 
     // Relasi dengan views
