@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
@@ -12,7 +13,7 @@ use Spatie\Sluggable\SlugOptions;
 
 class Post extends Model
 {
-    use SoftDeletes, HasUuids, HasSlug;
+    use SoftDeletes, HasUuids, HasSlug, HasFactory;
 
     protected $table = 'posts';
 
@@ -134,7 +135,7 @@ class Post extends Model
             '%d %s %s',
             [
                 $minutes,
-                Str::plural(trans('app.min', [], $locale), $minutes),
+                Str::plural(trans('app.mins', [], $locale), $minutes),
                 trans('app.read', [], $locale),
             ]
         );
