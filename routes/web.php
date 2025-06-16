@@ -12,4 +12,8 @@ Route::group([
     Route::get('/', function () {
         return view('pages.home');
     })->name('home');
+
+    Route::get('/test', function () {
+        return view('test');
+    })->name('test');
 });

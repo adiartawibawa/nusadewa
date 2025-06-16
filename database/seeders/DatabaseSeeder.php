@@ -10,6 +10,7 @@ use App\Models\Topic;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -18,6 +19,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        User::create([
+            'name' => 'Admin Nusa Dewa',
+            'email' => 'admin@nusadewa.test',
+            'password' => Hash::make('password')
+        ]);
+
         // Create 10 team members
         $teamMembers = TeamMember::factory()
             ->count(10)
