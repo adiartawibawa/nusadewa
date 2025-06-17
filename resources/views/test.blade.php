@@ -8,6 +8,10 @@
         window.addEventListener('scroll', () => {
             this.scrollY = window.scrollY;
             this.parallaxOffset = this.scrollY * 0.3;
+            // Smooth parallax effect using requestAnimationFrame
+            requestAnimationFrame(() => {
+                this.parallaxOffset = this.scrollY * 0.3;
+            });
         });
     }
 }">
@@ -55,6 +59,14 @@
             background-size: cover;
         }
 
+        .bg-noise {
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%' height='100%' filter='url(%23noiseFilter)' opacity='0.2'/%3E%3C/svg%3E");
+        }
+
+        .will-change-transform {
+            will-change: transform;
+        }
+
         @media (max-width: 1023px) {
             .parallax-bg {
                 background-attachment: scroll;
@@ -65,7 +77,9 @@
 
 <body class="font-sans antialiased bg-white" x-cloak>
     <!-- Preloader -->
-    <div class="preloader">
+    <div class="fixed inset-0 z-50 flex items-center justify-center transition-opacity duration-500 bg-white preloader"
+        x-show="true" x-transition:enter="transition-opacity duration-300"
+        x-transition:leave="transition-opacity duration-300" x-init="setTimeout(() => { $el.remove() }, 1000)">
         <div class="w-20 h-20 border-t-2 border-b-2 border-blue-500 rounded-full animate-spin"></div>
     </div>
 
@@ -76,56 +90,160 @@
         x-transition:leave-end="translate-x-full"
         class="fixed inset-y-0 right-0 z-50 overflow-y-auto bg-white shadow-xl w-80">
         <div class="p-6">
-            <button @click="sidebarOpen = false" class="absolute text-gray-500 top-4 right-4 hover:text-gray-700">
-                <i class="fas fa-times"></i>
+            <button @click="sidebarOpen = false"
+                class="absolute text-gray-500 top-4 right-4 hover:text-gray-700 focus:outline-none">
+                <i class="text-xl fas fa-times"></i>
             </button>
 
             <div class="mt-16 space-y-8">
                 <div>
                     <h3 class="mb-4 text-xl font-bold">Quick contact info</h3>
-                    <p class="text-gray-600">Sebagai pusat pembenihan udang vaname terkemuka di Bali, kami siap membantu
+                    <p class="text-sm text-gray-600">Sebagai pusat pembenihan udang vaname terkemuka di Bali, kami siap
+                        membantu
                         Anda dengan solusi akuakultur berbasis bioteknologi.</p>
                 </div>
 
                 <div>
                     <h5 class="font-bold text-gray-800">CONTACT</h5>
-                    <div class="text-lg font-semibold text-blue-600">0363-2787803</div>
-                    <p class="text-gray-600">bpiu2k@gmail.com</p>
+                    <a href="tel:0363-2787803"
+                        class="text-sm font-semibold text-blue-600 hover:underline">0363-2787803</a>
+                    <a href="mailto:bpiu2k@gmail.com"
+                        class="block text-sm text-gray-600 hover:underline">bpiu2k@gmail.com</a>
                 </div>
 
                 <div>
                     <h5 class="font-bold text-gray-800">OFFICE</h5>
-                    <p class="text-gray-600">Desa Bugbug —<br>Karangasem, <br>Bali 80811</p>
+                    <a href="https://maps.app.goo.gl/r4itKV18H6mecsfq6" target="_blank" rel="noopener noreferrer"
+                        class="text-sm text-gray-600 hover:underline">
+                        Desa Bugbug —<br>Karangasem, <br>Bali 80811
+                    </a>
                 </div>
 
                 <div>
                     <h5 class="font-bold text-gray-800">OPENING HOURS</h5>
-                    <p class="text-gray-600">Monday – Thursday : 07:30AM – 16:00PM<br>Friday : 07:30AM –
-                        16:30PM<br>Sunday : Closed</p>
+                    <p class="text-sm text-gray-600">
+                        Monday – Thursday : 07:30AM – 16:00PM<br>
+                        Friday : 07:30AM – 16:30PM<br>
+                        Sunday : Closed
+                    </p>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Header Top -->
-    <div class="hidden py-2 bg-gray-100 md:block">
-        <div class="container px-4 mx-auto">
-            <div class="flex flex-col items-center justify-between md:flex-row">
-                <div class="flex flex-wrap justify-center gap-4 mb-2 md:justify-start md:mb-0">
-                    <a href="#" class="flex items-center text-sm text-gray-700 hover:text-blue-600">
-                        <i class="mr-2 fas fa-phone-alt"></i>0363-2787803
-                    </a>
-                    <a href="https://maps.app.goo.gl/r4itKV18H6mecsfq6" target="_blank"
-                        class="flex items-center text-sm text-gray-700 hover:text-blue-600">
-                        <i class="mr-2 fas fa-map-marker-alt"></i>Desa Bugbug, Karangasem, Bali 80811
-                    </a>
-                    <a href="#" class="flex items-center text-sm text-gray-700 hover:text-blue-600">
-                        <i class="mr-2 far fa-clock"></i>Mon - Fri 7:30 - 16:00
-                    </a>
+    <!-- Mobile Menu -->
+    <div x-show="mobileMenuOpen" @click.away="mobileMenuOpen = false"
+        x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0"
+        x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-200"
+        x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
+        class="fixed inset-0 z-50 overflow-y-auto bg-white" style="display: none;">
+        <div class="container px-4 py-8 mx-auto">
+            <div class="flex items-center justify-between mb-8">
+                <img src="https://bpiu2k.online/img/logo.png" alt="Nusa Dewa Logo" class="h-10">
+                <button @click="mobileMenuOpen = false" class="text-gray-500 hover:text-primary">
+                    <i class="text-xl fas fa-times"></i>
+                </button>
+            </div>
+
+            <div class="space-y-6">
+                <a href="index.html"
+                    class="block text-sm font-medium text-gray-800 transition-colors hover:text-primary">Home</a>
+
+                <div x-data="{ open: false }" class="pb-4 border-b border-gray-100">
+                    <button @click="open = !open"
+                        class="flex items-center justify-between w-full text-sm font-medium text-gray-800 transition-colors hover:text-primary">
+                        About Us <i class="ml-2 text-xs transition-transform fas fa-chevron-down"
+                            :class="{ 'transform rotate-180': open }"></i>
+                    </button>
+                    <div x-show="open" class="pl-4 mt-2 space-y-3">
+                        <a href="about-company.html"
+                            class="block text-gray-600 transition-colors hover:text-primary">Our Company</a>
+                        <a href="about-innovation.html"
+                            class="block text-gray-600 transition-colors hover:text-primary">Innovation</a>
+                        <a href="about-expertise.html"
+                            class="block text-gray-600 transition-colors hover:text-primary">Our Expertise</a>
+                        <a href="about-team.html" class="block text-gray-600 transition-colors hover:text-primary">Our
+                            Team</a>
+                    </div>
                 </div>
 
-                <div class="flex items-center space-x-4">
-                    <div class="flex space-x-3">
+                <div x-data="{ open: false }" class="pb-4 border-b border-gray-100">
+                    <button @click="open = !open"
+                        class="flex items-center justify-between w-full text-sm font-medium text-gray-800 transition-colors hover:text-primary">
+                        Our Products <i class="ml-2 text-xs transition-transform fas fa-chevron-down"
+                            :class="{ 'transform rotate-180': open }"></i>
+                    </button>
+                    <div x-show="open" class="pl-4 mt-2 space-y-3">
+                        <a href="products-fast-growth.html"
+                            class="block text-gray-600 transition-colors hover:text-primary">FAST GROWTH Strain</a>
+                        <a href="products-wssv-resistant.html"
+                            class="block text-gray-600 transition-colors hover:text-primary">WSSV-Resistant Strain</a>
+                        <a href="products-ehp-resistant.html"
+                            class="block text-gray-600 transition-colors hover:text-primary">EHP-Resistant Strain</a>
+                        <a href="products-plant-based.html"
+                            class="block text-gray-600 transition-colors hover:text-primary">Plant-Based Protein
+                            Strain</a>
+                        <a href="products-gajah-mada.html"
+                            class="block text-gray-600 transition-colors hover:text-primary">GAJAH MADA Strain</a>
+                    </div>
+                </div>
+
+                <div x-data="{ open: false }" class="pb-4 border-b border-gray-100">
+                    <button @click="open = !open"
+                        class="flex items-center justify-between w-full text-sm font-medium text-gray-800 transition-colors hover:text-primary">
+                        Technology <i class="ml-2 text-xs transition-transform fas fa-chevron-down"
+                            :class="{ 'transform rotate-180': open }"></i>
+                    </button>
+                    <div x-show="open" class="pl-4 mt-2 space-y-3">
+                        <a href="technology-molecular.html"
+                            class="block text-gray-600 transition-colors hover:text-primary">Molecular Precision</a>
+                        <a href="technology-testing.html"
+                            class="block text-gray-600 transition-colors hover:text-primary">Performance Testing</a>
+                        <a href="technology-research.html"
+                            class="block text-gray-600 transition-colors hover:text-primary">Research & Development</a>
+                    </div>
+                </div>
+
+                <div x-data="{ open: false }" class="pb-4 border-b border-gray-100">
+                    <button @click="open = !open"
+                        class="flex items-center justify-between w-full text-sm font-medium text-gray-800 transition-colors hover:text-primary">
+                        News <i class="ml-2 text-xs transition-transform fas fa-chevron-down"
+                            :class="{ 'transform rotate-180': open }"></i>
+                    </button>
+                    <div x-show="open" class="pl-4 mt-2 space-y-3">
+                        <a href="news-genome-editing.html"
+                            class="block text-gray-600 transition-colors hover:text-primary">Genome Editing</a>
+                        <a href="news-snp-resistance.html"
+                            class="block text-gray-600 transition-colors hover:text-primary">SNP Resistance WSSV</a>
+                        <a href="news-bamboo-disease.html"
+                            class="block text-gray-600 transition-colors hover:text-primary">Bamboo Disease
+                            Analysis</a>
+                        <a href="news-multilocation.html"
+                            class="block text-gray-600 transition-colors hover:text-primary">Multilocation Test
+                            Results</a>
+                    </div>
+                </div>
+
+                <a href="contact.html"
+                    class="block text-sm font-medium text-gray-800 transition-colors hover:text-primary">Contact</a>
+
+                <div class="pt-8 border-t border-gray-200">
+                    <div class="space-y-4">
+                        <a href="https://maps.app.goo.gl/r4itKV18H6mecsfq6" target="_blank"
+                            class="flex items-center text-xs text-gray-600 transition-colors hover:text-primary">
+                            <i class="mr-3 fas fa-map-marker-alt"></i> Desa Bugbug — Karangasem, Bali 80811
+                        </a>
+                        <a href="#"
+                            class="flex items-center text-xs text-gray-600 transition-colors hover:text-primary">
+                            <i class="mr-3 fas fa-phone-alt"></i> 0363-2787803
+                        </a>
+                        <a href="#"
+                            class="flex items-center text-xs text-gray-600 transition-colors hover:text-primary">
+                            <i class="mr-3 far fa-clock"></i> Mon - Fri 7:30 - 16:00 | Friday : 07:30AM – 16:30PM
+                        </a>
+                    </div>
+
+                    <div class="flex mt-6 space-x-4">
                         <a href="https://www.facebook.com/BPIU2K/" target="_blank"
                             class="text-gray-600 hover:text-blue-600">
                             <i class="fab fa-facebook-f"></i>
@@ -142,193 +260,239 @@
                             <i class="fab fa-youtube"></i>
                         </a>
                     </div>
-
-                    <div x-data="{ currentLocale: 'en' }" class="ml-2">
-                        <button x-show="currentLocale === 'en'"
-                            @click="currentLocale = 'id'; window.location.href = 'http://nusadewa.test/id'"
-                            class="text-gray-700 hover:text-blue-600" title="Switch to Bahasa Indonesia">
-                            🇮🇩
-                        </button>
-                        <button x-show="currentLocale === 'id'"
-                            @click="currentLocale = 'en'; window.location.href = 'http://nusadewa.test/en'"
-                            class="text-gray-700 hover:text-blue-600" title="Switch to English">
-                            🇺🇸
-                        </button>
-                    </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Main Navigation -->
-    <header class="sticky top-0 z-40 transition-all duration-300 bg-white shadow-sm"
-        :class="{ 'bg-opacity-90 backdrop-blur-sm': scrollY > 50 }">
-        <div class="container px-4 mx-auto">
-            <div class="flex items-center justify-between py-4">
-                <a href="index.html" class="flex items-center">
-                    <img src="https://bpiu2k.online/img/logo.png" alt="Nusa Dewa Logo" class="h-10">
-                </a>
+    <!-- Hero Section with Parallax -->
+    <section class="relative items-center h-screen overflow-hidden">
 
-                <!-- Desktop Menu -->
-                <nav class="items-center hidden space-x-8 md:flex">
-                    <a href="index.html" class="font-medium text-gray-800 transition-colors hover:text-primary">Home</a>
-
-                    <div x-data="{ open: false }" class="relative">
-                        <button @click="open = !open"
-                            class="flex items-center font-medium text-gray-800 transition-colors hover:text-primary">
-                            About Us <i class="ml-1 text-xs transition-transform fas fa-chevron-down"
-                                :class="{ 'transform rotate-180': open }"></i>
-                        </button>
-                        <div x-show="open" @click.away="open = false"
-                            x-transition:enter="transition ease-out duration-200"
-                            x-transition:enter-start="opacity-0 translate-y-1"
-                            x-transition:enter-end="opacity-100 translate-y-0"
-                            x-transition:leave="transition ease-in duration-150"
-                            x-transition:leave-start="opacity-100 translate-y-0"
-                            x-transition:leave-end="opacity-0 translate-y-1"
-                            class="absolute left-0 z-50 w-48 py-1 mt-2 bg-white border border-gray-100 rounded-md shadow-lg">
-                            <a href="about-company.html"
-                                class="block px-4 py-2 text-gray-800 transition-colors hover:bg-blue-50">Our
-                                Company</a>
-                            <a href="about-innovation.html"
-                                class="block px-4 py-2 text-gray-800 transition-colors hover:bg-blue-50">Innovation</a>
-                            <a href="about-expertise.html"
-                                class="block px-4 py-2 text-gray-800 transition-colors hover:bg-blue-50">Our
-                                Expertise</a>
-                            <a href="about-team.html"
-                                class="block px-4 py-2 text-gray-800 transition-colors hover:bg-blue-50">Our Team</a>
-                        </div>
+        <!-- Header Top -->
+        <div class="relative z-30 hidden py-2 bg-transparent border-b border-gray-200 border-opacity-20 md:block">
+            <div class="container px-4 mx-auto">
+                <div class="flex flex-col items-center justify-between md:flex-row">
+                    <div class="flex flex-wrap justify-center gap-4 mb-2 text-xs md:justify-start md:mb-0">
+                        <a href="tel:0363-2787803" class="flex items-center text-white hover:text-blue-300">
+                            <i class="mr-2 fas fa-phone-alt"></i>0363-2787803
+                        </a>
+                        <a href="https://maps.app.goo.gl/r4itKV18H6mecsfq6" target="_blank" rel="noopener noreferrer"
+                            class="flex items-center text-white hover:text-blue-300">
+                            <i class="mr-2 fas fa-map-marker-alt"></i>Desa Bugbug, Karangasem, Bali 80811
+                        </a>
+                        <a href="#" class="flex items-center text-white hover:text-blue-300">
+                            <i class="mr-2 far fa-clock"></i>Mon - Fri 7:30 - 16:00
+                        </a>
                     </div>
 
-                    <div x-data="{ open: false }" class="relative">
-                        <button @click="open = !open"
-                            class="flex items-center font-medium text-gray-800 transition-colors hover:text-primary">
-                            Our Products <i class="ml-1 text-xs transition-transform fas fa-chevron-down"
-                                :class="{ 'transform rotate-180': open }"></i>
-                        </button>
-                        <div x-show="open" @click.away="open = false"
-                            x-transition:enter="transition ease-out duration-200"
-                            x-transition:enter-start="opacity-0 translate-y-1"
-                            x-transition:enter-end="opacity-100 translate-y-0"
-                            x-transition:leave="transition ease-in duration-150"
-                            x-transition:leave-start="opacity-100 translate-y-0"
-                            x-transition:leave-end="opacity-0 translate-y-1"
-                            class="absolute left-0 z-50 w-56 py-1 mt-2 bg-white border border-gray-100 rounded-md shadow-lg">
-                            <a href="products-fast-growth.html"
-                                class="block px-4 py-2 text-gray-800 transition-colors hover:bg-blue-50">FAST GROWTH
-                                Strain</a>
-                            <a href="products-wssv-resistant.html"
-                                class="block px-4 py-2 text-gray-800 transition-colors hover:bg-blue-50">WSSV-Resistant
-                                Strain</a>
-                            <a href="products-ehp-resistant.html"
-                                class="block px-4 py-2 text-gray-800 transition-colors hover:bg-blue-50">EHP-Resistant
-                                Strain</a>
-                            <a href="products-plant-based.html"
-                                class="block px-4 py-2 text-gray-800 transition-colors hover:bg-blue-50">Plant-Based
-                                Protein Strain</a>
-                            <a href="products-gajah-mada.html"
-                                class="block px-4 py-2 text-gray-800 transition-colors hover:bg-blue-50">GAJAH MADA
-                                Strain</a>
+                    <div class="flex items-center space-x-4">
+                        <div class="flex space-x-3">
+                            <a href="https://www.facebook.com/BPIU2K/" target="_blank" rel="noopener noreferrer"
+                                class="text-white hover:text-blue-300">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                            <a href="https://x.com/bpiu2k_k" target="_blank" rel="noopener noreferrer"
+                                class="text-white hover:text-blue-300">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                            <a href="https://www.instagram.com/bpiu2k/" target="_blank" rel="noopener noreferrer"
+                                class="text-white hover:text-blue-300">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                            <a href="http://www.youtube.com/@bpiu2kkarangasem939" target="_blank"
+                                rel="noopener noreferrer" class="text-white hover:text-red-300">
+                                <i class="fab fa-youtube"></i>
+                            </a>
+                        </div>
+
+                        <div x-data="{ currentLocale: 'en' }" class="ml-2">
+                            <button x-show="currentLocale === 'en'"
+                                @click="currentLocale = 'id'; window.location.href = 'http://nusadewa.test/id'"
+                                class="text-white hover:text-blue-300 focus:outline-none"
+                                title="Switch to Bahasa Indonesia">
+                                🇮🇩
+                            </button>
+                            <button x-show="currentLocale === 'id'"
+                                @click="currentLocale = 'en'; window.location.href = 'http://nusadewa.test/en'"
+                                class="text-white hover:text-blue-300 focus:outline-none" title="Switch to English">
+                                🇺🇸
+                            </button>
                         </div>
                     </div>
-
-                    <div x-data="{ open: false }" class="relative">
-                        <button @click="open = !open"
-                            class="flex items-center font-medium text-gray-800 transition-colors hover:text-primary">
-                            Technology <i class="ml-1 text-xs transition-transform fas fa-chevron-down"
-                                :class="{ 'transform rotate-180': open }"></i>
-                        </button>
-                        <div x-show="open" @click.away="open = false"
-                            x-transition:enter="transition ease-out duration-200"
-                            x-transition:enter-start="opacity-0 translate-y-1"
-                            x-transition:enter-end="opacity-100 translate-y-0"
-                            x-transition:leave="transition ease-in duration-150"
-                            x-transition:leave-start="opacity-100 translate-y-0"
-                            x-transition:leave-end="opacity-0 translate-y-1"
-                            class="absolute left-0 z-50 w-48 py-1 mt-2 bg-white border border-gray-100 rounded-md shadow-lg">
-                            <a href="technology-molecular.html"
-                                class="block px-4 py-2 text-gray-800 transition-colors hover:bg-blue-50">Molecular
-                                Precision</a>
-                            <a href="technology-testing.html"
-                                class="block px-4 py-2 text-gray-800 transition-colors hover:bg-blue-50">Performance
-                                Testing</a>
-                            <a href="technology-research.html"
-                                class="block px-4 py-2 text-gray-800 transition-colors hover:bg-blue-50">Research &
-                                Development</a>
-                        </div>
-                    </div>
-
-                    <div x-data="{ open: false }" class="relative">
-                        <button @click="open = !open"
-                            class="flex items-center font-medium text-gray-800 transition-colors hover:text-primary">
-                            News <i class="ml-1 text-xs transition-transform fas fa-chevron-down"
-                                :class="{ 'transform rotate-180': open }"></i>
-                        </button>
-                        <div x-show="open" @click.away="open = false"
-                            x-transition:enter="transition ease-out duration-200"
-                            x-transition:enter-start="opacity-0 translate-y-1"
-                            x-transition:enter-end="opacity-100 translate-y-0"
-                            x-transition:leave="transition ease-in duration-150"
-                            x-transition:leave-start="opacity-100 translate-y-0"
-                            x-transition:leave-end="opacity-0 translate-y-1"
-                            class="absolute left-0 z-50 w-48 py-1 mt-2 bg-white border border-gray-100 rounded-md shadow-lg">
-                            <a href="news-genome-editing.html"
-                                class="block px-4 py-2 text-gray-800 transition-colors hover:bg-blue-50">Genome
-                                Editing</a>
-                            <a href="news-snp-resistance.html"
-                                class="block px-4 py-2 text-gray-800 transition-colors hover:bg-blue-50">SNP Resistance
-                                WSSV</a>
-                            <a href="news-bamboo-disease.html"
-                                class="block px-4 py-2 text-gray-800 transition-colors hover:bg-blue-50">Bamboo Disease
-                                Analysis</a>
-                            <a href="news-multilocation.html"
-                                class="block px-4 py-2 text-gray-800 transition-colors hover:bg-blue-50">Multilocation
-                                Test Results</a>
-                        </div>
-                    </div>
-
-                    <a href="contact.html"
-                        class="font-medium text-gray-800 transition-colors hover:text-primary">Contact</a>
-
-                    <button @click="sidebarOpen = true"
-                        class="ml-4 text-gray-600 transition-colors hover:text-primary">
-                        <i class="fas fa-bars"></i>
-                    </button>
-                </nav>
-
-                <!-- Mobile Menu Button -->
-                <button @click="mobileMenuOpen = true" class="text-gray-600 md:hidden hover:text-primary">
-                    <i class="text-xl fas fa-bars"></i>
-                </button>
+                </div>
             </div>
         </div>
-    </header>
 
-    <!-- Hero Section with Parallax -->
-    <section class="relative flex items-center h-screen overflow-hidden">
+        <!-- Main Navigation -->
+        <header class="sticky top-0 z-40 transition-all duration-300 bg-transparent">
+            <div class="container px-4 mx-auto">
+                <div class="flex items-center justify-between py-4">
+                    <a href="index.html" class="flex items-center">
+                        <img src="https://bpiu2k.online/img/logo.png" alt="Nusa Dewa Logo" class="h-10">
+                    </a>
+
+                    <!-- Desktop Menu -->
+                    <nav class="items-center hidden space-x-8 md:flex">
+                        <a href="index.html"
+                            class="text-sm font-medium text-white transition-colors hover:text-primary">Home</a>
+
+                        <div x-data="{ open: false }" class="relative">
+                            <button @click="open = !open"
+                                class="flex items-center text-sm font-medium text-white transition-colors hover:text-primary">
+                                About Us <i class="ml-1 text-xs transition-transform fas fa-chevron-down"
+                                    :class="{ 'transform rotate-180': open }"></i>
+                            </button>
+                            <div x-show="open" @click.away="open = false"
+                                x-transition:enter="transition ease-out duration-200"
+                                x-transition:enter-start="opacity-0 translate-y-1"
+                                x-transition:enter-end="opacity-100 translate-y-0"
+                                x-transition:leave="transition ease-in duration-150"
+                                x-transition:leave-start="opacity-100 translate-y-0"
+                                x-transition:leave-end="opacity-0 translate-y-1"
+                                class="absolute left-0 z-50 w-48 py-1 mt-2 bg-white border border-gray-100 rounded-md shadow-lg">
+                                <a href="about-company.html"
+                                    class="block px-4 py-2 text-sm text-gray-800 transition-colors hover:bg-blue-50">Our
+                                    Company</a>
+                                <a href="about-innovation.html"
+                                    class="block px-4 py-2 text-sm text-gray-800 transition-colors hover:bg-blue-50">Innovation</a>
+                                <a href="about-expertise.html"
+                                    class="block px-4 py-2 text-sm text-gray-800 transition-colors hover:bg-blue-50">Our
+                                    Expertise</a>
+                                <a href="about-team.html"
+                                    class="block px-4 py-2 text-sm text-gray-800 transition-colors hover:bg-blue-50">Our
+                                    Team</a>
+                            </div>
+                        </div>
+
+                        <div x-data="{ open: false }" class="relative">
+                            <button @click="open = !open"
+                                class="flex items-center text-sm font-medium text-white transition-colors hover:text-primary">
+                                Our Products <i class="ml-1 text-xs transition-transform fas fa-chevron-down"
+                                    :class="{ 'transform rotate-180': open }"></i>
+                            </button>
+                            <div x-show="open" @click.away="open = false"
+                                x-transition:enter="transition ease-out duration-200"
+                                x-transition:enter-start="opacity-0 translate-y-1"
+                                x-transition:enter-end="opacity-100 translate-y-0"
+                                x-transition:leave="transition ease-in duration-150"
+                                x-transition:leave-start="opacity-100 translate-y-0"
+                                x-transition:leave-end="opacity-0 translate-y-1"
+                                class="absolute left-0 z-50 w-56 py-1 mt-2 bg-white border border-gray-100 rounded-md shadow-lg">
+                                <a href="products-fast-growth.html"
+                                    class="block px-4 py-2 text-sm text-gray-800 transition-colors hover:bg-blue-50">FAST
+                                    GROWTH Strain</a>
+                                <a href="products-wssv-resistant.html"
+                                    class="block px-4 py-2 text-sm text-gray-800 transition-colors hover:bg-blue-50">WSSV-Resistant
+                                    Strain</a>
+                                <a href="products-ehp-resistant.html"
+                                    class="block px-4 py-2 text-sm text-gray-800 transition-colors hover:bg-blue-50">EHP-Resistant
+                                    Strain</a>
+                                <a href="products-plant-based.html"
+                                    class="block px-4 py-2 text-sm text-gray-800 transition-colors hover:bg-blue-50">Plant-Based
+                                    Protein Strain</a>
+                                <a href="products-gajah-mada.html"
+                                    class="block px-4 py-2 text-sm text-gray-800 transition-colors hover:bg-blue-50">GAJAH
+                                    MADA
+                                    Strain</a>
+                            </div>
+                        </div>
+
+                        <div x-data="{ open: false }" class="relative">
+                            <button @click="open = !open"
+                                class="flex items-center text-sm font-medium text-white transition-colors hover:text-primary">
+                                Technology <i class="ml-1 text-xs transition-transform fas fa-chevron-down"
+                                    :class="{ 'transform rotate-180': open }"></i>
+                            </button>
+                            <div x-show="open" @click.away="open = false"
+                                x-transition:enter="transition ease-out duration-200"
+                                x-transition:enter-start="opacity-0 translate-y-1"
+                                x-transition:enter-end="opacity-100 translate-y-0"
+                                x-transition:leave="transition ease-in duration-150"
+                                x-transition:leave-start="opacity-100 translate-y-0"
+                                x-transition:leave-end="opacity-0 translate-y-1"
+                                class="absolute left-0 z-50 w-48 py-1 mt-2 bg-white border border-gray-100 rounded-md shadow-lg">
+                                <a href="technology-molecular.html"
+                                    class="block px-4 py-2 text-sm text-gray-800 transition-colors hover:bg-blue-50">Molecular
+                                    Precision</a>
+                                <a href="technology-testing.html"
+                                    class="block px-4 py-2 text-sm text-gray-800 transition-colors hover:bg-blue-50">Performance
+                                    Testing</a>
+                                <a href="technology-research.html"
+                                    class="block px-4 py-2 text-sm text-gray-800 transition-colors hover:bg-blue-50">Research
+                                    &
+                                    Development</a>
+                            </div>
+                        </div>
+
+                        <div x-data="{ open: false }" class="relative">
+                            <button @click="open = !open"
+                                class="flex items-center text-sm font-medium text-white transition-colors hover:text-primary">
+                                News <i class="ml-1 text-xs transition-transform fas fa-chevron-down"
+                                    :class="{ 'transform rotate-180': open }"></i>
+                            </button>
+                            <div x-show="open" @click.away="open = false"
+                                x-transition:enter="transition ease-out duration-200"
+                                x-transition:enter-start="opacity-0 translate-y-1"
+                                x-transition:enter-end="opacity-100 translate-y-0"
+                                x-transition:leave="transition ease-in duration-150"
+                                x-transition:leave-start="opacity-100 translate-y-0"
+                                x-transition:leave-end="opacity-0 translate-y-1"
+                                class="absolute left-0 z-50 w-48 py-1 mt-2 bg-white border border-gray-100 rounded-md shadow-lg">
+                                <a href="news-genome-editing.html"
+                                    class="block px-4 py-2 text-sm text-gray-800 transition-colors hover:bg-blue-50">Genome
+                                    Editing</a>
+                                <a href="news-snp-resistance.html"
+                                    class="block px-4 py-2 text-sm text-gray-800 transition-colors hover:bg-blue-50">SNP
+                                    Resistance WSSV</a>
+                                <a href="news-bamboo-disease.html"
+                                    class="block px-4 py-2 text-sm text-gray-800 transition-colors hover:bg-blue-50">Bamboo
+                                    Disease Analysis</a>
+                                <a href="news-multilocation.html"
+                                    class="block px-4 py-2 text-sm text-gray-800 transition-colors hover:bg-blue-50">Multilocation
+                                    Test Results</a>
+                            </div>
+                        </div>
+
+                        <a href="contact.html"
+                            class="text-sm font-medium text-white transition-colors hover:text-primary">Contact</a>
+
+                        <button @click="sidebarOpen = true"
+                            class="ml-4 text-white transition-colors hover:text-primary">
+                            <i class="fas fa-bars"></i>
+                        </button>
+                    </nav>
+
+                    <!-- Mobile Menu Button -->
+                    <button @click="mobileMenuOpen = true" class="text-white md:hidden hover:text-primary">
+                        <i class="text-xl text-white fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </header>
+
         <div class="absolute inset-0 z-10 bg-black opacity-20"></div>
         <div class="absolute inset-0 z-0 parallax-bg"
             :style="`background-image: url('https://images.unsplash.com/photo-1519122295308-bdb40916b529?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'); transform: translateY(${parallaxOffset}px)`">
         </div>
 
-        <div class="container relative z-20 px-4 mx-auto text-center">
+        <div class="container relative z-20 flex flex-col items-center justify-center h-full px-4 mx-auto text-center">
             <h1 class="mb-6 text-4xl font-bold text-white md:text-6xl animate-fade-in-up">INNOVATION MEETS AQUACULTURE
             </h1>
-            <p class="max-w-3xl mx-auto mb-8 text-xl text-gray-300 delay-100 md:text-2xl animate-fade-in-up">Advanced
-                shrimp broodstock breeding combining biotechnology with decades of expertise</p>
+            <p class="max-w-3xl mx-auto mb-8 text-xl text-gray-300 delay-100 md:text-2xl animate-fade-in-up">
+                Advanced shrimp broodstock breeding combining biotechnology with decades of expertise
+            </p>
             <a href="#contact"
-                class="inline-block px-8 py-3 font-semibold text-white transition-colors delay-200 rounded-lg bg-primary hover:bg-secondary animate-fade-in-up">
+                class="inline-block px-8 py-3 font-semibold text-white transition-colors delay-200 rounded-lg bg-primary hover:bg-secondary animate-fade-in-up focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2">
                 Get Started
             </a>
         </div>
 
         <div class="absolute left-0 right-0 z-20 text-center bottom-8 animate-bounce">
-            <a href="#innovation" class="text-2xl text-white">
+            <a href="#innovation" class="text-2xl text-white focus:outline-none">
                 <i class="fas fa-chevron-down"></i>
             </a>
         </div>
     </section>
-
 
     <!-- Innovation Section -->
     <section id="innovation" class="py-20 bg-gray-50">
@@ -467,41 +631,68 @@
     </section>
 
     <!-- Global Reach Section with Parallax -->
-    <section class="relative py-32 overflow-hidden">
-        <div class="absolute inset-0 z-0 parallax-bg"
-            :style="`background-image: url('https://images.unsplash.com/photo-1572015242290-d9132e2b6d52?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'); transform: translateY(${parallaxOffset * 0.7}px)`">
-        </div>
-        <div class="absolute inset-0 z-10 bg-dark opacity-80"></div>
+    <section class="relative py-32 overflow-hidden min-h-[80vh]">
+        <!-- Background Container -->
+        <div class="absolute inset-0 z-0 overflow-hidden">
+            <!-- Parallax Image with enhanced effects -->
+            <div class="absolute inset-0 z-0 bg-center bg-no-repeat bg-cover will-change-transform"
+                :style="'background-image: url(https://images.unsplash.com/photo-1572015242290-d9132e2b6d52?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)'">
+            </div>
 
+            <!-- Gradient Overlay -->
+            <div class="absolute inset-0 bg-gradient-to-b from-dark/10 via-dark/70 to-dark/90 z-5"></div>
+
+            <!-- Noise Texture for Depth -->
+            <div class="absolute inset-0 z-10 bg-noise opacity-10"></div>
+        </div>
+
+        <!-- Content -->
         <div class="container relative z-20 px-4 mx-auto">
             <div class="max-w-2xl">
-                <h2 class="mb-6 text-3xl font-bold text-white md:text-4xl">WORLDWIDE ACCESS</h2>
-                <div class="w-20 h-1 mb-6 bg-white"></div>
-                <p class="mb-4 text-gray-300">Strategically located in Bali, our vannamei broodstock breeding program
-                    is designed with global reach in mind. With international-standard biosecurity, advanced genetics,
-                    and streamlined export capabilities, we offer premium broodstock to aquaculture markets around the
-                    world.</p>
-                <p class="text-gray-300">From Southeast Asia to the Americas, <span
-                        class="font-semibold text-white">Bali-bred</span> vannamei shrimp deliver consistent quality,
-                    disease resistance, and performance that meets the demands of modern shrimp farming. Wherever you
-                    farm, <span class="font-semibold text-white">Nusa Dewa broodstock</span> brings Bali's innovation
-                    to your pond — reliably, efficiently, and sustainably.</p>
+                <h2 class="mb-6 text-3xl font-bold text-white md:text-4xl"
+                    x-transition:enter="transition ease-out duration-700"
+                    x-transition:enter-start="opacity-0 translate-y-10"
+                    x-transition:enter-end="opacity-100 translate-y-0">
+                    WORLDWIDE ACCESS
+                </h2>
 
-                <div class="flex flex-wrap gap-4 mt-8">
+                <div class="w-20 h-1 mb-6 bg-white"></div>
+
+                <p class="mb-4 text-gray-300" x-transition:enter="transition ease-out duration-700 delay-100"
+                    x-transition:enter-start="opacity-0 translate-y-10"
+                    x-transition:enter-end="opacity-100 translate-y-0">
+                    Strategically located in Bali, our vannamei broodstock breeding program is designed with global
+                    reach in mind. With international-standard biosecurity, advanced genetics, and streamlined export
+                    capabilities, we offer premium broodstock to aquaculture markets around the world.
+                </p>
+
+                <p class="text-gray-300" x-transition:enter="transition ease-out duration-700 delay-200"
+                    x-transition:enter-start="opacity-0 translate-y-10"
+                    x-transition:enter-end="opacity-100 translate-y-0">
+                    From Southeast Asia to the Americas, <span class="font-semibold text-white">Bali-bred</span>
+                    vannamei shrimp deliver consistent quality, disease resistance, and performance that meets the
+                    demands of modern shrimp farming. Wherever you farm, <span class="font-semibold text-white">Nusa
+                        Dewa broodstock</span> brings Bali's innovation to your pond — reliably, efficiently, and
+                    sustainably.
+                </p>
+
+                <div class="flex flex-wrap gap-4 mt-8" x-transition:enter="transition ease-out duration-700 delay-300"
+                    x-transition:enter-start="opacity-0 translate-y-10"
+                    x-transition:enter-end="opacity-100 translate-y-0">
                     <div
-                        class="px-4 py-2 text-white bg-white border border-white rounded-full bg-opacity-10 backdrop-blur-sm border-opacity-20">
+                        class="px-4 py-2 text-white transition-all duration-300 bg-white border border-white rounded-full hover:bg-opacity-20 bg-opacity-10 backdrop-blur-sm border-opacity-20 hover:border-opacity-40">
                         <i class="mr-2 fas fa-globe-asia"></i> Southeast Asia
                     </div>
                     <div
-                        class="px-4 py-2 text-white bg-white border border-white rounded-full bg-opacity-10 backdrop-blur-sm border-opacity-20">
+                        class="px-4 py-2 text-white transition-all duration-300 bg-white border border-white rounded-full hover:bg-opacity-20 bg-opacity-10 backdrop-blur-sm border-opacity-20 hover:border-opacity-40">
                         <i class="mr-2 fas fa-globe-americas"></i> Latin America
                     </div>
                     <div
-                        class="px-4 py-2 text-white bg-white border border-white rounded-full bg-opacity-10 backdrop-blur-sm border-opacity-20">
+                        class="px-4 py-2 text-white transition-all duration-300 bg-white border border-white rounded-full hover:bg-opacity-20 bg-opacity-10 backdrop-blur-sm border-opacity-20 hover:border-opacity-40">
                         <i class="mr-2 fas fa-globe-africa"></i> Africa
                     </div>
                     <div
-                        class="px-4 py-2 text-white bg-white border border-white rounded-full bg-opacity-10 backdrop-blur-sm border-opacity-20">
+                        class="px-4 py-2 text-white transition-all duration-300 bg-white border border-white rounded-full hover:bg-opacity-20 bg-opacity-10 backdrop-blur-sm border-opacity-20 hover:border-opacity-40">
                         <i class="mr-2 fas fa-globe-europe"></i> Middle East
                     </div>
                 </div>
@@ -518,93 +709,96 @@
                 <p class="max-w-2xl mx-auto text-gray-600">Our multidisciplinary team of aquaculture specialists</p>
             </div>
 
-            <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-                <!-- Team Member 1 -->
-                <div
-                    class="overflow-hidden transition-shadow duration-300 bg-white shadow-md rounded-xl hover:shadow-xl">
-                    <div class="h-64 overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1566753323558-f4e0952af115?q=80&w=1442&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                            alt="Wendy Tri Prabowo" class="object-cover w-full h-full">
-                    </div>
-                    <div class="p-6">
-                        <h3 class="mb-1 text-xl font-bold text-gray-800">Wendy Tri Prabowo</h3>
-                        <p class="mb-3 font-medium text-primary">Director of Shrimp Breeding Center</p>
-                        <p class="text-gray-600">20+ years expertise in shrimp breeding, focusing on high-performance
-                            strains through selective breeding and genome editing analysis.</p>
-                    </div>
+            <div x-data="{
+                currentIndex: 0,
+                teamMembers: [{
+                        name: 'Wendy Tri Prabowo',
+                        position: 'Director of Shrimp Breeding Center',
+                        description: '20+ years expertise in shrimp breeding, focusing on high-performance strains through selective breeding and genome editing analysis.',
+                        image: 'https://images.unsplash.com/photo-1566753323558-f4e0952af115?q=80&w=1442&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+                    },
+                    {
+                        name: 'Bagus Rahmat Basuki',
+                        position: 'Molecular and Biotechnology Lab Coordinator',
+                        description: '16+ years in genetic research, specializing in disease-resistant shrimp strains and WSSV resistance markers.',
+                        image: 'https://images.unsplash.com/photo-1557862921-37829c790f19?q=80&w=1471&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+                    },
+                    {
+                        name: 'M. Suyuti',
+                        position: 'Broodstock Center Coordinator',
+                        description: '23+ years in hatchery management, specializing in broodstock conditioning and sustainable aquaculture systems.',
+                        image: null
+                    },
+                    {
+                        name: 'Faisal Ramadhan',
+                        position: 'Public Services and Quality Control',
+                        description: '17+ years bridging technical excellence with community engagement and farmer partnerships.',
+                        image: 'https://images.unsplash.com/photo-1589386417686-0d34b5903d23?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+                    },
+                    {
+                        name: 'Ni Luh Eka S.J.W',
+                        position: 'Human Resources Coordinator',
+                        description: '17+ years in HR management, aligning human capital with technical aquaculture demands.',
+                        image: 'https://images.unsplash.com/photo-1604364721460-0cbc5866219d?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+                    },
+                    {
+                        name: 'Our Commitment',
+                        position: '',
+                        description: 'At NUSA DEWA, our strength lies in experience. Our breeding program is led by a multidisciplinary team who have spent years perfecting the science of vannamei broodstock. Every decision—from genetic selection to performance evaluation—is grounded in proven research and real-world insight.',
+                        image: null,
+                        isCommitment: true
+                    }
+                ],
+                next() {
+                    this.currentIndex = (this.currentIndex + 1) % this.teamMembers.length;
+                },
+                prev() {
+                    this.currentIndex = (this.currentIndex - 1 + this.teamMembers.length) % this.teamMembers.length;
+                }
+            }" class="relative max-w-3xl mx-auto">
+                <!-- Carousel Item -->
+                <div class="overflow-hidden transition-all duration-500 bg-white shadow-md rounded-xl hover:shadow-xl"
+                    x-transition:enter="transition ease-out duration-300"
+                    x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100"
+                    x-transition:leave="transition ease-in duration-300"
+                    x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95">
+                    <template x-for="(member, index) in teamMembers" :key="index">
+                        <div x-show="currentIndex === index">
+                            <div class="h-64 overflow-hidden" x-show="member.image">
+                                <img :src="member.image" :alt="member.name"
+                                    class="object-cover w-full h-full">
+                            </div>
+                            <div class="flex items-center justify-center h-64 overflow-hidden bg-gray-200"
+                                x-show="!member.image && !member.isCommitment">
+                                <i class="text-6xl text-gray-400 fas fa-user"></i>
+                            </div>
+                            <div class="p-6" :class="{ 'bg-primary text-white': member.isCommitment }">
+                                <h3 class="mb-1 text-xl font-bold" x-text="member.name"></h3>
+                                <p class="mb-3 font-medium" :class="{ 'text-primary': !member.isCommitment }"
+                                    x-text="member.position"></p>
+                                <p x-text="member.description"></p>
+                            </div>
+                        </div>
+                    </template>
                 </div>
 
-                <!-- Team Member 2 -->
-                <div
-                    class="overflow-hidden transition-shadow duration-300 bg-white shadow-md rounded-xl hover:shadow-xl">
-                    <div class="h-64 overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1557862921-37829c790f19?q=80&w=1471&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                            alt="Bagus Rahmat Basuki" class="object-cover w-full h-full">
-                    </div>
-                    <div class="p-6">
-                        <h3 class="mb-1 text-xl font-bold text-gray-800">Bagus Rahmat Basuki</h3>
-                        <p class="mb-3 font-medium text-primary">Molecular and Biotechnology Lab Coordinator</p>
-                        <p class="text-gray-600">16+ years in genetic research, specializing in disease-resistant
-                            shrimp strains and WSSV resistance markers.</p>
-                    </div>
-                </div>
+                <!-- Navigation Arrows -->
+                <button @click="prev()"
+                    class="absolute left-0 flex items-center justify-center w-10 h-10 text-white transform -translate-y-1/2 bg-gray-800 rounded-full top-1/2 hover:bg-primary focus:outline-none">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button @click="next()"
+                    class="absolute right-0 flex items-center justify-center w-10 h-10 text-white transform -translate-y-1/2 bg-gray-800 rounded-full top-1/2 hover:bg-primary focus:outline-none">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
 
-                <!-- Team Member 3 -->
-                <div
-                    class="overflow-hidden transition-shadow duration-300 bg-white shadow-md rounded-xl hover:shadow-xl">
-                    <div class="flex items-center justify-center h-64 overflow-hidden bg-gray-200">
-                        <i class="text-6xl text-gray-400 fas fa-user"></i>
-                    </div>
-                    <div class="p-6">
-                        <h3 class="mb-1 text-xl font-bold text-gray-800">M. Suyuti</h3>
-                        <p class="mb-3 font-medium text-primary">Broodstock Center Coordinator</p>
-                        <p class="text-gray-600">23+ years in hatchery management, specializing in broodstock
-                            conditioning and sustainable aquaculture systems.</p>
-                    </div>
-                </div>
-
-                <!-- Team Member 4 -->
-                <div
-                    class="overflow-hidden transition-shadow duration-300 bg-white shadow-md rounded-xl hover:shadow-xl">
-                    <div class="h-64 overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1589386417686-0d34b5903d23?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                            alt="Faisal Ramadhan" class="object-cover w-full h-full">
-                    </div>
-                    <div class="p-6">
-                        <h3 class="mb-1 text-xl font-bold text-gray-800">Faisal Ramadhan</h3>
-                        <p class="mb-3 font-medium text-primary">Public Services and Quality Control</p>
-                        <p class="text-gray-600">17+ years bridging technical excellence with community engagement and
-                            farmer partnerships.</p>
-                    </div>
-                </div>
-
-                <!-- Team Member 5 -->
-                <div
-                    class="overflow-hidden transition-shadow duration-300 bg-white shadow-md rounded-xl hover:shadow-xl">
-                    <div class="h-64 overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1604364721460-0cbc5866219d?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                            alt="Ni Luh Eka S.J.W" class="object-cover w-full h-full">
-                    </div>
-                    <div class="p-6">
-                        <h3 class="mb-1 text-xl font-bold text-gray-800">Ni Luh Eka S.J.W</h3>
-                        <p class="mb-3 font-medium text-primary">Human Resources Coordinator</p>
-                        <p class="text-gray-600">17+ years in HR management, aligning human capital with technical
-                            aquaculture demands.</p>
-                    </div>
-                </div>
-
-                <!-- Commitment Card -->
-                <div
-                    class="overflow-hidden transition-shadow duration-300 shadow-md bg-primary rounded-xl hover:shadow-xl">
-                    <div class="flex flex-col justify-center h-full p-6 text-white">
-                        <h3 class="mb-4 text-xl font-bold">Our Commitment</h3>
-                        <p class="mb-4">At <span class="font-semibold">NUSA DEWA</span>, our strength lies in
-                            experience. Our breeding program is led by a multidisciplinary team who have spent years
-                            perfecting the science of vannamei broodstock.</p>
-                        <p>Every decision—from genetic selection to performance evaluation—is grounded in proven
-                            research and real-world insight. With a commitment to continuous improvement and data-driven
-                            practices, we don't just follow standards — we set them.</p>
-                    </div>
+                <!-- Indicators -->
+                <div class="flex justify-center mt-6 space-x-2">
+                    <template x-for="(_, index) in teamMembers.length" :key="index">
+                        <button @click="currentIndex = index" class="w-3 h-3 rounded-full focus:outline-none"
+                            :class="{ 'bg-primary': currentIndex === index, 'bg-gray-300': currentIndex !== index }">
+                        </button>
+                    </template>
                 </div>
             </div>
         </div>
@@ -959,13 +1153,13 @@
     </div>
 
     <!-- Footer -->
-    <footer class="pt-16 pb-8 text-white bg-gray-900">
+    <footer class="pt-12 pb-6 text-white bg-gray-900">
         <div class="container px-4 mx-auto">
-            <div class="flex flex-col items-center justify-between pb-8 mb-8 border-b border-gray-700 md:flex-row">
-                <div class="mb-6 md:mb-0">
-                    <img src="https://bpiu2k.online/img/logo.png" alt="Nusa Dewa Logo" class="h-12">
+            <div class="flex flex-col items-center justify-between pb-6 mb-6 border-b border-gray-700 md:flex-row">
+                <div class="mb-4 md:mb-0">
+                    <img src="https://bpiu2k.online/img/logo.png" alt="Nusa Dewa Logo" class="h-10">
                 </div>
-                <div class="flex flex-wrap justify-center gap-6">
+                <div class="flex flex-wrap justify-center gap-4 text-sm">
                     <a href="#" class="transition-colors hover:text-primary">Home</a>
                     <a href="#" class="transition-colors hover:text-primary">About Us</a>
                     <a href="#" class="transition-colors hover:text-primary">Our Products</a>
@@ -975,58 +1169,63 @@
                 </div>
             </div>
 
-            <div class="grid gap-8 mb-12 md:grid-cols-4">
+            <div class="grid gap-6 mb-8 md:grid-cols-4">
                 <div>
-                    <h5 class="mb-4 text-lg font-bold">HEADQUARTERS</h5>
-                    <p class="text-gray-400">Indonesia —<br>Nusa Dewa Aquaculture Center<br>
+                    <h5 class="mb-3 text-base font-semibold">HEADQUARTERS</h5>
+                    <p class="text-sm text-gray-400">Indonesia —<br>Nusa Dewa Aquaculture Center<br>
                         Jl. Raya Pemogan No. 123<br>
                         Denpasar, Bali 80361</p>
                 </div>
 
                 <div>
-                    <h5 class="mb-4 text-lg font-bold">CONTACT US</h5>
-                    <p class="mb-2 text-gray-400">+62 361 123 4567</p>
-                    <p class="text-gray-400">info@nusadewa.com<br>
+                    <h5 class="mb-3 text-base font-semibold">CONTACT US</h5>
+                    <p class="mb-1 text-sm text-gray-400">+62 361 123 4567</p>
+                    <p class="text-sm text-gray-400">info@nusadewa.com<br>
                         sales@nusadewa.com</p>
                 </div>
 
                 <div>
-                    <h5 class="mb-4 text-lg font-bold">OPERATIONAL HOURS</h5>
-                    <p class="text-gray-400">Monday – Friday: 08:00AM – 05:00PM<br>
+                    <h5 class="mb-3 text-base font-semibold">OPERATIONAL HOURS</h5>
+                    <p class="text-sm text-gray-400">Monday – Friday: 08:00AM – 05:00PM<br>
                         Saturday: 08:00AM – 12:00PM<br>
                         Sunday: Closed</p>
                 </div>
 
                 <div>
-                    <h5 class="mb-4 text-lg font-bold">NEWSLETTER</h5>
-                    <form class="mb-4">
+                    <h5 class="mb-3 text-base font-semibold">NEWSLETTER</h5>
+                    <form class="mb-3">
                         <div class="flex">
                             <input type="email" placeholder="Your email address..."
-                                class="w-full px-4 py-2 text-gray-800 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-primary">
+                                class="w-full px-3 py-1.5 text-xs text-gray-800 rounded-l-lg focus:outline-none focus:ring-1 focus:ring-primary">
                             <button type="submit"
-                                class="px-4 py-2 text-white transition-colors rounded-r-lg bg-primary hover:bg-secondary">
+                                class="px-3 py-1.5 text-xs text-white transition-colors rounded-r-lg bg-primary hover:bg-secondary">
                                 Subscribe
                             </button>
                         </div>
                     </form>
-                    <p class="text-sm text-gray-400">Get updates on our latest research and products.</p>
+                    <p class="text-xs text-gray-400">Get updates on our latest research and products.</p>
                 </div>
             </div>
 
-            <div class="flex flex-col items-center justify-between pt-6 border-t border-gray-700 md:flex-row">
-                <p class="mb-4 text-sm text-gray-400 md:mb-0">&copy; 2023 Nusa Dewa Aquaculture. All Rights Reserved.
+            <div class="flex flex-col items-center justify-between pt-4 border-t border-gray-700 md:flex-row">
+                <p class="mb-3 text-xs text-gray-400 md:mb-0">&copy; 2023 Nusa Dewa Aquaculture. All Rights Reserved.
                 </p>
-                <div class="flex space-x-6">
-                    <a href="#" class="text-gray-400 transition-colors hover:text-white"><i
-                            class="fab fa-facebook-f"></i></a>
-                    <a href="#" class="text-gray-400 transition-colors hover:text-white"><i
-                            class="fab fa-linkedin-in"></i></a>
-                    <a href="#" class="text-gray-400 transition-colors hover:text-white"><i
-                            class="fab fa-twitter"></i></a>
-                    <a href="#" class="text-gray-400 transition-colors hover:text-white"><i
-                            class="fab fa-youtube"></i></a>
-                    <a href="#" class="text-gray-400 transition-colors hover:text-white"><i
-                            class="fab fa-instagram"></i></a>
+                <div class="flex space-x-4">
+                    <a href="#" class="text-gray-400 transition-colors hover:text-white">
+                        <i class="text-sm fab fa-facebook-f"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 transition-colors hover:text-white">
+                        <i class="text-sm fab fa-linkedin-in"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 transition-colors hover:text-white">
+                        <i class="text-sm fab fa-twitter"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 transition-colors hover:text-white">
+                        <i class="text-sm fab fa-youtube"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 transition-colors hover:text-white">
+                        <i class="text-sm fab fa-instagram"></i>
+                    </a>
                 </div>
             </div>
         </div>
