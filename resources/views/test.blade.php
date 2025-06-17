@@ -499,7 +499,11 @@
         <div class="container px-4 mx-auto">
             <div class="mb-16 text-center">
                 <h2 class="mb-4 text-3xl font-bold text-gray-800 md:text-4xl">Our Innovation</h2>
-                <div class="w-20 h-1 mx-auto mb-6 bg-primary"></div>
+                <div class="flex justify-center mx-auto my-6">
+                    <span class="inline-block w-40 h-1 bg-blue-500 rounded-full"></span>
+                    <span class="inline-block w-3 h-1 mx-1 bg-blue-500 rounded-full"></span>
+                    <span class="inline-block w-1 h-1 bg-blue-500 rounded-full"></span>
+                </div>
                 <p class="max-w-2xl mx-auto text-gray-600">State-of-the-art biotechnology for superior shrimp
                     broodstock</p>
             </div>
@@ -544,7 +548,7 @@
     <!-- Technology Section with Parallax -->
     <section class="relative py-20 overflow-hidden">
         <div class="absolute inset-0 z-0 parallax-bg"
-            :style="`background-image: url('https://images.unsplash.com/photo-1668243304603-7ecf4eefba6e?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8bGFiJTIwTW9sZWN1bGFyJTIwVGVjaG5vbG9neXxlbnwwfDB8MHx8fDI%3D'); transform: translateY(${parallaxOffset * 0.5}px)`">
+            :style="`background-image: url('https://images.unsplash.com/photo-1668243304603-7ecf4eefba6e?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8bGFiJTIwTW9sZWN1bGFyJTIwVGVjaG5vbG9neXxlbnwwfDB8MHx8fDI%3D'); transform: translateY(${parallaxOffset * 0.3}px)`">
         </div>
         <div class="absolute inset-0 z-10 bg-primary opacity-90"></div>
 
@@ -552,7 +556,11 @@
             <div class="flex flex-col items-center gap-12 md:flex-row">
                 <div class="md:w-1/2">
                     <h2 class="mb-6 text-3xl font-bold text-white md:text-4xl">MOLECULAR PRECISION</h2>
-                    <div class="w-20 h-1 mb-6 bg-white"></div>
+                    <div class="flex justify-start mx-auto my-6">
+                        <span class="inline-block w-40 h-1 bg-white rounded-full"></span>
+                        <span class="inline-block w-3 h-1 mx-1 bg-white rounded-full"></span>
+                        <span class="inline-block w-1 h-1 bg-white rounded-full"></span>
+                    </div>
                     <p class="mb-4 text-gray-200">At the heart of <span class="font-semibold text-white">Induk Udang
                             Nusa Dewa</span> lies cutting-edge molecular technology that ensures precision in every
                         broodstock. Through advanced genetic screening and selective breeding, we deliver shrimp
@@ -577,7 +585,11 @@
         <div class="container px-4 mx-auto">
             <div class="mb-16 text-center">
                 <h2 class="mb-4 text-3xl font-bold text-gray-800 md:text-4xl">MULTILOCATION PERFORMANCE TEST</h2>
-                <div class="w-20 h-1 mx-auto mb-6 bg-primary"></div>
+                <div class="flex justify-center mx-auto my-6">
+                    <span class="inline-block w-40 h-1 bg-blue-500 rounded-full"></span>
+                    <span class="inline-block w-3 h-1 mx-1 bg-blue-500 rounded-full"></span>
+                    <span class="inline-block w-1 h-1 bg-blue-500 rounded-full"></span>
+                </div>
                 <p class="max-w-4xl mx-auto text-gray-600">Proven adaptability across diverse farming conditions</p>
             </div>
 
@@ -631,19 +643,16 @@
     </section>
 
     <!-- Global Reach Section with Parallax -->
-    <section class="relative py-32 overflow-hidden min-h-[80vh]">
-        <!-- Background Container -->
-        <div class="absolute inset-0 z-0 overflow-hidden">
-            <!-- Parallax Image with enhanced effects -->
-            <div class="absolute inset-0 z-0 bg-center bg-no-repeat bg-cover will-change-transform"
-                :style="'background-image: url(https://images.unsplash.com/photo-1572015242290-d9132e2b6d52?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)'">
-            </div>
+    <section class="relative py-20 overflow-hidden">
+        <div class="absolute inset-0 z-0 parallax-bg"
+            :style="`background-image: url('https://images.unsplash.com/photo-1668243304603-7ecf4eefba6e?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8bGFiJTIwTW9sZWN1bGFyJTIwVGVjaG5vbG9neXxlbnwwfDB8MHx8fDI%3D'); transform: translateY(${parallaxOffset *0.001}px)`">
+        </div>
 
-            <!-- Gradient Overlay -->
-            <div class="absolute inset-0 bg-gradient-to-b from-dark/10 via-dark/70 to-dark/90 z-5"></div>
+        <!-- Gradient Overlay -->
+        <div class="absolute inset-0 bg-gradient-to-b from-dark/10 via-dark/70 to-dark/90 z-5"></div>
 
-            <!-- Noise Texture for Depth -->
-            <div class="absolute inset-0 z-10 bg-noise opacity-10"></div>
+        <!-- Noise Texture for Depth -->
+        <div class="absolute inset-0 z-10 bg-noise opacity-10"></div>
         </div>
 
         <!-- Content -->
@@ -656,7 +665,11 @@
                     WORLDWIDE ACCESS
                 </h2>
 
-                <div class="w-20 h-1 mb-6 bg-white"></div>
+                <div class="flex justify-start mx-auto my-6">
+                    <span class="inline-block w-40 h-1 bg-white rounded-full"></span>
+                    <span class="inline-block w-3 h-1 mx-1 bg-white rounded-full"></span>
+                    <span class="inline-block w-1 h-1 bg-white rounded-full"></span>
+                </div>
 
                 <p class="mb-4 text-gray-300" x-transition:enter="transition ease-out duration-700 delay-100"
                     x-transition:enter-start="opacity-0 translate-y-10"
@@ -701,17 +714,63 @@
     </section>
 
     <!-- Expertise Section -->
-    <section class="py-20 bg-gray-50">
-        <div class="container px-4 mx-auto">
-            <div class="mb-16 text-center">
+    <section class="py-20 bg-gray-50 relative">
+        <div class="container px-4 mx-auto overflow-hidden">
+            <!-- Section Title -->
+            <div class="mb-4 text-center">
                 <h2 class="mb-4 text-3xl font-bold text-gray-800 md:text-4xl">SOLID EXPERTISE</h2>
-                <div class="w-20 h-1 mx-auto mb-6 bg-primary"></div>
-                <p class="max-w-2xl mx-auto text-gray-600">Our multidisciplinary team of aquaculture specialists</p>
+                <div class="flex justify-center mx-auto my-6">
+                    <span class="inline-block w-40 h-1 bg-blue-500 rounded-full"></span>
+                    <span class="inline-block w-3 h-1 mx-1 bg-blue-500 rounded-full"></span>
+                    <span class="inline-block w-1 h-1 bg-blue-500 rounded-full"></span>
+                </div>
+                <p class="max-w-2xl mx-auto text-gray-600">
+                    At NUSA DEWA, our strength lies in experience. Our breeding
+                    program is led by a multidisciplinary team who have spent years perfecting the science of vannamei
+                    broodstock. Every decision—from genetic selection to performance evaluation—is grounded in proven
+                    research and real-world insight.
+                </p>
             </div>
 
-            <div x-data="{
-                currentIndex: 0,
-                teamMembers: [{
+            <!-- Main scroll wrapper -->
+            <div class="relative group">
+                <!-- Arrows -->
+                <button id="prev"
+                    class="absolute z-10 left-4 top-1/2 -translate-y-1/2 bg-white/70 hover:bg-white rounded-full p-2 shadow-md opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    ◀
+                </button>
+                <button id="next"
+                    class="absolute z-10 right-4 top-1/2 -translate-y-1/2 bg-white/70 hover:bg-white rounded-full p-2 shadow-md opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    ▶
+                </button>
+
+                <!-- Scroll container -->
+                <div
+                    class="scroll-container h-screen w-screen overflow-x-auto overflow-y-hidden flex flex-nowrap no-scrollbar">
+                    <!-- Sections inserted here -->
+                </div>
+
+                <!-- Dots -->
+                <div class="dot-container absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-3 z-10">
+                    <!-- Dots inserted here -->
+                </div>
+            </div>
+
+            <!-- Hide scrollbar styles -->
+            <style>
+                .no-scrollbar::-webkit-scrollbar {
+                    display: none;
+                }
+
+                .no-scrollbar {
+                    -ms-overflow-style: none;
+                    scrollbar-width: none;
+                }
+            </style>
+
+            <!-- Script -->
+            <script>
+                const teamMembers = [{
                         name: 'Wendy Tri Prabowo',
                         position: 'Director of Shrimp Breeding Center',
                         description: '20+ years expertise in shrimp breeding, focusing on high-performance strains through selective breeding and genome editing analysis.',
@@ -740,67 +799,105 @@
                         position: 'Human Resources Coordinator',
                         description: '17+ years in HR management, aligning human capital with technical aquaculture demands.',
                         image: 'https://images.unsplash.com/photo-1604364721460-0cbc5866219d?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
-                    },
-                    {
-                        name: 'Our Commitment',
-                        position: '',
-                        description: 'At NUSA DEWA, our strength lies in experience. Our breeding program is led by a multidisciplinary team who have spent years perfecting the science of vannamei broodstock. Every decision—from genetic selection to performance evaluation—is grounded in proven research and real-world insight.',
-                        image: null,
-                        isCommitment: true
                     }
-                ],
-                next() {
-                    this.currentIndex = (this.currentIndex + 1) % this.teamMembers.length;
-                },
-                prev() {
-                    this.currentIndex = (this.currentIndex - 1 + this.teamMembers.length) % this.teamMembers.length;
-                }
-            }" class="relative max-w-3xl mx-auto">
-                <!-- Carousel Item -->
-                <div class="overflow-hidden transition-all duration-500 bg-white shadow-md rounded-xl hover:shadow-xl"
-                    x-transition:enter="transition ease-out duration-300"
-                    x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100"
-                    x-transition:leave="transition ease-in duration-300"
-                    x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95">
-                    <template x-for="(member, index) in teamMembers" :key="index">
-                        <div x-show="currentIndex === index">
-                            <div class="h-64 overflow-hidden" x-show="member.image">
-                                <img :src="member.image" :alt="member.name"
-                                    class="object-cover w-full h-full">
-                            </div>
-                            <div class="flex items-center justify-center h-64 overflow-hidden bg-gray-200"
-                                x-show="!member.image && !member.isCommitment">
-                                <i class="text-6xl text-gray-400 fas fa-user"></i>
-                            </div>
-                            <div class="p-6" :class="{ 'bg-primary text-white': member.isCommitment }">
-                                <h3 class="mb-1 text-xl font-bold" x-text="member.name"></h3>
-                                <p class="mb-3 font-medium" :class="{ 'text-primary': !member.isCommitment }"
-                                    x-text="member.position"></p>
-                                <p x-text="member.description"></p>
+                ];
+
+                const container = document.querySelector('.scroll-container');
+                const dotsContainer = document.querySelector('.dot-container');
+
+                // Insert slides & dots
+                teamMembers.forEach((member, index) => {
+                    const section = document.createElement('section');
+                    section.className =
+                        'scroll-section relative h-screen w-screen flex-shrink-0 flex flex-col md:flex-row items-center justify-center p-8';
+
+                    section.innerHTML = `
+                    <div class="w-full max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-12">
+                        <div class="w-full md:w-1/2 h-96 relative overflow-hidden group rounded-2xl">
+                            ${member.image ? `
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <img src="${member.image}" alt="${member.name}"
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                class="absolute inset-0 w-full h-full object-cover transition-all duration-1000 group-hover:scale-110">` :
+                                `<div class="absolute inset-0 bg-neutral-800 flex items-center justify-center">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <span class="text-4xl text-neutral-500">No Image</span>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            </div>`}
+                            <div class="absolute inset-0 bg-gradient-to-t from-neutral-950/70 via-neutral-950/40 to-neutral-950/10 transition-opacity duration-500 group-hover:opacity-0"></div>
+                        </div>
+                        <div class="w-full md:w-1/2">
+                            <span class="text-neutral-400 tracking-wider text-sm font-mono">${String(index + 1).padStart(2, '0')} / TEAM</span>
+                            <h2 class="mt-4 text-4xl md:text-6xl font-bold leading-tight text-gray-800">${member.name}</h2>
+                            <p class="mt-2 text-lg text-blue-400 font-medium">${member.position}</p>
+                            <p class="mt-6 text-gray-600 text-lg leading-relaxed">${member.description}</p>
+                            <div class="mt-8 flex gap-4">
+                                <button class="px-6 py-3 text-white bg-blue-600 hover:bg-blue-700 rounded-full text-sm font-medium transition-all duration-300 hover:tracking-wider">
+                                    Contact ${member.name.split(' ')[0]}
+                                </button>
                             </div>
                         </div>
-                    </template>
-                </div>
+                    </div>
+                `;
+                    container.appendChild(section);
 
-                <!-- Navigation Arrows -->
-                <button @click="prev()"
-                    class="absolute left-0 flex items-center justify-center w-10 h-10 text-white transform -translate-y-1/2 bg-gray-800 rounded-full top-1/2 hover:bg-primary focus:outline-none">
-                    <i class="fas fa-chevron-left"></i>
-                </button>
-                <button @click="next()"
-                    class="absolute right-0 flex items-center justify-center w-10 h-10 text-white transform -translate-y-1/2 bg-gray-800 rounded-full top-1/2 hover:bg-primary focus:outline-none">
-                    <i class="fas fa-chevron-right"></i>
-                </button>
+                    const dot = document.createElement('button');
+                    dot.onclick = () => scrollToSection(index);
+                    dot.title = `Go to ${member.name}`;
+                    dot.className = 'w-3 h-3 rounded-full bg-white/20 hover:bg-white transition-colors hover:scale-150';
+                    dotsContainer.appendChild(dot);
+                });
 
-                <!-- Indicators -->
-                <div class="flex justify-center mt-6 space-x-2">
-                    <template x-for="(_, index) in teamMembers.length" :key="index">
-                        <button @click="currentIndex = index" class="w-3 h-3 rounded-full focus:outline-none"
-                            :class="{ 'bg-primary': currentIndex === index, 'bg-gray-300': currentIndex !== index }">
-                        </button>
-                    </template>
-                </div>
-            </div>
+                const sections = document.querySelectorAll('.scroll-section');
+                const dots = document.querySelectorAll('.dot-container button');
+                let currentIndex = 0;
+                let isScrolling = false;
+
+                function scrollToSection(index) {
+                    if (!isScrolling) {
+                        isScrolling = true;
+                        currentIndex = index;
+                        sections[index].scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'nearest',
+                            inline: 'start'
+                        });
+                        updateDots(index);
+                        setTimeout(() => {
+                            isScrolling = false;
+                        }, 700);
+                    }
+                }
+
+                function updateDots(index) {
+                    dots.forEach((dot, i) => {
+                        dot.className = `w-3 h-3 rounded-full transition-all duration-300 ${
+                        i === index ? 'bg-blue-500 scale-150' : 'bg-white/20 hover:bg-white hover:scale-150'
+                    }`;
+                    });
+                }
+
+                // Prev/Next with wrap-around
+                document.getElementById('prev').addEventListener('click', () => {
+                    const newIndex = currentIndex === 0 ? sections.length - 1 : currentIndex - 1;
+                    scrollToSection(newIndex);
+                });
+
+                document.getElementById('next').addEventListener('click', () => {
+                    const newIndex = currentIndex === sections.length - 1 ? 0 : currentIndex + 1;
+                    scrollToSection(newIndex);
+                });
+
+                // Update dots on manual scroll
+                container.addEventListener('scroll', () => {
+                    if (!isScrolling) {
+                        const index = Math.round(container.scrollLeft / container.offsetWidth);
+                        if (index !== currentIndex) {
+                            currentIndex = index;
+                            updateDots(index);
+                        }
+                    }
+                });
+
+                // Initial dot highlight
+                updateDots(0);
+            </script>
         </div>
     </section>
 
@@ -809,7 +906,11 @@
         <div class="container px-4 mx-auto">
             <div class="mb-16 text-center">
                 <h2 class="mb-4 text-3xl font-bold text-white md:text-4xl">Our Products</h2>
-                <div class="w-20 h-1 mx-auto mb-6 bg-white"></div>
+                <div class="flex justify-center mx-auto my-6">
+                    <span class="inline-block w-40 h-1 bg-white rounded-full"></span>
+                    <span class="inline-block w-3 h-1 mx-1 bg-white rounded-full"></span>
+                    <span class="inline-block w-1 h-1 bg-white rounded-full"></span>
+                </div>
                 <p class="max-w-2xl mx-auto text-gray-300">Specialized shrimp strains for diverse aquaculture needs</p>
             </div>
 
@@ -920,14 +1021,18 @@
         <div class="container px-4 mx-auto">
             <div class="mb-16 text-center">
                 <h2 class="mb-4 text-3xl font-bold text-gray-800 md:text-4xl">Shared News</h2>
-                <div class="w-20 h-1 mx-auto mb-6 bg-primary"></div>
+                <div class="flex justify-center mx-auto my-6">
+                    <span class="inline-block w-40 h-1 bg-blue-500 rounded-full"></span>
+                    <span class="inline-block w-3 h-1 mx-1 bg-blue-500 rounded-full"></span>
+                    <span class="inline-block w-1 h-1 bg-blue-500 rounded-full"></span>
+                </div>
                 <p class="max-w-2xl mx-auto text-gray-600">Latest research and developments from Nusa Dewa</p>
             </div>
 
-            <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+            <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
                 <!-- News 1 -->
                 <div
-                    class="overflow-hidden transition-shadow duration-300 bg-white border border-gray-100 shadow-md rounded-xl hover:shadow-xl">
+                    class="overflow-hidden transition-shadow duration-300 bg-white border border-gray-100 shadow-md rounded-lg hover:shadow-xl hover:cursor-pointer">
                     <div class="h-48 overflow-hidden">
                         <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                             alt="Genome Editing" class="object-cover w-full h-full">
@@ -1012,11 +1117,15 @@
     </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="py-20 bg-gray-50">
+    <section id="contact" class="py-20 bg-gray-100">
         <div class="container px-4 mx-auto">
             <div class="mb-16 text-center">
                 <h2 class="mb-4 text-3xl font-bold text-gray-800 md:text-4xl">Contact Us</h2>
-                <div class="w-20 h-1 mx-auto mb-6 bg-primary"></div>
+                <div class="flex justify-center mx-auto my-6">
+                    <span class="inline-block w-40 h-1 bg-blue-500 rounded-full"></span>
+                    <span class="inline-block w-3 h-1 mx-1 bg-blue-500 rounded-full"></span>
+                    <span class="inline-block w-1 h-1 bg-blue-500 rounded-full"></span>
+                </div>
                 <p class="max-w-2xl mx-auto text-gray-600">Get in touch with our aquaculture experts</p>
             </div>
 
