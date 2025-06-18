@@ -9,7 +9,10 @@ use App\Models\Topic;
 use App\Models\ProductCategory;
 use App\Models\User;
 use Filament\Forms;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
+use Filament\Forms\Get;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -39,19 +42,12 @@ class PostResource extends Resource
                         Forms\Components\TextInput::make('title')
                             ->required()
                             ->maxLength(255)
-                            ->live(onBlur: true)
-                            ->afterStateUpdated(fn(Set $set, ?string $state) => $set('slug', Str::slug($state))),
-
-                        Forms\Components\TextInput::make('slug')
-                            ->required()
-                            ->maxLength(255)
-                            ->unique(ignoreRecord: true),
+                            ->live(onBlur: true),
 
                         Forms\Components\Select::make('language')
                             ->options([
                                 'en' => 'English',
                                 'id' => 'Indonesian',
-                                // tambahkan bahasa lain sesuai kebutuhan
                             ])
                             ->required(),
 
@@ -59,6 +55,7 @@ class PostResource extends Resource
                             ->label('Translation Group')
                             ->relationship('translations', 'title')
                             ->searchable()
+                            ->getOptionLabelFromRecordUsing(fn(Post $post) => $post->title)
                             ->preload(),
 
                         Forms\Components\Select::make('type')
@@ -66,9 +63,36 @@ class PostResource extends Resource
                                 'article' => 'Article',
                                 'news' => 'News',
                                 'page' => 'Page',
-                                'blog' => 'Blog',
+                                'product' => 'Product',
+                                'technology' => 'Technology',
                             ])
-                            ->required(),
+                            ->required()
+                            ->live(),
+
+                        Select::make('productCategories')
+                            ->relationship('productCategories', 'name')
+                            ->multiple()
+                            ->searchable()
+                            ->preload()
+                            ->hidden(fn(Get $get): bool => $get('type') !== 'product')
+                            ->required(fn(Get $get): bool => $get('type') === 'product')
+                            ->createOptionForm([
+                                TextInput::make('name')
+                                    ->required()
+                                    ->maxLength(255),
+                                TextInput::make('slug')
+                                    ->required()
+                                    ->unique('product_categories', 'slug')
+                                    ->maxLength(255),
+                            ])
+                            ->createOptionUsing(function (array $data): string {
+                                return \App\Models\ProductCategory::create([
+                                    'name' => $data['name'],
+                                    'slug' => $data['slug'],
+                                    'user_id' => auth()->id(),
+                                    'language' => 'id',
+                                ])->id;
+                            }),
 
                         Forms\Components\Textarea::make('summary')
                             ->maxLength(500)
@@ -78,6 +102,43 @@ class PostResource extends Resource
                             ->required()
                             ->columnSpanFull()
                             ->fileAttachmentsDirectory('posts/attachments'),
+
+                        Forms\Components\Select::make('user_id')
+                            ->label('Author')
+                            ->relationship('user', 'name')
+                            ->default(auth()->id())
+                            ->disabled()
+                            ->searchable()
+                            ->preload()
+                            ->required(),
+
+                        Forms\Components\Select::make('tags')
+                            ->relationship('tags', 'name')
+                            ->multiple()
+                            ->searchable()
+                            ->preload()
+                            ->createOptionForm([ // Form untuk membuat tag baru
+                                TextInput::make('name')
+                                    ->required()
+                                    ->maxLength(255),
+                            ])
+                            ->createOptionUsing(function (array $data) { // Logic penyimpanan
+                                return \App\Models\Tag::create($data)->id;
+                            }),
+
+                        Forms\Components\Select::make('topics')
+                            ->relationship('topics', 'name')
+                            ->multiple()
+                            ->searchable()
+                            ->preload()
+                            ->createOptionForm([
+                                TextInput::make('name')
+                                    ->required()
+                                    ->maxLength(255),
+                            ])
+                            ->createOptionUsing(function (array $data) {
+                                return \App\Models\Topic::create($data)->id;
+                            }),
                     ])
                     ->columns(2),
 
@@ -100,52 +161,21 @@ class PostResource extends Resource
                         Forms\Components\Toggle::make('is_featured')
                             ->label('Featured Post'),
 
-                        Forms\Components\Toggle::make('is_landing_page')
-                            ->label('Landing Page Post')
-                            ->live(),
+                        // Forms\Components\Toggle::make('is_landing_page')
+                        //     ->label('Landing Page Post')
+                        //     ->live(),
 
-                        Forms\Components\TextInput::make('landing_page_section')
-                            ->visible(fn(Forms\Get $get) => $get('is_landing_page'))
-                            ->maxLength(255),
+                        // Forms\Components\TextInput::make('landing_page_section')
+                        //     ->visible(fn(Forms\Get $get) => $get('is_landing_page'))
+                        //     ->maxLength(255),
 
-                        Forms\Components\TextInput::make('landing_page_order')
-                            ->visible(fn(Forms\Get $get) => $get('is_landing_page'))
-                            ->numeric(),
+                        // Forms\Components\TextInput::make('landing_page_order')
+                        //     ->visible(fn(Forms\Get $get) => $get('is_landing_page'))
+                        //     ->numeric(),
 
                         Forms\Components\Toggle::make('indexable')
                             ->label('Allow search engines to index this post')
                             ->default(true),
-                    ]),
-
-                Forms\Components\Section::make('Relationships')
-                    ->schema([
-                        Forms\Components\Select::make('user_id')
-                            ->label('Author')
-                            ->relationship('user', 'name')
-                            ->searchable()
-                            ->preload()
-                            ->required(),
-
-                        Forms\Components\Select::make('tags')
-                            ->relationship('tags', 'name')
-                            ->multiple()
-                            ->searchable()
-                            ->preload(),
-
-                        Forms\Components\Select::make('topics')
-                            ->relationship('topics', 'name')
-                            ->multiple()
-                            ->searchable()
-                            ->preload(),
-
-                        Forms\Components\Select::make('productCategories')
-                            ->relationship(
-                                name: 'productCategories',
-                                modifyQueryUsing: fn(Builder $query) => $query->orderBy('post_product_categories.order')
-                            )
-                            ->multiple()
-                            ->searchable()
-                            ->preload(),
                     ]),
 
                 Forms\Components\Section::make('SEO & Metadata')

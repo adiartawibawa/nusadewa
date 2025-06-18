@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('slug');
             $table->string('language', 2)->default('id');
             $table->uuid('translation_group_id')->nullable();
-            $table->enum('type', ['post', 'page', 'product', 'landing'])->default('post'); // Jenis konten
+            $table->enum('type', ['article', 'news', 'page', 'product', 'technology'])->default('article'); // Jenis konten
             $table->boolean('is_featured')->default(false); // Flag untuk konten unggulan
             $table->string('landing_page_section')->nullable();
             $table->integer('landing_page_order')->nullable();
