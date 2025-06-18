@@ -56,4 +56,9 @@ class TeamMember extends Model
     {
         return $query->orderBy('order');
     }
+
+    public function getSocialLinksAttribute($value)
+    {
+        return is_array($value) ? $value : json_decode($value, true) ?? [];
+    }
 }
