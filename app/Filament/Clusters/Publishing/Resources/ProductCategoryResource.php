@@ -34,7 +34,7 @@ class ProductCategoryResource extends Resource
 
     protected static ?int $navigationSort = 3;
 
-    protected static ?string $modelLabel = 'Product Category';
+    protected static ?string $modelLabel = 'Category';
 
     protected static ?string $recordTitleAttribute = 'name';
 
@@ -54,24 +54,6 @@ class ProductCategoryResource extends Resource
                             ->required()
                             ->maxLength(255)
                             ->unique(ignoreRecord: true),
-
-                        Forms\Components\Select::make('language')
-                            ->options([
-                                'en' => 'English',
-                                'id' => 'Indonesian',
-                                // tambahkan bahasa lain sesuai kebutuhan
-                            ])
-                            ->required(),
-
-                        Forms\Components\Select::make('translation_group_id')
-                            ->label('Translation Group')
-                            ->options(
-                                fn() => ProductCategory::query()
-                                    ->whereNotNull('translation_group_id')
-                                    ->pluck('name', 'translation_group_id')
-                            )
-                            ->searchable()
-                            ->preload(),
 
                         Forms\Components\Select::make('parent_id')
                             ->label('Parent Category')
@@ -140,14 +122,6 @@ class ProductCategoryResource extends Resource
                 Tables\Columns\TextColumn::make('order')
                     ->sortable(),
 
-                Tables\Columns\TextColumn::make('language')
-                    ->badge()
-                    ->color(fn(string $state): string => match ($state) {
-                        'en' => 'info',
-                        'id' => 'warning',
-                        default => 'gray',
-                    }),
-
                 Tables\Columns\TextColumn::make('posts_count')
                     ->label('Posts')
                     ->counts('posts'),
@@ -160,12 +134,6 @@ class ProductCategoryResource extends Resource
                 Tables\Filters\SelectFilter::make('parent_id')
                     ->label('Parent Category')
                     ->options(ProductCategory::mainCategories()->pluck('name', 'id')),
-
-                Tables\Filters\SelectFilter::make('language')
-                    ->options([
-                        'en' => 'English',
-                        'id' => 'Indonesian',
-                    ]),
 
                 Tables\Filters\TrashedFilter::make(),
             ])

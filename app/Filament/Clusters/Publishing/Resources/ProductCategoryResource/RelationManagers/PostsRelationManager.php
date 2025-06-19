@@ -17,7 +17,7 @@ class PostsRelationManager extends RelationManager
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('pivot.order')
+                Forms\Components\TextInput::make('order')
                     ->label('Order')
                     ->numeric()
                     ->default(0),
@@ -29,32 +29,53 @@ class PostsRelationManager extends RelationManager
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('title'),
-                Tables\Columns\TextColumn::make('pivot.order')
+                Tables\Columns\TextColumn::make('order')
                     ->label('Order')
-                    ->sortable(),
+                    ->sortable()
+                    ->state(function ($record) {
+                        return $record->pivot->order;
+                    }),
             ])
             ->filters([
                 //
             ])
             ->headerActions([
                 Tables\Actions\AttachAction::make()
-                    ->preloadRecordSelect(),
+                    ->form(fn(Tables\Actions\AttachAction $action): array => [
+                        $action->getRecordSelect(),
+                        Forms\Components\TextInput::make('order')
+                            ->label('Order')
+                            ->numeric()
+                            ->default(0),
+                    ])
+                    ->preloadRecordSelect()
+                    ->after(function ($action, $record) {
+                        $record->pivot->update(['order' => $action->data['order']]);
+                    }),
             ])
             ->actions([
                 Tables\Actions\DetachAction::make(),
                 Tables\Actions\EditAction::make()
                     ->form([
-                        Forms\Components\TextInput::make('pivot.order')
+                        Forms\Components\TextInput::make('order')
                             ->label('Order')
                             ->numeric()
-                            ->default(0),
-                    ]),
+                            ->default(function ($record) {
+                                return $record->pivot->order;
+                            }),
+                    ])
+                    ->action(function ($record, array $data) {
+                        $record->pivot->update(['order' => $data['order']]);
+                    }),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DetachBulkAction::make(),
                 ]),
             ])
-            ->defaultSort('pivot.order', 'asc');
+            ->defaultSort('post_product_categories.order', 'asc')
+            ->modifyQueryUsing(function (Builder $query) {
+                return $query->orderBy('post_product_categories.order', 'asc');
+            });
     }
 }

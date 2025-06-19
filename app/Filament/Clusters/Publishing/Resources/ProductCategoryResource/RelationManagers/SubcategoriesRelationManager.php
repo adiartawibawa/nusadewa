@@ -36,8 +36,6 @@ class SubcategoriesRelationManager extends RelationManager
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name'),
-                Tables\Columns\TextColumn::make('slug'),
-                Tables\Columns\TextColumn::make('order'),
             ])
             ->filters([
                 //
