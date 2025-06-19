@@ -135,58 +135,58 @@ class SystemSetting extends Page implements HasForms
                     ])->columns(2),
 
                 // Tab Landing Page Settings
-                Section::make('Landing Page Settings')
-                    ->schema([
-                        TagsInput::make('landing_page_sections')
-                            ->label('Enabled Sections'),
+                // Section::make('Landing Page Settings')
+                //     ->schema([
+                //         TagsInput::make('landing_page_sections')
+                //             ->label('Enabled Sections'),
 
-                        ColorPicker::make('landing_primary_color')
-                            ->hex(),
+                //         ColorPicker::make('landing_primary_color')
+                //             ->hex(),
 
-                        ColorPicker::make('landing_secondary_color')
-                            ->hex(),
+                //         ColorPicker::make('landing_secondary_color')
+                //             ->hex(),
 
-                        Toggle::make('landing_show_testimonials'),
+                //         Toggle::make('landing_show_testimonials'),
 
-                        Toggle::make('landing_show_featured_products'),
-                    ])->columns(2),
+                //         Toggle::make('landing_show_featured_products'),
+                //     ])->columns(2),
 
                 // Tab Product Settings
-                Section::make('Product Settings')
-                    ->schema([
-                        TextInput::make('product_currency')
-                            ->required(),
+                // Section::make('Product Settings')
+                //     ->schema([
+                //         TextInput::make('product_currency')
+                //             ->required(),
 
-                        TextInput::make('product_currency_symbol')
-                            ->required(),
+                //         TextInput::make('product_currency_symbol')
+                //             ->required(),
 
-                        Toggle::make('product_show_prices'),
+                //         Toggle::make('product_show_prices'),
 
-                        Toggle::make('product_enable_reviews'),
+                //         Toggle::make('product_enable_reviews'),
 
-                        Toggle::make('product_enable_stock_management'),
-                    ])->columns(2),
+                //         Toggle::make('product_enable_stock_management'),
+                //     ])->columns(2),
 
                 // Tab Team Settings
-                Section::make('Team Settings')
-                    ->schema([
-                        Toggle::make('team_enabled')
-                            ->live(),
+                // Section::make('Team Settings')
+                //     ->schema([
+                //         Toggle::make('team_enabled')
+                //             ->live(),
 
-                        Select::make('team_layout')
-                            ->options([
-                                'grid' => 'Grid',
-                                'list' => 'List',
-                                'carousel' => 'Carousel',
-                            ])
-                            ->visible(fn($get) => $get('team_enabled')),
+                //         Select::make('team_layout')
+                //             ->options([
+                //                 'grid' => 'Grid',
+                //                 'list' => 'List',
+                //                 'carousel' => 'Carousel',
+                //             ])
+                //             ->visible(fn($get) => $get('team_enabled')),
 
-                        Toggle::make('team_show_social_links')
-                            ->visible(fn($get) => $get('team_enabled')),
+                //         Toggle::make('team_show_social_links')
+                //             ->visible(fn($get) => $get('team_enabled')),
 
-                        TagsInput::make('team_social_platforms')
-                            ->visible(fn($get) => $get('team_enabled')),
-                    ])->columns(2),
+                //         TagsInput::make('team_social_platforms')
+                //             ->visible(fn($get) => $get('team_enabled')),
+                //     ])->columns(2),
 
                 // Tab Social Media Links
                 Section::make('Social Media Links')

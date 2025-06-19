@@ -34,24 +34,24 @@ class SystemSettings extends Settings
     public bool $unsplash_auto_attribution;
 
     // Landing Page Settings
-    public array $landing_page_sections;
-    public ?string $landing_primary_color;
-    public ?string $landing_secondary_color;
-    public bool $landing_show_testimonials;
-    public bool $landing_show_featured_products;
+    // public array $landing_page_sections;
+    // public ?string $landing_primary_color;
+    // public ?string $landing_secondary_color;
+    // public bool $landing_show_testimonials;
+    // public bool $landing_show_featured_products;
 
     // Product Settings
-    public ?string $product_currency;
-    public ?string $product_currency_symbol;
-    public bool $product_show_prices;
-    public bool $product_enable_reviews;
-    public bool $product_enable_stock_management;
+    // public ?string $product_currency;
+    // public ?string $product_currency_symbol;
+    // public bool $product_show_prices;
+    // public bool $product_enable_reviews;
+    // public bool $product_enable_stock_management;
 
     // Team Settings
-    public bool $team_enabled;
-    public ?string $team_layout;
-    public bool $team_show_social_links;
-    public array $team_social_platforms;
+    // public bool $team_enabled;
+    // public ?string $team_layout;
+    // public bool $team_show_social_links;
+    // public array $team_social_platforms;
 
     // Social Media Links
     public ?string $facebook_url;
@@ -107,24 +107,24 @@ class SystemSettings extends Settings
             'unsplash_auto_attribution' => true,
 
             // Landing Page
-            'landing_page_sections' => ['hero', 'features', 'testimonials', 'products'],
-            'landing_primary_color' => '#3B82F6', // blue-500
-            'landing_secondary_color' => '#10B981', // emerald-500
-            'landing_show_testimonials' => true,
-            'landing_show_featured_products' => true,
+            // 'landing_page_sections' => ['hero', 'features', 'testimonials', 'products'],
+            // 'landing_primary_color' => '#3B82F6', // blue-500
+            // 'landing_secondary_color' => '#10B981', // emerald-500
+            // 'landing_show_testimonials' => true,
+            // 'landing_show_featured_products' => true,
 
             // Product
-            'product_currency' => 'IDR',
-            'product_currency_symbol' => 'Rp',
-            'product_show_prices' => true,
-            'product_enable_reviews' => true,
-            'product_enable_stock_management' => false,
+            // 'product_currency' => 'IDR',
+            // 'product_currency_symbol' => 'Rp',
+            // 'product_show_prices' => true,
+            // 'product_enable_reviews' => true,
+            // 'product_enable_stock_management' => false,
 
             // Team
-            'team_enabled' => true,
-            'team_layout' => 'grid', // grid, list, carousel
-            'team_show_social_links' => true,
-            'team_social_platforms' => ['facebook', 'twitter', 'linkedin'],
+            // 'team_enabled' => true,
+            // 'team_layout' => 'grid', // grid, list, carousel
+            // 'team_show_social_links' => true,
+            // 'team_social_platforms' => ['facebook', 'twitter', 'linkedin'],
 
             // Social Media
             'facebook_url' => null,

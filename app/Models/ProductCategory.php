@@ -32,8 +32,6 @@ class ProductCategory extends Model
     protected $fillable = [
         'slug',
         'name',
-        'language',
-        'translation_group_id',
         'parent_id',
         'order',
         'icon',
@@ -60,13 +58,6 @@ class ProductCategory extends Model
         return $this->belongsToMany(Post::class, 'post_product_categories', 'category_id', 'post_id')
             ->withPivot('order')
             ->orderBy('order');
-    }
-
-    // Mendapatkan terjemahan dalam bahasa lain
-    public function translations()
-    {
-        return $this->hasMany(ProductCategory::class, 'translation_group_id', 'translation_group_id')
-            ->where('id', '!=', $this->id);
     }
 
     // Scope untuk kategori utama (tidak punya parent)

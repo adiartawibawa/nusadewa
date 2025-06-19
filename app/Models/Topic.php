@@ -28,8 +28,6 @@ class Topic extends Model
     protected $fillable = [
         'slug',
         'name',
-        'language',
-        'translation_group_id',
         'user_id',
     ];
 
@@ -43,13 +41,6 @@ class Topic extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
-    }
-
-    // Mendapatkan terjemahan dalam bahasa lain
-    public function translations()
-    {
-        return $this->hasMany(Topic::class, 'translation_group_id', 'translation_group_id')
-            ->where('id', '!=', $this->id);
     }
 
     /**

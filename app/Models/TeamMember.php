@@ -21,8 +21,6 @@ class TeamMember extends Model
     protected $fillable = [
         'name',
         'position',
-        'language',
-        'translation_group_id',
         'bio',
         'avatar',
         'order',
@@ -36,13 +34,6 @@ class TeamMember extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
-    }
-
-    // Mendapatkan terjemahan dalam bahasa lain
-    public function translations()
-    {
-        return $this->hasMany(TeamMember::class, 'translation_group_id', 'translation_group_id')
-            ->where('id', '!=', $this->id);
     }
 
     // Scope untuk anggota aktif

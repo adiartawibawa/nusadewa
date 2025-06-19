@@ -14,7 +14,6 @@ class Visit extends Model
         'agent',
         'referer',
         'country_code',
-        'language',
     ];
 
     // Relasi dengan post

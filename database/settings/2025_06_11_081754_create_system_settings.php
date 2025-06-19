@@ -35,24 +35,24 @@ return new class extends SettingsMigration
         $this->migrator->add('system.unsplash_auto_attribution', SystemSettings::defaults()['unsplash_auto_attribution']);
 
         // Landing Page Settings
-        $this->migrator->add('system.landing_page_sections', SystemSettings::defaults()['landing_page_sections']);
-        $this->migrator->add('system.landing_primary_color', SystemSettings::defaults()['landing_primary_color']);
-        $this->migrator->add('system.landing_secondary_color', SystemSettings::defaults()['landing_secondary_color']);
-        $this->migrator->add('system.landing_show_testimonials', SystemSettings::defaults()['landing_show_testimonials']);
-        $this->migrator->add('system.landing_show_featured_products', SystemSettings::defaults()['landing_show_featured_products']);
+        // $this->migrator->add('system.landing_page_sections', SystemSettings::defaults()['landing_page_sections']);
+        // $this->migrator->add('system.landing_primary_color', SystemSettings::defaults()['landing_primary_color']);
+        // $this->migrator->add('system.landing_secondary_color', SystemSettings::defaults()['landing_secondary_color']);
+        // $this->migrator->add('system.landing_show_testimonials', SystemSettings::defaults()['landing_show_testimonials']);
+        // $this->migrator->add('system.landing_show_featured_products', SystemSettings::defaults()['landing_show_featured_products']);
 
         // Product Settings
-        $this->migrator->add('system.product_currency', SystemSettings::defaults()['product_currency']);
-        $this->migrator->add('system.product_currency_symbol', SystemSettings::defaults()['product_currency_symbol']);
-        $this->migrator->add('system.product_show_prices', SystemSettings::defaults()['product_show_prices']);
-        $this->migrator->add('system.product_enable_reviews', SystemSettings::defaults()['product_enable_reviews']);
-        $this->migrator->add('system.product_enable_stock_management', SystemSettings::defaults()['product_enable_stock_management']);
+        // $this->migrator->add('system.product_currency', SystemSettings::defaults()['product_currency']);
+        // $this->migrator->add('system.product_currency_symbol', SystemSettings::defaults()['product_currency_symbol']);
+        // $this->migrator->add('system.product_show_prices', SystemSettings::defaults()['product_show_prices']);
+        // $this->migrator->add('system.product_enable_reviews', SystemSettings::defaults()['product_enable_reviews']);
+        // $this->migrator->add('system.product_enable_stock_management', SystemSettings::defaults()['product_enable_stock_management']);
 
         // Team Settings
-        $this->migrator->add('system.team_enabled', SystemSettings::defaults()['team_enabled']);
-        $this->migrator->add('system.team_layout', SystemSettings::defaults()['team_layout']);
-        $this->migrator->add('system.team_show_social_links', SystemSettings::defaults()['team_show_social_links']);
-        $this->migrator->add('system.team_social_platforms', SystemSettings::defaults()['team_social_platforms']);
+        // $this->migrator->add('system.team_enabled', SystemSettings::defaults()['team_enabled']);
+        // $this->migrator->add('system.team_layout', SystemSettings::defaults()['team_layout']);
+        // $this->migrator->add('system.team_show_social_links', SystemSettings::defaults()['team_show_social_links']);
+        // $this->migrator->add('system.team_social_platforms', SystemSettings::defaults()['team_social_platforms']);
 
         // Social Media Links
         $this->migrator->add('system.facebook_url', SystemSettings::defaults()['facebook_url']);

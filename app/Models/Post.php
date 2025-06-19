@@ -26,7 +26,6 @@ class Post extends Model
     protected $fillable = [
         'slug',
         'language',
-        'translation_group_id',
         'type',
         'is_featured',
         'is_landing_page',
@@ -171,14 +170,6 @@ class Post extends Model
     public function scopeDraft(Builder $query): Builder
     {
         return $query->where('published_at', '=', null)->orWhere('published_at', '>', now()->toDateTimeString());
-    }
-
-
-    // Mendapatkan terjemahan dalam bahasa lain
-    public function translations()
-    {
-        return $this->hasMany(Post::class, 'translation_group_id', 'translation_group_id')
-            ->where('id', '!=', $this->id);
     }
 
     /**

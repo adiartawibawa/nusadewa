@@ -18,7 +18,6 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->string('slug');
             $table->string('language', 2)->default('id');
-            $table->uuid('translation_group_id')->nullable();
             $table->enum('type', ['article', 'news', 'page', 'product', 'technology'])->default('article'); // Jenis konten
             $table->boolean('is_featured')->default(false); // Flag untuk konten unggulan
             $table->string('landing_page_section')->nullable();
@@ -45,8 +44,6 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->string('slug');
             $table->string('name');
-            $table->string('language', 2)->default('id');
-            $table->uuid('translation_group_id')->nullable();
             $table->uuid('parent_id')->nullable(); // Untuk hierarki kategori
             $table->integer('order')->default(0); // Urutan tampilan
             $table->string('icon')->nullable(); // Ikon kategori
@@ -55,7 +52,7 @@ return new class extends Migration
             $table->json('seo_data')->nullable();
             $table->timestamps();
             $table->softDeletes();
-            $table->index(['slug', 'language']);
+            $table->index(['slug']);
             $table->index('order');
         });
 
@@ -73,8 +70,6 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->string('name');
             $table->string('position');
-            $table->string('language', 2)->default('id');
-            $table->uuid('translation_group_id')->nullable();
             $table->text('bio')->nullable();
             $table->string('avatar')->nullable();
             $table->integer('order')->default(0); // Urutan tampilan
@@ -93,13 +88,11 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->string('slug');
             $table->string('name');
-            $table->string('language', 2)->default('id');
-            $table->uuid('translation_group_id')->nullable();
             $table->uuid('user_id')->index();
             $table->timestamps();
             $table->softDeletes();
             $table->index('created_at');
-            $table->unique(['slug', 'user_id', 'language']);
+            $table->unique(['slug', 'user_id']);
         });
 
         // Table untuk topics (seperti sebelumnya)
@@ -107,13 +100,11 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->string('slug');
             $table->string('name');
-            $table->string('language', 2)->default('id');
-            $table->uuid('translation_group_id')->nullable();
             $table->uuid('user_id')->index();
             $table->timestamps();
             $table->softDeletes();
             $table->index('created_at');
-            $table->unique(['slug', 'user_id', 'language']);
+            $table->unique(['slug', 'user_id']);
         });
 
         // Table untuk relasi posts_tags (seperti sebelumnya)
@@ -138,7 +129,6 @@ return new class extends Migration
             $table->text('agent')->nullable();
             $table->string('referer')->nullable();
             $table->string('country_code')->nullable();
-            $table->string('language', 2)->nullable();
             $table->timestamps();
             $table->index('created_at');
         });
@@ -151,7 +141,6 @@ return new class extends Migration
             $table->text('agent')->nullable();
             $table->string('referer')->nullable();
             $table->string('country_code')->nullable();
-            $table->string('language', 2)->nullable();
             $table->timestamps();
         });
 
@@ -167,9 +156,8 @@ return new class extends Migration
             $table->json('og_data')->nullable();
             $table->json('twitter_card_data')->nullable();
             $table->json('structured_data')->nullable();
-            $table->string('language', 2)->default('id');
             $table->timestamps();
-            $table->index(['post_id', 'language']);
+            $table->index(['post_id']);
         });
 
         // Table untuk testimoni
@@ -180,12 +168,11 @@ return new class extends Migration
             $table->string('author_company')->nullable();
             $table->string('author_avatar')->nullable();
             $table->text('content');
-            $table->integer('rating')->nullable(); // 1-5
-            $table->string('language', 2)->default('id');
+            $table->integer('rating')->nullable();
             $table->boolean('is_featured')->default(false);
             $table->integer('order')->default(0);
             $table->timestamps();
-            $table->index(['is_featured', 'language']);
+            $table->index(['is_featured']);
             $table->index('order');
         });
     }

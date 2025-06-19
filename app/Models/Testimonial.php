@@ -18,7 +18,6 @@ class Testimonial extends Model
         'author_avatar',
         'content',
         'rating',
-        'language',
         'is_featured',
         'order',
     ];
@@ -33,11 +32,5 @@ class Testimonial extends Model
     public function scopeOrdered($query)
     {
         return $query->orderBy('order');
-    }
-
-    // Scope berdasarkan bahasa
-    public function scopeLanguage($query, $language)
-    {
-        return $query->where('language', $language);
     }
 }
