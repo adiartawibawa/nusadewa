@@ -60,6 +60,12 @@ class ProductCategory extends Model
             ->orderBy('order');
     }
 
+    // Relasi dengan user
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
     // Scope untuk kategori utama (tidak punya parent)
     public function scopeMainCategories($query)
     {

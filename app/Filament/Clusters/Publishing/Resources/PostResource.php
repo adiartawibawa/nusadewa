@@ -51,13 +51,6 @@ class PostResource extends Resource
                             ])
                             ->required(),
 
-                        Forms\Components\Select::make('translation_group_id')
-                            ->label('Translation Group')
-                            ->relationship('translations', 'title')
-                            ->searchable()
-                            ->getOptionLabelFromRecordUsing(fn(Post $post) => $post->title)
-                            ->preload(),
-
                         Forms\Components\Select::make('type')
                             ->options([
                                 'article' => 'Article',
@@ -80,17 +73,11 @@ class PostResource extends Resource
                                 TextInput::make('name')
                                     ->required()
                                     ->maxLength(255),
-                                TextInput::make('slug')
-                                    ->required()
-                                    ->unique('product_categories', 'slug')
-                                    ->maxLength(255),
                             ])
                             ->createOptionUsing(function (array $data): string {
                                 return \App\Models\ProductCategory::create([
                                     'name' => $data['name'],
-                                    'slug' => $data['slug'],
                                     'user_id' => auth()->id(),
-                                    'language' => 'id',
                                 ])->id;
                             }),
 
@@ -103,15 +90,6 @@ class PostResource extends Resource
                             ->columnSpanFull()
                             ->fileAttachmentsDirectory('posts/attachments'),
 
-                        Forms\Components\Select::make('user_id')
-                            ->label('Author')
-                            ->relationship('user', 'name')
-                            ->default(auth()->id())
-                            ->disabled()
-                            ->searchable()
-                            ->preload()
-                            ->required(),
-
                         Forms\Components\Select::make('tags')
                             ->relationship('tags', 'name')
                             ->multiple()
@@ -123,7 +101,10 @@ class PostResource extends Resource
                                     ->maxLength(255),
                             ])
                             ->createOptionUsing(function (array $data) { // Logic penyimpanan
-                                return \App\Models\Tag::create($data)->id;
+                                return \App\Models\Tag::create([
+                                    'name' => $data['name'],
+                                    'user_id' => auth()->id(),
+                                ])->id;
                             }),
 
                         Forms\Components\Select::make('topics')
@@ -137,7 +118,10 @@ class PostResource extends Resource
                                     ->maxLength(255),
                             ])
                             ->createOptionUsing(function (array $data) {
-                                return \App\Models\Topic::create($data)->id;
+                                return \App\Models\Topic::create([
+                                    'name' => $data['name'],
+                                    'user_id' => auth()->id(),
+                                ])->id;
                             }),
                     ])
                     ->columns(2),
@@ -208,8 +192,9 @@ class PostResource extends Resource
                         'article' => 'info',
                         'news' => 'danger',
                         'page' => 'success',
-                        'blog' => 'warning',
-                        default => 'gray',
+                        'product' => 'warning',
+                        'technology' => 'gray',
+                        default => 'blue',
                     }),
 
                 Tables\Columns\TextColumn::make('user.name')
@@ -234,7 +219,8 @@ class PostResource extends Resource
                         'article' => 'Article',
                         'news' => 'News',
                         'page' => 'Page',
-                        'blog' => 'Blog',
+                        'product' => 'Product',
+                        'technology' => 'Technology',
                     ]),
 
                 Tables\Filters\SelectFilter::make('language')
