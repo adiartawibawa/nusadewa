@@ -35,6 +35,8 @@ class TeamResource extends Resource
                 Forms\Components\Section::make('Basic Information')
                     ->schema([
                         Forms\Components\FileUpload::make('avatar')
+                            ->label('Profile Photo')
+                            ->required()
                             ->image()
                             ->directory('team/avatars')
                             ->imageEditor()
@@ -47,20 +49,6 @@ class TeamResource extends Resource
                         Forms\Components\TextInput::make('position')
                             ->required()
                             ->maxLength(255),
-
-                        Forms\Components\Select::make('language')
-                            ->options([
-                                'en' => 'English',
-                                'id' => 'Indonesian',
-                                // tambahkan bahasa lain sesuai kebutuhan
-                            ])
-                            ->required(),
-
-                        Forms\Components\Select::make('translation_group_id')
-                            ->label('Translation Group')
-                            ->relationship('translations', 'name')
-                            ->searchable()
-                            ->preload(),
 
                         Forms\Components\Textarea::make('bio')
                             ->columnSpanFull(),
@@ -123,25 +111,11 @@ class TeamResource extends Resource
                     ->label('Active')
                     ->boolean(),
 
-                Tables\Columns\TextColumn::make('language')
-                    ->badge()
-                    ->color(fn(string $state): string => match ($state) {
-                        'en' => 'info',
-                        'id' => 'warning',
-                        default => 'gray',
-                    }),
-
                 Tables\Columns\TextColumn::make('user.name')
                     ->label('User Account')
                     ->sortable(),
             ])
             ->filters([
-                Tables\Filters\SelectFilter::make('language')
-                    ->options([
-                        'en' => 'English',
-                        'id' => 'Indonesian',
-                    ]),
-
                 Tables\Filters\Filter::make('active')
                     ->label('Active Members')
                     ->query(fn(Builder $query): Builder => $query->where('is_active', true)),
