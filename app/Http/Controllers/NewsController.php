@@ -49,42 +49,37 @@ class NewsController extends Controller
 
     public function show(Post $post)
     {
-        if (!$post->published || $post->type !== 'news') {
-            abort(404);
-        }
+        // abort_unless($post->published && $post->type === 'news', 404);
 
-        // Record view
-        $post->recordView();
+        // $post->recordView();
 
         $relatedNews = Post::published()
             ->ofType('news')
             ->where('language', app()->getLocale())
             ->where('id', '!=', $post->id)
-            ->whereHas('tags', function ($query) use ($post) {
-                $query->whereIn('id', $post->tags->pluck('id'));
-            })
+            ->whereHas('tags', fn($q) => $q->whereIn('id', $post->tags->pluck('id')))
             ->inRandomOrder()
-            ->limit(3)
+            ->take(3)
             ->get();
 
         if ($relatedNews->count() < 3) {
-            $additionalPosts = Post::published()
+            $morePosts = Post::published()
                 ->ofType('news')
                 ->where('language', app()->getLocale())
                 ->where('id', '!=', $post->id)
                 ->whereNotIn('id', $relatedNews->pluck('id'))
                 ->inRandomOrder()
-                ->limit(3 - $relatedNews->count())
+                ->take(3 - $relatedNews->count())
                 ->get();
 
-            $relatedNews = $relatedNews->merge($additionalPosts);
+            $relatedNews = $relatedNews->merge($morePosts);
         }
 
-        return view('news.show', [
+        return view('posts.show', [
             'post' => $post,
             'relatedNews' => $relatedNews,
-            'hasTranslations' => $post->translations->count() > 0,
-            'availableTranslations' => $post->translations,
+            // 'hasTranslations' => $post->translations->isNotEmpty(),
+            // 'availableTranslations' => $post->translations,
         ]);
     }
 

@@ -16,11 +16,12 @@ class NewsSection extends Component
     public $selectedTopic = null;
     public $selectedCategory = null;
     public $language;
+    public $postType = 'news'; // Ganti jika konten kamu bertipe 'post' atau lainnya
 
     protected $queryString = [
         'selectedTag' => ['except' => ''],
         'selectedTopic' => ['except' => ''],
-        'selectedCategory' => ['except' => '']
+        'selectedCategory' => ['except' => ''],
     ];
 
     public function mount()
@@ -30,74 +31,51 @@ class NewsSection extends Component
 
     public function render()
     {
-        // Query berita utama (featured)
-        $featuredQuery = Post::with(['tags', 'topics', 'productCategories'])
-            ->where('type', 'post')
-            ->where('language', $this->language)
+        // Berita unggulan
+        $featuredNews = Post::with(['tags', 'topics', 'productCategories'])
+            // ->where('type', $this->postType)
+            // ->where('language', $this->language)
+            ->published()
             ->where('is_featured', true)
-            ->whereNotNull('published_at')
-            ->where('published_at', '<=', now())
-            ->orderBy('published_at', 'desc')
-            ->take(3);
+            ->orderByDesc('published_at')
+            ->take(3)
+            ->get();
 
-        $featuredNews = $featuredQuery->get();
-        $featuredIds = $featuredNews->pluck('id')->toArray();
+        $excludedIds = $featuredNews->pluck('id')->toArray();
 
-        // Query berita terbaru
+        // Berita terbaru
         $latestQuery = Post::with(['tags', 'topics', 'productCategories'])
-            ->where('type', 'post')
-            ->where('language', $this->language)
-            ->whereNotNull('published_at')
-            ->where('published_at', '<=', now());
+            // ->where('type', $this->postType)
+            // ->where('language', $this->language)
+            ->published()
+            ->when(!empty($excludedIds), fn($q) => $q->whereNotIn('id', $excludedIds))
+            ->when($this->selectedTag, fn($q) =>
+            $q->whereHas('tags', fn($tag) => $tag->where('slug', $this->selectedTag)))
+            ->when($this->selectedTopic, fn($q) =>
+            $q->whereHas('topics', fn($topic) => $topic->where('slug', $this->selectedTopic)))
+            ->when($this->selectedCategory, fn($q) =>
+            $q->whereHas('productCategories', fn($cat) => $cat->where('slug', $this->selectedCategory)))
+            ->orderByDesc('published_at');
 
-        // Exclude featured posts
-        if (!empty($featuredIds)) {
-            $latestQuery->whereNotIn('id', $featuredIds);
-        }
-
-        // Filter berdasarkan tag
-        if ($this->selectedTag) {
-            $latestQuery->whereHas('tags', function ($q) {
-                $q->where('slug', $this->selectedTag);
-            });
-        }
-
-        // Filter berdasarkan topik
-        if ($this->selectedTopic) {
-            $latestQuery->whereHas('topics', function ($q) {
-                $q->where('slug', $this->selectedTopic);
-            });
-        }
-
-        // Filter berdasarkan kategori produk
-        if ($this->selectedCategory) {
-            $latestQuery->whereHas('productCategories', function ($q) {
-                $q->where('slug', $this->selectedCategory);
-            });
-        }
-
-        $latestNews = $latestQuery->orderBy('published_at', 'desc')
-            ->paginate(6);
+        $latestNews = $latestQuery->paginate(6);
 
         // Top tags
-        $topTags = Tag::withCount(['posts' => function ($query) {
-            $query->where('type', 'news')
-                ->where('language', $this->language)
-                ->whereNotNull('published_at')
-                ->where('published_at', '<=', now());
-        }])
-            ->orderBy('posts_count', 'desc')
+        $topTags = Tag::withCount(['posts' => fn($q) => $q
+            // ->where('type', $this->postType)
+            // ->where('language', $this->language)
+            ->published()])
+            ->has('posts')
+            ->orderByDesc('posts_count')
             ->take(10)
             ->get();
 
         // Top topics
-        $topTopics = Topic::withCount(['posts' => function ($query) {
-            $query->where('type', 'news')
-                ->where('language', $this->language)
-                ->whereNotNull('published_at')
-                ->where('published_at', '<=', now());
-        }])
-            ->orderBy('posts_count', 'desc')
+        $topTopics = Topic::withCount(['posts' => fn($q) => $q
+            // ->where('type', $this->postType)
+            // ->where('language', $this->language)
+            ->published()])
+            ->has('posts')
+            ->orderByDesc('posts_count')
             ->take(5)
             ->get();
 
@@ -109,26 +87,26 @@ class NewsSection extends Component
         ]);
     }
 
-    public function filterByTag($tagSlug)
+    public function filterByTag($slug)
     {
         $this->resetPage();
-        $this->selectedTag = $tagSlug;
+        $this->selectedTag = $slug;
         $this->selectedTopic = null;
         $this->selectedCategory = null;
     }
 
-    public function filterByTopic($topicSlug)
+    public function filterByTopic($slug)
     {
         $this->resetPage();
-        $this->selectedTopic = $topicSlug;
+        $this->selectedTopic = $slug;
         $this->selectedTag = null;
         $this->selectedCategory = null;
     }
 
-    public function filterByCategory($categorySlug)
+    public function filterByCategory($slug)
     {
         $this->resetPage();
-        $this->selectedCategory = $categorySlug;
+        $this->selectedCategory = $slug;
         $this->selectedTag = null;
         $this->selectedTopic = null;
     }

@@ -135,7 +135,7 @@
                     @endif
 
                     <!-- Translation Links -->
-                    @if ($post->translations->count() > 0)
+                    {{-- @if ($post->translations->count() > 0)
                         <div class="mt-12">
                             <p class="text-gray-600">This article is also available in:</p>
                             <div class="flex flex-wrap gap-2 mt-2">
@@ -147,7 +147,7 @@
                                 @endforeach
                             </div>
                         </div>
-                    @endif
+                    @endif --}}
                 </article>
             </div>
         </div>

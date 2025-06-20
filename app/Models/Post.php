@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\PostType;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -17,11 +18,20 @@ class Post extends Model
 
     protected $table = 'posts';
 
-    protected $casts = [
-        'meta' => 'array',
-        'seo_data' => 'array',
-        'published_at' => 'datetime',
-    ];
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return  [
+            'meta' => 'array',
+            'seo_data' => 'array',
+            'published_at' => 'datetime',
+            'type' => PostType::class,
+        ];
+    }
 
     protected $fillable = [
         'slug',
@@ -135,7 +145,7 @@ class Post extends Model
             [
                 $minutes,
                 Str::plural(trans('app.mins', [], $locale), $minutes),
-                trans('app.read', [], $locale),
+                trans('app.mins', [], $locale) ?? 'minutes',
             ]
         );
     }
@@ -183,7 +193,7 @@ class Post extends Model
 
         static::deleting(function (self $post) {
             $post->tags()->detach();
-            $post->topic()->detach();
+            $post->topics()->detach();
         });
     }
 }

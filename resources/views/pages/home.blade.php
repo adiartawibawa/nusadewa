@@ -489,7 +489,23 @@
     </section>
 
     <!-- News Section -->
-    <livewire:news-section />
+    <section class="py-20 bg-white">
+        <div class="container px-4 mx-auto">
+            <div class="mb-16 text-center">
+                <h2 class="mb-4 text-3xl font-bold text-gray-800 md:text-4xl">Berita & Pembaruan Terkini</h2>
+                <div class="flex justify-center mx-auto my-6">
+                    <span class="inline-block w-40 h-1 bg-blue-500 rounded-full"></span>
+                    <span class="inline-block w-3 h-1 mx-1 bg-blue-500 rounded-full"></span>
+                    <span class="inline-block w-1 h-1 bg-blue-500 rounded-full"></span>
+                </div>
+                <p class="max-w-2xl mx-auto text-gray-600">Ikuti perkembangan terbaru penelitian dan inovasi akuakultur
+                    kami
+                </p>
+            </div>
+
+            <livewire:news-section />
+
+    </section>
 
 
     <!-- Contact Section -->
