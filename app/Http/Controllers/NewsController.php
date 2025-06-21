@@ -75,7 +75,7 @@ class NewsController extends Controller
             $relatedNews = $relatedNews->merge($morePosts);
         }
 
-        return view('posts.show', [
+        return view('pages.posts.show', [
             'post' => $post,
             'relatedNews' => $relatedNews,
             // 'hasTranslations' => $post->translations->isNotEmpty(),

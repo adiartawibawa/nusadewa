@@ -1,210 +1,15 @@
-@extends('layouts.app')
+<x-nusa-dewa-layout>
 
-@section('title', 'Nusa Dewa - Aquaculture Innovation')
-
-@section('content')
     <!-- Hero Section with Parallax -->
     <section class="relative items-center h-screen overflow-hidden">
         <!-- Header Top -->
-        <div class="relative z-30 hidden py-2 bg-transparent border-b border-gray-200 border-opacity-20 md:block">
-            <div class="container px-4 mx-auto">
-                <div class="flex flex-col items-center justify-between md:flex-row">
-                    <div class="flex flex-wrap justify-center gap-4 mb-2 text-xs md:justify-start md:mb-0">
-                        <a href="tel:0363-2787803" class="flex items-center text-white hover:text-blue-300">
-                            <i class="mr-2 fas fa-phone-alt"></i>0363-2787803
-                        </a>
-                        <a href="https://maps.app.goo.gl/r4itKV18H6mecsfq6" target="_blank" rel="noopener noreferrer"
-                            class="flex items-center text-white hover:text-blue-300">
-                            <i class="mr-2 fas fa-map-marker-alt"></i>Desa Bugbug, Karangasem, Bali 80811
-                        </a>
-                        <a href="#" class="flex items-center text-white hover:text-blue-300">
-                            <i class="mr-2 far fa-clock"></i>Mon - Fri 7:30 - 16:00
-                        </a>
-                    </div>
-
-                    <div class="flex items-center space-x-4">
-                        <div class="flex space-x-3">
-                            <a href="https://www.facebook.com/BPIU2K/" target="_blank" rel="noopener noreferrer"
-                                class="text-white hover:text-blue-300">
-                                <i class="fab fa-facebook-f"></i>
-                            </a>
-                            <a href="https://x.com/bpiu2k_k" target="_blank" rel="noopener noreferrer"
-                                class="text-white hover:text-blue-300">
-                                <i class="fab fa-twitter"></i>
-                            </a>
-                            <a href="https://www.instagram.com/bpiu2k/" target="_blank" rel="noopener noreferrer"
-                                class="text-white hover:text-blue-300">
-                                <i class="fab fa-instagram"></i>
-                            </a>
-                            <a href="http://www.youtube.com/@bpiu2kkarangasem939" target="_blank" rel="noopener noreferrer"
-                                class="text-white hover:text-red-300">
-                                <i class="fab fa-youtube"></i>
-                            </a>
-                        </div>
-
-                        <div class="ml-2">
-                            <button x-show="currentLocale === 'en'" {{-- @click="currentLocale = 'id'; window.location.href = '{{ route('language.switch', 'id') }}'" --}}
-                                class="text-white hover:text-blue-300 focus:outline-none"
-                                title="Switch to Bahasa Indonesia">
-                                🇮🇩
-                            </button>
-                            <button x-show="currentLocale === 'id'" {{-- @click="currentLocale = 'en'; window.location.href = '{{ route('language.switch', 'en') }}'" --}}
-                                class="text-white hover:text-blue-300 focus:outline-none" title="Switch to English">
-                                🇺🇸
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <x-layouts.top-header />
 
         <!-- Main Navigation -->
-        <header class="sticky top-0 z-40 transition-all duration-300 bg-transparent">
-            <div class="container px-4 mx-auto">
-                <div class="flex items-center justify-between py-4">
-                    <a href="{{ route('home') }}" class="flex items-center">
-                        <img src="https://bpiu2k.online/img/logo.png" alt="Nusa Dewa Logo" class="h-10">
-                    </a>
-
-                    <!-- Desktop Menu -->
-                    <nav class="items-center hidden space-x-8 md:flex">
-                        <a href="{{ route('home') }}"
-                            class="text-sm font-medium text-white transition-colors hover:text-primary">Home</a>
-
-                        <div x-data="{ open: false }" class="relative">
-                            <button @click="open = !open"
-                                class="flex items-center text-sm font-medium text-white transition-colors hover:text-primary">
-                                About Us <i class="ml-1 text-xs transition-transform fas fa-chevron-down"
-                                    :class="{ 'transform rotate-180': open }"></i>
-                            </button>
-                            <div x-show="open" @click.away="open = false"
-                                x-transition:enter="transition ease-out duration-200"
-                                x-transition:enter-start="opacity-0 translate-y-1"
-                                x-transition:enter-end="opacity-100 translate-y-0"
-                                x-transition:leave="transition ease-in duration-150"
-                                x-transition:leave-start="opacity-100 translate-y-0"
-                                x-transition:leave-end="opacity-0 translate-y-1"
-                                class="absolute left-0 z-50 w-48 py-1 mt-2 bg-white border border-gray-100 rounded-md shadow-lg">
-                                <a href="#"
-                                    class="block px-4 py-2 text-sm text-gray-800 transition-colors hover:bg-blue-50">Our
-                                    Company</a>
-                                <a href="#"
-                                    class="block px-4 py-2 text-sm text-gray-800 transition-colors hover:bg-blue-50">Innovation</a>
-                                <a href="#"
-                                    class="block px-4 py-2 text-sm text-gray-800 transition-colors hover:bg-blue-50">Our
-                                    Expertise</a>
-                                <a href="#"
-                                    class="block px-4 py-2 text-sm text-gray-800 transition-colors hover:bg-blue-50">Our
-                                    Team</a>
-                            </div>
-                        </div>
-
-                        <div x-data="{ open: false }" class="relative">
-                            <button @click="open = !open"
-                                class="flex items-center text-sm font-medium text-white transition-colors hover:text-primary">
-                                Our Products <i class="ml-1 text-xs transition-transform fas fa-chevron-down"
-                                    :class="{ 'transform rotate-180': open }"></i>
-                            </button>
-                            <div x-show="open" @click.away="open = false"
-                                x-transition:enter="transition ease-out duration-200"
-                                x-transition:enter-start="opacity-0 translate-y-1"
-                                x-transition:enter-end="opacity-100 translate-y-0"
-                                x-transition:leave="transition ease-in duration-150"
-                                x-transition:leave-start="opacity-100 translate-y-0"
-                                x-transition:leave-end="opacity-0 translate-y-1"
-                                class="absolute left-0 z-50 w-56 py-1 mt-2 bg-white border border-gray-100 rounded-md shadow-lg">
-                                <a href="#"
-                                    class="block px-4 py-2 text-sm text-gray-800 transition-colors hover:bg-blue-50">FAST
-                                    GROWTH Strain</a>
-                                <a href="#"
-                                    class="block px-4 py-2 text-sm text-gray-800 transition-colors hover:bg-blue-50">WSSV-Resistant
-                                    Strain</a>
-                                <a href="#"
-                                    class="block px-4 py-2 text-sm text-gray-800 transition-colors hover:bg-blue-50">EHP-Resistant
-                                    Strain</a>
-                                <a href="#"
-                                    class="block px-4 py-2 text-sm text-gray-800 transition-colors hover:bg-blue-50">Plant-Based
-                                    Protein Strain</a>
-                                <a href="#"
-                                    class="block px-4 py-2 text-sm text-gray-800 transition-colors hover:bg-blue-50">GAJAH
-                                    MADA
-                                    Strain</a>
-                            </div>
-                        </div>
-
-                        <div x-data="{ open: false }" class="relative">
-                            <button @click="open = !open"
-                                class="flex items-center text-sm font-medium text-white transition-colors hover:text-primary">
-                                Technology <i class="ml-1 text-xs transition-transform fas fa-chevron-down"
-                                    :class="{ 'transform rotate-180': open }"></i>
-                            </button>
-                            <div x-show="open" @click.away="open = false"
-                                x-transition:enter="transition ease-out duration-200"
-                                x-transition:enter-start="opacity-0 translate-y-1"
-                                x-transition:enter-end="opacity-100 translate-y-0"
-                                x-transition:leave="transition ease-in duration-150"
-                                x-transition:leave-start="opacity-100 translate-y-0"
-                                x-transition:leave-end="opacity-0 translate-y-1"
-                                class="absolute left-0 z-50 w-48 py-1 mt-2 bg-white border border-gray-100 rounded-md shadow-lg">
-                                <a href="#"
-                                    class="block px-4 py-2 text-sm text-gray-800 transition-colors hover:bg-blue-50">Molecular
-                                    Precision</a>
-                                <a href="#"
-                                    class="block px-4 py-2 text-sm text-gray-800 transition-colors hover:bg-blue-50">Performance
-                                    Testing</a>
-                                <a href="#"
-                                    class="block px-4 py-2 text-sm text-gray-800 transition-colors hover:bg-blue-50">Research
-                                    &
-                                    Development</a>
-                            </div>
-                        </div>
-
-                        <div x-data="{ open: false }" class="relative">
-                            <button @click="open = !open"
-                                class="flex items-center text-sm font-medium text-white transition-colors hover:text-primary">
-                                News <i class="ml-1 text-xs transition-transform fas fa-chevron-down"
-                                    :class="{ 'transform rotate-180': open }"></i>
-                            </button>
-                            <div x-show="open" @click.away="open = false"
-                                x-transition:enter="transition ease-out duration-200"
-                                x-transition:enter-start="opacity-0 translate-y-1"
-                                x-transition:enter-end="opacity-100 translate-y-0"
-                                x-transition:leave="transition ease-in duration-150"
-                                x-transition:leave-start="opacity-100 translate-y-0"
-                                x-transition:leave-end="opacity-0 translate-y-1"
-                                class="absolute left-0 z-50 w-48 py-1 mt-2 bg-white border border-gray-100 rounded-md shadow-lg">
-                                <a href="#"
-                                    class="block px-4 py-2 text-sm text-gray-800 transition-colors hover:bg-blue-50">Genome
-                                    Editing</a>
-                                <a href="#"
-                                    class="block px-4 py-2 text-sm text-gray-800 transition-colors hover:bg-blue-50">SNP
-                                    Resistance WSSV</a>
-                                <a href="#"
-                                    class="block px-4 py-2 text-sm text-gray-800 transition-colors hover:bg-blue-50">Bamboo
-                                    Disease Analysis</a>
-                                <a href="#"
-                                    class="block px-4 py-2 text-sm text-gray-800 transition-colors hover:bg-blue-50">Multilocation
-                                    Test Results</a>
-                            </div>
-                        </div>
-
-                        <a href="#"
-                            class="text-sm font-medium text-white transition-colors hover:text-primary">Contact</a>
-
-                        <button @click="sidebarOpen = true" class="ml-4 text-white transition-colors hover:text-primary">
-                            <i class="fas fa-bars"></i>
-                        </button>
-                    </nav>
-
-                    <!-- Mobile Menu Button -->
-                    <button @click="mobileMenuOpen = true" class="text-white md:hidden hover:text-primary">
-                        <i class="text-xl text-white fas fa-bars"></i>
-                    </button>
-                </div>
-            </div>
-        </header>
+        <x-layouts.main-nav />
 
         <div class="absolute inset-0 z-10 bg-black opacity-20"></div>
+
         <div class="absolute inset-0 z-0 parallax-bg"
             :style="`background-image: url('https://images.unsplash.com/photo-1519122295308-bdb40916b529?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'); transform: translateY(${parallaxOffset}px)`">
         </div>
@@ -613,8 +418,9 @@
     <!-- Map Section -->
     <div class="w-full h-96">
         <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3942.215329572943!2d115.2474153153666!3d-8.796876693664336!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zOMKwNDclMjQ4LjciUyAxMTXCsDE1JzAxLjgiRQ!5e0!3m2!1sen!2sid!4v1621234567890!5m2!1sen!2sid"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3262.5774889293316!2d115.59310867408007!3d-8.507101086127756!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd2091ed2705899%3A0xafb1dc2931f738db!2sBalai%20Produksi%20Induk%20Udang%20Unggul%20Dan%20Kekerangan%20(BPIU2K)%20Karangasem!5e1!3m2!1sid!2sid!4v1750500414281!5m2!1sid!2sid"
             width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"
-            class="transition-all duration-500 filter grayscale hover:grayscale-0"></iframe>
+            class="transition-all duration-500 filter grayscale hover:grayscale-0"
+            referrerpolicy="no-referrer-when-downgrade"></iframe>
     </div>
-@endsection
+</x-nusa-dewa-layout>
