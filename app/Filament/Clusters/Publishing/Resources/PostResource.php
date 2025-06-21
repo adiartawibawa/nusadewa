@@ -2,6 +2,7 @@
 
 namespace App\Filament\Clusters\Publishing\Resources;
 
+use App\Enums\PostType;
 use App\Filament\Clusters\Publishing;
 use App\Models\Post;
 use App\Models\Tag;
@@ -188,12 +189,13 @@ class PostResource extends Resource
 
                 Tables\Columns\TextColumn::make('type')
                     ->badge()
-                    ->color(fn(string $state): string => match ($state) {
-                        'article' => 'info',
-                        'news' => 'danger',
-                        'page' => 'success',
-                        'product' => 'warning',
-                        'technology' => 'gray',
+                    ->formatStateUsing(fn(PostType $state): string => $state->value)
+                    ->color(fn(PostType $state): string => match ($state) {
+                        PostType::ARTICLE => 'info',
+                        PostType::NEWS => 'danger',
+                        PostType::PAGE => 'success',
+                        PostType::PRODUCT => 'warning',
+                        PostType::TECHNOLOGY => 'gray',
                         default => 'blue',
                     }),
 

@@ -2,6 +2,7 @@
 
 namespace App\Filament\Clusters\Publishing\Resources\PostResource\Widgets;
 
+use App\Enums\PostType;
 use App\Models\Post;
 use Carbon\CarbonPeriod;
 use Filament\Widgets\ChartWidget;
@@ -26,7 +27,7 @@ class PostTypeChart extends ChartWidget
         $dateRange = $this->generateDateRange($start, $end);
 
         $types = Post::distinct()->pluck('type');
-        $datasets = $types->map(fn(string $type) => $this->buildDatasetForType($type, $dateRange, $start, $end));
+        $datasets = $types->map(fn(PostType $type) => $this->buildDatasetForType($type->value, $dateRange, $start, $end));
 
         return [
             'labels' => $dateRange->map(fn($date) => $date->format('M d')),

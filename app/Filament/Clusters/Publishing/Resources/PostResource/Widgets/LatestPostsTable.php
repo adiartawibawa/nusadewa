@@ -2,6 +2,7 @@
 
 namespace App\Filament\Clusters\Publishing\Resources\PostResource\Widgets;
 
+use App\Enums\PostType;
 use App\Models\Post;
 use Filament\Tables;
 use Filament\Tables\Columns\IconColumn;
@@ -36,11 +37,14 @@ class LatestPostsTable extends BaseWidget
 
             TextColumn::make('type')
                 ->badge()
-                ->color(fn(string $state): string => match ($state) {
-                    'article' => 'primary',
-                    'news' => 'danger',
-                    'product' => 'success',
-                    default => 'gray',
+                ->formatStateUsing(fn(PostType $state): string => $state->value)
+                ->color(fn(PostType $state): string => match ($state) {
+                    PostType::ARTICLE => 'info',
+                    PostType::NEWS => 'danger',
+                    PostType::PAGE => 'success',
+                    PostType::PRODUCT => 'warning',
+                    PostType::TECHNOLOGY => 'gray',
+                    default => 'blue',
                 }),
 
             TextColumn::make('productCategories.name')
