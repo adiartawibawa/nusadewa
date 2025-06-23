@@ -9,4 +9,5 @@ enum PostType: string
     case PAGE = 'page';
     case PRODUCT = 'product';
     case TECHNOLOGY = 'technology';
+    case INNOVATION = 'innovation';
 }

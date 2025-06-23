@@ -18,7 +18,7 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->string('slug');
             $table->string('language', 2)->default('id');
-            $table->enum('type', ['article', 'news', 'page', 'product', 'technology'])->default('article'); // Jenis konten
+            $table->enum('type', ['article', 'news', 'page', 'product', 'technology', 'innovation'])->default('article'); // Jenis konten
             $table->boolean('is_featured')->default(false); // Flag untuk konten unggulan
             $table->string('landing_page_section')->nullable();
             $table->integer('landing_page_order')->nullable();

@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\ProductController;
+use App\Livewire\Posts\InnovationsIndex;
+use App\Livewire\Posts\InnovationsShow;
 use App\Livewire\Posts\PostsIndex;
 use App\Livewire\Posts\PostsShow;
 use Illuminate\Support\Facades\Route;
@@ -57,6 +59,14 @@ Route::prefix('news')->name('news.')->group(function () {
     Route::get('/', PostsIndex::class)->name('index');
 
     Route::get('{post:slug}', PostsShow::class)->name('show');
+});
+
+// Innovation routes
+Route::prefix('innovations')->name('innovations.')->group(function () {
+
+    Route::get('/', InnovationsIndex::class)->name('index');
+
+    Route::get('{post:slug}', InnovationsShow::class)->name('show');
 });
 
 Route::prefix('products')->group(function () {

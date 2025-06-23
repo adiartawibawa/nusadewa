@@ -36,51 +36,18 @@
     <!-- Innovation Section -->
     <section id="innovation" class="py-20 bg-gray-50">
         <div class="container px-4 mx-auto">
-            <div class="mb-16 text-center">
+            <div class="mb-4 text-center">
                 <h2 class="mb-4 text-3xl font-bold text-gray-800 md:text-4xl">Our Innovation</h2>
                 <div class="flex justify-center mx-auto my-6">
                     <span class="inline-block w-40 h-1 bg-blue-500 rounded-full"></span>
                     <span class="inline-block w-3 h-1 mx-1 bg-blue-500 rounded-full"></span>
                     <span class="inline-block w-1 h-1 bg-blue-500 rounded-full"></span>
                 </div>
-                <p class="max-w-2xl mx-auto text-gray-600">State-of-the-art biotechnology for superior shrimp
-                    broodstock</p>
+                <p class="max-w-2xl mx-auto text-gray-600">State-of-the-art biotechnology for superior shrimp broodstock
+                </p>
             </div>
 
-            <div class="grid gap-8 md:grid-cols-3">
-                <div
-                    class="p-8 transition-all duration-300 transform bg-white shadow-md rounded-xl hover:shadow-xl hover:-translate-y-2">
-                    <div class="h-48 mb-6 overflow-hidden rounded-lg">
-                        <img src="https://images.unsplash.com/photo-1721189438751-1026d27b1f78?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                            alt="Genomic Selection" class="object-cover w-full h-full">
-                    </div>
-                    <h3 class="mb-3 text-xl font-semibold text-gray-800">Genomic Selection</h3>
-                    <p class="text-gray-600">Advanced genetic screening for optimal traits with precision breeding
-                        techniques to enhance growth and disease resistance.</p>
-                </div>
-
-                <div
-                    class="p-8 transition-all duration-300 transform bg-white shadow-md rounded-xl hover:shadow-xl hover:-translate-y-2">
-                    <div class="h-48 mb-6 overflow-hidden rounded-lg">
-                        <img src="https://images.unsplash.com/photo-1518471663599-b686196bdab8?q=80&w=1632&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                            alt="Disease Resistance" class="object-cover w-full h-full">
-                    </div>
-                    <h3 class="mb-3 text-xl font-semibold text-gray-800">Disease Resistance</h3>
-                    <p class="text-gray-600">Rigorous pathogen profiling and selective breeding for enhanced
-                        survivability against major shrimp diseases.</p>
-                </div>
-
-                <div
-                    class="p-8 transition-all duration-300 transform bg-white shadow-md rounded-xl hover:shadow-xl hover:-translate-y-2">
-                    <div class="h-48 mb-6 overflow-hidden rounded-lg">
-                        <img src="https://images.unsplash.com/photo-1565926670755-88c340527be2?q=80&w=1418&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                            alt="Environmental Conditioning" class="object-cover w-full h-full">
-                    </div>
-                    <h3 class="mb-3 text-xl font-semibold text-gray-800">Precision Conditioning</h3>
-                    <p class="text-gray-600">Optimized environments and nutrition protocols for superior broodstock
-                        development and reproductive performance.</p>
-                </div>
-            </div>
+            <livewire:innovation-section />
         </div>
     </section>
 
