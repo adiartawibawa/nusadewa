@@ -48,7 +48,7 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 
 Route::get('/', function () {
-    return view('pages.home');
+    return view('welcome');
 })->name('home');
 
 // News routes
