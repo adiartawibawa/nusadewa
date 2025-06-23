@@ -9,7 +9,8 @@
 
     <div class="bg-gray-50">
         <!-- Breadcrumbs -->
-        <div class="container max-w-7xl px-4 py-6 mx-auto">
+        <x-breadcrumbs :items="[['name' => 'News', 'url' => route('news.index')]]" :currentItem="$post->title" />
+        {{-- <div class="container max-w-7xl px-4 py-6 mx-auto">
             <nav class="flex" aria-label="Breadcrumb">
                 <ol class="inline-flex items-center space-x-2 md:space-x-3">
                     <li class="inline-flex items-center">
@@ -34,7 +35,7 @@
                     </li>
                 </ol>
             </nav>
-        </div>
+        </div> --}}
 
         <!-- Main Content -->
         <div class="container max-w-7xl px-4 mx-auto">
@@ -186,7 +187,7 @@
                             <article
                                 class="overflow-hidden transition-all bg-white border border-gray-200 rounded-xl hover:shadow-lg">
                                 <div class="h-48 overflow-hidden">
-                                    <img src="{{ Storage::url($related->featured_image) }}"
+                                    <img src="{{ $related->featured_image_url }}"
                                         alt="{{ $related->featured_image_caption }}"
                                         class="object-cover w-full h-full transition-transform duration-500 hover:scale-105"
                                         loading="lazy">
