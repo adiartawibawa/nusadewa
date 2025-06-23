@@ -53,13 +53,13 @@ class PostResource extends Resource
                             ->required(),
 
                         Forms\Components\Select::make('type')
-                            ->options([
-                                'article' => 'Article',
-                                'news' => 'News',
-                                'page' => 'Page',
-                                'product' => 'Product',
-                                'technology' => 'Technology',
-                            ])
+                            ->options(
+                                collect(PostType::cases())
+                                    ->mapWithKeys(fn(PostType $type) => [
+                                        $type->value => ucfirst($type->value)
+                                    ])
+                                    ->toArray()
+                            )
                             ->required()
                             ->live(),
 
