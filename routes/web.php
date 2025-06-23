@@ -1,8 +1,9 @@
 <?php
 
-use App\Http\Controllers\NewsController;
 use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\ProductController;
+use App\Livewire\Posts\PostsIndex;
+use App\Livewire\Posts\PostsShow;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
@@ -52,17 +53,10 @@ Route::get('/', function () {
 
 // News routes
 Route::prefix('news')->name('news.')->group(function () {
-    // Spesifik routes dulu
-    Route::get('genome-editing', [NewsController::class, 'genomeEditing'])->name('genome-editing');
-    Route::get('snp-resistance', [NewsController::class, 'snpResistance'])->name('snp-resistance');
-    Route::get('bamboo-disease', [NewsController::class, 'bambooDisease'])->name('bamboo-disease');
-    Route::get('multilocation', [NewsController::class, 'multilocation'])->name('multilocation');
 
-    // Index
-    Route::get('/', [NewsController::class, 'index'])->name('index');
+    Route::get('/', PostsIndex::class)->name('index');
 
-    // Slug show harus paling terakhir!
-    Route::get('{post:slug}', [NewsController::class, 'show'])->name('show');
+    Route::get('{post:slug}', PostsShow::class)->name('show');
 });
 
 Route::prefix('products')->group(function () {

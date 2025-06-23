@@ -1,7 +1,5 @@
-<x-nusa-dewa-layout>
-    <x-slot name="title">{{ $post->title . ' | Nusa Dewa Aquaculture' }}</x-slot>
-
-    <div class="relative items-center bg-gray-900 ">
+<div>
+    <div class="relative items-center bg-gray-900">
         <!-- Header Top -->
         <x-layouts.top-header />
 
@@ -11,7 +9,7 @@
 
     <div class="bg-gray-50">
         <!-- Breadcrumbs -->
-        <div class="container max-w-5xl px-4 py-6 mx-auto">
+        <div class="container max-w-7xl px-4 py-6 mx-auto">
             <nav class="flex" aria-label="Breadcrumb">
                 <ol class="inline-flex items-center space-x-2 md:space-x-3">
                     <li class="inline-flex items-center">
@@ -39,21 +37,18 @@
         </div>
 
         <!-- Main Content -->
-        <div class="container max-w-5xl px-4 mx-auto">
+        <div class="container max-w-7xl px-4 mx-auto">
             <div class="overflow-hidden bg-white shadow-xl rounded-xl">
-                <!-- Featured Image -->
-                @if ($post->featured_image)
-                    <div class="relative w-full h-96 md:h-[32rem] overflow-hidden">
-                        <img src="{{ Storage::url($post->featured_image) }}" alt="{{ $post->featured_image_caption }}"
-                            class="object-cover w-full h-full" loading="lazy">
-                        @if ($post->featured_image_caption)
-                            <div
-                                class="absolute bottom-0 left-0 right-0 p-4 text-sm text-white bg-gradient-to-t from-black/80 to-transparent">
-                                {{ $post->featured_image_caption }}
-                            </div>
-                        @endif
-                    </div>
-                @endif
+                <div class="relative w-full h-96 md:h-[32rem] overflow-hidden">
+                    <img src="{{ $post->featured_image_url }}" alt="{{ $post->featured_image_caption }}"
+                        class="object-cover w-full h-full" loading="lazy">
+                    @if ($post->featured_image_caption)
+                        <div
+                            class="absolute bottom-0 left-0 right-0 p-4 text-sm text-white bg-gradient-to-t from-black/80 to-transparent">
+                            {{ $post->featured_image_caption }}
+                        </div>
+                    @endif
+                </div>
 
                 <div class="relative px-6 py-8 sm:px-10 sm:py-12 md:px-12">
                     <!-- Tags -->
@@ -69,30 +64,43 @@
                     @endif
 
                     <!-- Title -->
-                    <h1 class="mb-4 font-serif text-3xl font-bold leading-tight text-gray-900 md:text-4xl lg:text-5xl">
+                    <h1 class="mb-4 text-3xl font-bold leading-tight text-gray-900 md:text-4xl lg:text-5xl">
                         {{ $post->title }}
                     </h1>
 
                     <!-- Meta -->
                     <div class="flex flex-wrap items-center gap-4 mb-8 text-sm text-gray-500">
-                        <div class="flex items-center">
-                            <span class="mr-1">By</span>
-                            <a href="#"
-                                class="font-medium text-indigo-600 transition-colors hover:text-indigo-800">
-                                {{ $post->user->name }}
-                            </a>
-                        </div>
+                        @if ($post->user)
+                            <div class="flex items-center">
+                                <span class="mr-1">By</span>
+                                <a href="#"
+                                    class="font-medium text-indigo-600 transition-colors hover:text-indigo-800">
+                                    {{ $post->user->name }}
+                                </a>
+                            </div>
+                            <div class="w-px h-4 bg-gray-300"></div>
+                        @endif
+
+                        @if ($post->published_at)
+                            <time datetime="{{ $post->published_at->format('Y-m-d') }}">
+                                {{ $post->published_at->format('F j, Y') }}
+                            </time>
+                            <div class="w-px h-4 bg-gray-300"></div>
+                        @endif
+
+                        <span>{{ $post->read_time }}</span>
+
                         <div class="w-px h-4 bg-gray-300"></div>
-                        <time datetime="{{ $post->published_at->format('Y-m-d') }}">
-                            {{ $post->published_at->format('F j, Y') }}
-                        </time>
-                        <div class="w-px h-4 bg-gray-300"></div>
-                        <span>{{ $post->read_time }} read</span>
+
+                        <span class="flex items-center">
+                            <i class="mr-1 text-gray-400 fas fa-eye"></i>
+                            {{ number_format($post->views->count()) }} views
+                        </span>
                     </div>
 
                     <!-- Article Content -->
                     <div
-                        class="prose prose-base max-w-none prose-indigo prose-headings:font-serif prose-img:rounded-lg prose-img:shadow-md">
+                        class="prose prose-base max-w-none prose-indigo prose-headings:font-sans prose-img:rounded-lg prose-img:shadow-md">
                         {!! $post->body !!}
                     </div>
 
@@ -129,11 +137,11 @@
         </div>
 
         <!-- Related Content Sections -->
-        <div class="container max-w-5xl px-4 py-12 mx-auto space-y-12">
+        <div class="container max-w-7xl px-4 py-12 mx-auto space-y-12">
             <!-- Related Product Categories -->
             @if ($post->productCategories->count() > 0)
                 <div class="space-y-6">
-                    <h3 class="font-serif text-2xl font-bold text-gray-900 md:text-3xl">Related Products</h3>
+                    <h3 class="font-sans text-2xl font-bold text-gray-900 md:text-3xl">Related Products</h3>
                     <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
                         @foreach ($post->productCategories as $category)
                             <a href="{{ route('products.category', $category->slug) }}"
@@ -172,19 +180,17 @@
             <!-- Related News -->
             @if ($relatedNews->count() > 0)
                 <div class="space-y-6">
-                    <h3 class="font-serif text-2xl font-bold text-gray-900 md:text-3xl">You Might Also Like</h3>
+                    <h3 class="font-sans text-2xl font-bold text-gray-900 md:text-3xl">You Might Also Like</h3>
                     <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
                         @foreach ($relatedNews as $related)
                             <article
                                 class="overflow-hidden transition-all bg-white border border-gray-200 rounded-xl hover:shadow-lg">
-                                @if ($related->featured_image)
-                                    <div class="h-48 overflow-hidden">
-                                        <img src="{{ Storage::url($related->featured_image) }}"
-                                            alt="{{ $related->featured_image_caption }}"
-                                            class="object-cover w-full h-full transition-transform duration-500 hover:scale-105"
-                                            loading="lazy">
-                                    </div>
-                                @endif
+                                <div class="h-48 overflow-hidden">
+                                    <img src="{{ Storage::url($related->featured_image) }}"
+                                        alt="{{ $related->featured_image_caption }}"
+                                        class="object-cover w-full h-full transition-transform duration-500 hover:scale-105"
+                                        loading="lazy">
+                                </div>
                                 <div class="p-6">
                                     <div class="flex flex-wrap gap-2 mb-3">
                                         @foreach ($related->tags as $tag)
@@ -217,4 +223,5 @@
             @endif
         </div>
     </div>
-</x-nusa-dewa-layout>
+
+</div>

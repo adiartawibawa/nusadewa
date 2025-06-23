@@ -16,23 +16,16 @@ class Post extends Model
 {
     use SoftDeletes, HasUuids, HasSlug, HasFactory;
 
+    public const DEFAULT_FEATURED_IMAGE = 'default-featured-image.png';
+
+    // PROPERTIES
     protected $table = 'posts';
 
     /**
-     * Get the attributes that should be cast.
+     * Mass assignable attributes
      *
-     * @return array<string, string>
+     * @var array<string>
      */
-    protected function casts(): array
-    {
-        return  [
-            'meta' => 'array',
-            'seo_data' => 'array',
-            'published_at' => 'datetime',
-            'type' => PostType::class,
-        ];
-    }
-
     protected $fillable = [
         'slug',
         'language',
@@ -54,85 +47,158 @@ class Post extends Model
     ];
 
     /**
-     * Get the options for generating the slug.
-     */
-    public function getSlugOptions(): SlugOptions
-    {
-        return SlugOptions::create()
-            ->generateSlugsFrom('title')
-            ->saveSlugsTo('slug');
-    }
-
-    /**
-     * The accessors to append to the model's array form.
+     * Appended computed attributes
      *
-     * @var array
+     * @var array<string>
      */
     protected $appends = [
         'read_time',
+        'featured_image_url',
     ];
 
+    /**
+     * Attribute casting for type conversion
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return  [
+            'meta' => 'array',
+            'seo_data' => 'array',
+            'published_at' => 'datetime',
+            'type' => PostType::class,
+        ];
+    }
 
-    // Relasi dengan user
+    // RELATIONSHIPS
+    /**
+     * Relationship with User model (author)
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
-    // Relasi dengan tags
+    /**
+     * Many-to-many relationship with Tag model
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function tags()
     {
         return $this->belongsToMany(Tag::class, 'posts_tags', 'post_id', 'tag_id');
     }
 
-    // Relasi dengan topics
+    /**
+     * Many-to-many relationship with Topic model
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function topics()
     {
         return $this->belongsToMany(Topic::class, 'posts_topics', 'post_id', 'topic_id');
     }
 
-    // Relasi dengan kategori produk
+    /**
+     * Many-to-many relationship with ProductCategory model
+     * Includes pivot table order field and ordering
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function productCategories()
     {
         return $this->belongsToMany(ProductCategory::class, 'post_product_categories', 'post_id', 'category_id')
             ->withPivot('order')
-            ->orderBy('post_product_categories.order'); // Spesifikasikan tabel pivot
+            ->orderBy('post_product_categories.order');
     }
 
-    // Relasi dengan views
+    /**
+     * One-to-many relationship with View model (track views)
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function views()
     {
         return $this->hasMany(View::class);
     }
 
-    // Scope untuk konten yang bisa diindex
+    // SCOPES
+    /**
+     * Scope for published posts
+     *
+     * @param Builder $query
+     * @return Builder
+     */
+    public function scopePublished(Builder $query): Builder
+    {
+        return $query->where('published_at', '<=', now()->toDateTimeString());
+    }
+
+    /**
+     * Scope for draft posts (unpublished or scheduled)
+     *
+     * @param Builder $query
+     * @return Builder
+     */
+    public function scopeDraft(Builder $query): Builder
+    {
+        return $query->whereNull('published_at')
+            ->orWhere('published_at', '>', now()->toDateTimeString());
+    }
+
+    /**
+     * Scope for indexable posts
+     *
+     * @param Builder $query
+     * @return Builder
+     */
     public function scopeIndexable($query)
     {
         return $query->where('indexable', true);
     }
 
-    // Scope untuk konten unggulan
+    /**
+     * Scope for featured posts
+     *
+     * @param Builder $query
+     * @return Builder
+     */
     public function scopeFeatured($query)
     {
         return $query->where('is_featured', true);
     }
 
-    // Scope untuk konten landing page
+    /**
+     * Scope for landing page posts
+     *
+     * @param Builder $query
+     * @return Builder
+     */
     public function scopeLandingPage($query)
     {
         return $query->where('is_landing_page', true);
     }
 
-    // Scope untuk konten berdasarkan jenis
+    /**
+     * Scope for posts of specific type
+     *
+     * @param Builder $query
+     * @param string|PostType $type
+     * @return Builder
+     */
     public function scopeOfType($query, $type)
     {
         return $query->where('type', $type);
     }
 
+    // ACCESSORS & MUTATORS
     /**
-     * Get the human-friendly estimated reading time of a given text.
+     * Calculate estimated reading time (accessor)
      *
-     * @return string
+     * @return string Formatted reading time (e.g. "5 mins read")
      */
     public function getReadTimeAttribute(): string
     {
@@ -145,52 +211,75 @@ class Post extends Model
             [
                 $minutes,
                 Str::plural(trans('app.mins', [], $locale), $minutes),
-                trans('app.mins', [], $locale) ?? 'minutes',
+                trans('app.read', [], $locale) ?? 'read',
             ]
         );
     }
 
     /**
-     * Check to see if the post is published.
+     * Check if post is published (attribute accessor)
      *
      * @return bool
      */
     public function getPublishedAttribute(): bool
     {
-        return ! is_null($this->published_at) && $this->published_at <= now()->toDateTimeString();
+        return $this->isPublished();
     }
 
     /**
-     * Scope a query to only include published posts.
+     * Get views count attribute
      *
-     * @param  Builder  $query
-     * @return Builder
+     * @return int
      */
-    public function scopePublished(Builder $query): Builder
+    public function getViewsCountAttribute()
     {
-        return $query->where('published_at', '<=', now()->toDateTimeString());
+        return $this->views()->count();
     }
 
     /**
-     * Scope a query to only include drafted posts.
-     *
-     * @param  Builder  $query
-     * @return Builder
+     * Get featured image URL with fallback to default
      */
-    public function scopeDraft(Builder $query): Builder
+    public function getFeaturedImageUrlAttribute()
     {
-        return $query->where('published_at', '=', null)->orWhere('published_at', '>', now()->toDateTimeString());
+        return $this->featured_image
+            ? asset('storage/' . $this->featured_image)
+            : asset('images/' . self::DEFAULT_FEATURED_IMAGE);
+    }
+
+    // METHODS
+    /**
+     * Check if post is published (method)
+     *
+     * @return bool
+     */
+    public function isPublished(): bool
+    {
+        return $this->published_at && $this->published_at <= now();
     }
 
     /**
-     * The "booting" method of the model.
+     * Configure slug generation options
      *
-     * @return void
+     * @return SlugOptions
+     */
+    public function getSlugOptions(): SlugOptions
+    {
+        return SlugOptions::create()
+            ->generateSlugsFrom('title')
+            ->saveSlugsTo('slug');
+    }
+
+    // MODEL EVENTS
+    /**
+     * Boot the model with event handlers
      */
     protected static function boot()
     {
         parent::boot();
 
+        /**
+         * Clean up relationships when post is deleted
+         */
         static::deleting(function (self $post) {
             $post->tags()->detach();
             $post->topics()->detach();

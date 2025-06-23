@@ -83,7 +83,7 @@ return new class extends Migration
             $table->index('is_active');
         });
 
-        // Table untuk tags (seperti sebelumnya)
+        // Table untuk tags
         Schema::create('tags', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('slug');
@@ -95,7 +95,7 @@ return new class extends Migration
             $table->unique(['slug', 'user_id']);
         });
 
-        // Table untuk topics (seperti sebelumnya)
+        // Table untuk topics
         Schema::create('topics', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('slug');
@@ -107,44 +107,34 @@ return new class extends Migration
             $table->unique(['slug', 'user_id']);
         });
 
-        // Table untuk relasi posts_tags (seperti sebelumnya)
+        // Table untuk relasi posts_tags
         Schema::create('posts_tags', function (Blueprint $table) {
             $table->uuid('post_id');
             $table->uuid('tag_id');
             $table->unique(['post_id', 'tag_id']);
         });
 
-        // Table untuk relasi posts_topics (seperti sebelumnya)
+        // Table untuk relasi posts_topics
         Schema::create('posts_topics', function (Blueprint $table) {
             $table->uuid('post_id');
             $table->uuid('topic_id');
             $table->unique(['post_id', 'topic_id']);
         });
 
-        // Table untuk views (seperti sebelumnya dengan tambahan)
+        // Table untuk views
         Schema::create('views', function (Blueprint $table) {
             $table->increments('id');
             $table->uuid('post_id')->index();
             $table->string('ip')->nullable();
             $table->text('agent')->nullable();
             $table->string('referer')->nullable();
-            $table->string('country_code')->nullable();
+            $table->string('country_code', 10)->nullable();
+            $table->string('device')->nullable();
             $table->timestamps();
             $table->index('created_at');
         });
 
-        // Table untuk visits (seperti sebelumnya)
-        Schema::create('visits', function (Blueprint $table) {
-            $table->increments('id');
-            $table->uuid('post_id');
-            $table->string('ip')->nullable();
-            $table->text('agent')->nullable();
-            $table->string('referer')->nullable();
-            $table->string('country_code')->nullable();
-            $table->timestamps();
-        });
-
-        // Table untuk SEO optimization (seperti sebelumnya)
+        // Table untuk SEO optimization
         Schema::create('seo_data', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->uuid('post_id')->nullable();
@@ -189,7 +179,6 @@ return new class extends Migration
         Schema::dropIfExists('post_product_categories');
         Schema::dropIfExists('product_categories');
         Schema::dropIfExists('team_members');
-        Schema::dropIfExists('visits');
         Schema::dropIfExists('views');
         Schema::dropIfExists('posts_topics');
         Schema::dropIfExists('posts_tags');

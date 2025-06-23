@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Enums\PostType;
 use App\Models\Post;
 use App\Models\Tag;
 use App\Models\Topic;
@@ -16,7 +17,7 @@ class NewsSection extends Component
     public $selectedTopic = null;
     public $selectedCategory = null;
     public $language;
-    public $postType = 'news'; // Ganti jika konten kamu bertipe 'post' atau lainnya
+    public $postType = 'news'; // Default type
 
     protected $queryString = [
         'selectedTag' => ['except' => ''],
@@ -31,10 +32,16 @@ class NewsSection extends Component
 
     public function render()
     {
+        // Daftar post type yang akan ditampilkan (exclude product dan technology)
+        $allowedTypes = [
+            PostType::ARTICLE->value,
+            PostType::NEWS->value,
+            PostType::PAGE->value,
+        ];
+
         // Berita unggulan
         $featuredNews = Post::with(['tags', 'topics', 'productCategories'])
-            // ->where('type', $this->postType)
-            // ->where('language', $this->language)
+            ->whereIn('type', $allowedTypes)
             ->published()
             ->where('is_featured', true)
             ->orderByDesc('published_at')
@@ -45,8 +52,7 @@ class NewsSection extends Component
 
         // Berita terbaru
         $latestQuery = Post::with(['tags', 'topics', 'productCategories'])
-            // ->where('type', $this->postType)
-            // ->where('language', $this->language)
+            ->whereIn('type', $allowedTypes)
             ->published()
             ->when(!empty($excludedIds), fn($q) => $q->whereNotIn('id', $excludedIds))
             ->when($this->selectedTag, fn($q) =>
@@ -61,8 +67,7 @@ class NewsSection extends Component
 
         // Top tags
         $topTags = Tag::withCount(['posts' => fn($q) => $q
-            // ->where('type', $this->postType)
-            // ->where('language', $this->language)
+            ->whereIn('type', $allowedTypes)
             ->published()])
             ->has('posts')
             ->orderByDesc('posts_count')
@@ -71,8 +76,7 @@ class NewsSection extends Component
 
         // Top topics
         $topTopics = Topic::withCount(['posts' => fn($q) => $q
-            // ->where('type', $this->postType)
-            // ->where('language', $this->language)
+            ->whereIn('type', $allowedTypes)
             ->published()])
             ->has('posts')
             ->orderByDesc('posts_count')
