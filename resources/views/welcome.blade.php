@@ -52,38 +52,14 @@
     </section>
 
     <!-- Technology Section with Parallax -->
-    <section class="relative py-20 overflow-hidden">
-        <div class="absolute inset-0 z-0 parallax-bg"
+    <section class="relative overflow-hidden">
+        <div class="absolute inset-0 z-0 "
             :style="`background-image: url('https://images.unsplash.com/photo-1668243304603-7ecf4eefba6e?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8bGFiJTIwTW9sZWN1bGFyJTIwVGVjaG5vbG9neXxlbnwwfDB8MHx8fDI%3D'); transform: translateY(${parallaxOffset * 0.3}px)`">
         </div>
-        <div class="absolute inset-0 z-10 bg-primary opacity-90"></div>
+        {{-- <div class="absolute inset-0 z-10 bg-primary opacity-90"></div> --}}
 
-        <div class="container relative z-20 px-4 mx-auto">
-            <div class="flex flex-col items-center gap-12 md:flex-row">
-                <div class="md:w-1/2">
-                    <h2 class="mb-6 text-3xl font-bold text-white md:text-4xl">MOLECULAR PRECISION</h2>
-                    <div class="flex justify-start mx-auto my-6">
-                        <span class="inline-block w-40 h-1 bg-white rounded-full"></span>
-                        <span class="inline-block w-3 h-1 mx-1 bg-white rounded-full"></span>
-                        <span class="inline-block w-1 h-1 bg-white rounded-full"></span>
-                    </div>
-                    <p class="mb-4 text-gray-200">At the heart of <span class="font-semibold text-white">Induk Udang
-                            Nusa Dewa</span> lies cutting-edge molecular technology that ensures precision in every
-                        broodstock. Through advanced genetic screening and selective breeding, we deliver shrimp
-                        broodstock with superior health, growth performance, and disease resistance.</p>
-                    <p class="text-gray-200">This scientific approach eliminates guesswork, guaranteeing consistent
-                        quality and performance that meets global aquaculture standards. With <span
-                            class="font-semibold text-white">Nusa Dewa</span>, you're not just farming shrimp — you're
-                        cultivating a future of reliability, traceability, and profitability.</p>
-                </div>
-                <div class="md:w-1/2">
-                    <div class="p-1 bg-white rounded-lg shadow-xl">
-                        <img src="https://images.unsplash.com/photo-1668243304603-7ecf4eefba6e?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8bGFiJTIwTW9sZWN1bGFyJTIwVGVjaG5vbG9neXxlbnwwfDB8MHx8fDI%3D"
-                            alt="Molecular Technology" class="w-full h-auto rounded-lg">
-                    </div>
-                </div>
-            </div>
-        </div>
+        <!-- The entire content is now handled by the Livewire component -->
+        <livewire:technologies-section />
     </section>
 
     <!-- Performance Testing Section -->
