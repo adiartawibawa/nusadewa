@@ -53,12 +53,6 @@
 
     <!-- Technology Section with Parallax -->
     <section class="relative overflow-hidden">
-        <div class="absolute inset-0 z-0 "
-            :style="`background-image: url('https://images.unsplash.com/photo-1668243304603-7ecf4eefba6e?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8bGFiJTIwTW9sZWN1bGFyJTIwVGVjaG5vbG9neXxlbnwwfDB8MHx8fDI%3D'); transform: translateY(${parallaxOffset * 0.3}px)`">
-        </div>
-        {{-- <div class="absolute inset-0 z-10 bg-primary opacity-90"></div> --}}
-
-        <!-- The entire content is now handled by the Livewire component -->
         <livewire:technologies-section />
     </section>
 
