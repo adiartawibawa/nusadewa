@@ -30,7 +30,7 @@ class EmailSettingsPage extends Page implements HasForms
 
     protected static ?string $navigationGroup = 'Mail Configuration';
 
-    protected static ?int $navigationSort = 2;
+    protected static ?int $navigationSort = 3;
 
     public ?array $data = [];
 

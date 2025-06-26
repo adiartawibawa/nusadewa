@@ -33,7 +33,7 @@ class SystemSetting extends Page implements HasForms
 
     protected static ?string $navigationGroup = 'System Configuration';
 
-    protected static ?int $navigationSort = 1;
+    protected static ?int $navigationSort = 2;
 
     public ?array $data = [];
 
