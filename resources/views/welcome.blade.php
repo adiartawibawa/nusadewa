@@ -51,8 +51,20 @@
         </div>
     </section>
 
-    <!-- Technology Section with Parallax -->
-    <section class="relative overflow-hidden">
+    <!-- Technology Section -->
+    <section class="relative py-20 overflow-hidden">
+        <div class="container px-4 mx-auto">
+            <div class="mb-4 text-center">
+                <h2 class="mb-4 text-3xl font-bold text-white md:text-4xl">Our Technology</h2>
+                <div class="flex justify-center mx-auto my-6">
+                    <span class="inline-block w-40 h-1 bg-blue-500 rounded-full"></span>
+                    <span class="inline-block w-3 h-1 mx-1 bg-blue-500 rounded-full"></span>
+                    <span class="inline-block w-1 h-1 bg-blue-500 rounded-full"></span>
+                </div>
+                <p class="max-w-2xl mx-auto text-white">State-of-the-art biotechnology for superior shrimp broodstock
+                </p>
+            </div>
+        </div>
         <livewire:technologies-section />
     </section>
 
