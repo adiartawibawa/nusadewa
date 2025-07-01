@@ -3,47 +3,98 @@
 namespace App\Livewire;
 
 use Livewire\Component;
+use Filament\Forms\Concerns\InteractsWithForms;
+use Filament\Forms\Contracts\HasForms;
 use App\Models\ContactMessage;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\RateLimiter;
+use Illuminate\Support\Facades\Log;
 use App\Mail\ContactFormSubmission;
+use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\TextInput;
 
-class ContactForm extends Component
+class ContactForm extends Component implements HasForms
 {
+    use InteractsWithForms;
+
     public $name;
     public $email;
     public $subject;
     public $message;
     public $success = false;
 
-    protected $rules = [
-        'name' => 'required|min:3|max:100',
-        'email' => 'required|email|max:100',
-        'subject' => 'required|min:5|max:200',
-        'message' => 'required|min:10|max:2000',
-    ];
+    protected function getFormSchema(): array
+    {
+        return [
+            TextInput::make('name')
+                ->label('Full Name')
+                ->required()
+                ->minLength(3)
+                ->maxLength(100),
+
+            TextInput::make('email')
+                ->label('Email Address')
+                ->email()
+                ->required()
+                ->maxLength(100),
+
+            TextInput::make('subject')
+                ->label('Subject')
+                ->required()
+                ->minLength(5)
+                ->maxLength(200),
+
+            Textarea::make('message')
+                ->label('Message')
+                ->required()
+                ->minLength(10)
+                ->maxLength(2000)
+                ->rows(5),
+        ];
+    }
 
     public function submit()
     {
-        $this->validate();
+        // Rate limiting (3 requests per minute)
+        if (RateLimiter::tooManyAttempts('contact-form:' . request()->ip(), 3)) {
+            $this->addError('rate_limit', 'Too many submission attempts. Please try again later.');
+            return;
+        }
 
-        // Create contact message
-        $contactMessage = ContactMessage::create([
-            'name' => $this->name,
-            'email' => $this->email,
-            'subject' => $this->subject,
-            'message' => $this->message,
-            'ip_address' => request()->ip(),
-        ]);
+        RateLimiter::hit('contact-form:' . request()->ip(), 60);
 
-        // Send email notification
-        Mail::to('info@nusadewa.com')->send(new ContactFormSubmission($contactMessage));
+        try {
+            $validated = $this->validate([
+                'name' => 'required|min:3|max:100',
+                'email' => 'required|email|max:100',
+                'subject' => 'required|min:5|max:200',
+                'message' => 'required|min:10|max:2000',
+            ]);
 
-        // Show success message and reset form
-        $this->success = true;
+            $contactMessage = ContactMessage::create([
+                'name' => $validated['name'],
+                'email' => $validated['email'],
+                'subject' => $validated['subject'],
+                'message' => $validated['message'],
+                'ip_address' => request()->ip(),
+            ]);
+
+            Mail::to(config('mail.contact_recipient', 'info@nusadewa.com'))
+                ->send(new ContactFormSubmission($contactMessage));
+
+            $this->success = true;
+            $this->resetForm();
+            $this->dispatch('contact-form-submitted');
+        } catch (\Exception $e) {
+            Log::error('Contact form submission failed: ' . $e->getMessage());
+            $this->addError('submit_error', 'An error occurred while submitting your message. Please try again later.');
+        }
+    }
+
+    protected function resetForm()
+    {
         $this->reset(['name', 'email', 'subject', 'message']);
-
-        // Reset success message after 5 seconds
-        $this->dispatch('reset-success');
+        $this->resetErrorBag();
     }
 
     public function render()
