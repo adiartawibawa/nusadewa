@@ -2,7 +2,7 @@
     <div class="container px-4 mx-auto">
         <div class="flex items-center justify-between py-4">
             <a href="{{ route('home') }}" class="flex items-center">
-                <img src="https://bpiu2k.online/img/logo.png" alt="Nusa Dewa Logo" class="h-10">
+                <img src="{{ $appInfo['companyLogo'] }}" alt="{{ $appInfo['company_name'] }} Logo" class="h-10">
             </a>
 
             <!-- Desktop Menu -->
@@ -51,8 +51,8 @@
                         x-transition:leave-end="opacity-0 translate-y-1"
                         class="absolute left-0 z-50 w-56 py-1 mt-2 bg-white border border-gray-100 rounded-md shadow-lg">
                         <a href="#"
-                            class="block px-4 py-2 text-sm text-gray-800 transition-colors hover:bg-blue-50">FAST
-                            GROWTH Strain</a>
+                            class="block px-4 py-2 text-sm text-gray-800 transition-colors hover:bg-blue-50">FAST GROWTH
+                            Strain</a>
                         <a href="#"
                             class="block px-4 py-2 text-sm text-gray-800 transition-colors hover:bg-blue-50">WSSV-Resistant
                             Strain</a>
@@ -63,8 +63,7 @@
                             class="block px-4 py-2 text-sm text-gray-800 transition-colors hover:bg-blue-50">Plant-Based
                             Protein Strain</a>
                         <a href="#"
-                            class="block px-4 py-2 text-sm text-gray-800 transition-colors hover:bg-blue-50">GAJAH
-                            MADA
+                            class="block px-4 py-2 text-sm text-gray-800 transition-colors hover:bg-blue-50">GAJAH MADA
                             Strain</a>
                     </div>
                 </div>
@@ -89,8 +88,7 @@
                             class="block px-4 py-2 text-sm text-gray-800 transition-colors hover:bg-blue-50">Performance
                             Testing</a>
                         <a href="#"
-                            class="block px-4 py-2 text-sm text-gray-800 transition-colors hover:bg-blue-50">Research
-                            &
+                            class="block px-4 py-2 text-sm text-gray-800 transition-colors hover:bg-blue-50">Research &
                             Development</a>
                     </div>
                 </div>
@@ -123,8 +121,28 @@
                     </div>
                 </div>
 
-                <a href="#"
+                <a href="#contact"
                     class="text-sm font-medium text-white transition-colors hover:text-primary">Contact</a>
+
+                <!-- Language Switcher -->
+                {{-- <div x-data="{ open: false }" class="relative">
+                    <button @click="open = !open"
+                        class="flex items-center text-sm font-medium text-white transition-colors hover:text-primary">
+                        {{ strtoupper($systemInfo['default_language']) }}
+                        <i class="ml-1 text-xs transition-transform fas fa-chevron-down"
+                            :class="{ 'transform rotate-180': open }"></i>
+                    </button>
+                    <div x-show="open" @click.away="open = false" class="absolute right-0 z-50 mt-2 w-14">
+                        <div class="bg-white rounded-md shadow-lg">
+                            @foreach ($systemInfo['supported_languages'] as $lang)
+                                <a href="{{ route('language.switch', $lang) }}"
+                                    class="block px-4 py-2 text-sm text-gray-800 hover:bg-blue-50">
+                                    {{ strtoupper($lang) }}
+                                </a>
+                            @endforeach
+                        </div>
+                    </div>
+                </div> --}}
 
                 <button @click="sidebarOpen = true" class="ml-4 text-white transition-colors hover:text-primary">
                     <i class="fas fa-bars"></i>

@@ -127,11 +127,11 @@ class SystemSettings extends Settings
             // 'team_social_platforms' => ['facebook', 'twitter', 'linkedin'],
 
             // Social Media
-            'facebook_url' => null,
-            'twitter_url' => null,
-            'instagram_url' => null,
+            'facebook_url' => 'https://www.facebook.com/BPIU2K/',
+            'twitter_url' => 'https://x.com/bpiu2k_k',
+            'instagram_url' => 'https://www.instagram.com/bpiu2k/',
             'linkedin_url' => null,
-            'youtube_url' => null,
+            'youtube_url' => 'http://www.youtube.com/@bpiu2kkarangasem939',
         ];
     }
 

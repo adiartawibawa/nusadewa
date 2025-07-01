@@ -1,12 +1,18 @@
 <x-mail::message>
-    # Introduction
+    # Test Email Configuration
 
-    The body of your message.
+    This email confirms that your email settings are working correctly.
 
-    <x-mail::button :url="''">
-        Button Text
-    </x-mail::button>
+    **Configuration Details:**
+    **Mailer:** {{ $settings->mailer }}
+    **Host:** {{ $settings->host ?? 'N/A' }}
+    **Port:** {{ $settings->port ?? 'N/A' }}
+    **Encryption:** {{ $settings->encryption ?? 'None' }}
+    **From Address:** {{ $settings->from_address }}
+    **From Name:** {{ $settings->from_name }}
+
+    **Test Sent At:** {{ $time }}
 
     Thanks,<br>
-    {{ config('app.name') }}
+    {{ $appInfo['company_name'] }}
 </x-mail::message>

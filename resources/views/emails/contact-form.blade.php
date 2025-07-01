@@ -1,7 +1,7 @@
 @component('mail::layout')
     @slot('header')
         @component('mail::header', ['url' => config('app.url')])
-            Nusa Dewa Aquaculture
+        {{ $appInfo['company_name'] }}
         @endcomponent
     @endslot
 
@@ -16,16 +16,9 @@
     ### Message:
     {{ $contactMessage->message }}
 
-    @component('mail::button', [
-        'url' => route('admin.contact-messages.show', $contactMessage->id),
-        'color' => 'primary',
-    ])
-        View Message in Dashboard
-    @endcomponent
-
     @slot('footer')
         @component('mail::footer')
-            © {{ date('Y') }} Nusa Dewa Aquaculture. All rights reserved.
+            © {{ date('Y') }} {{ $appInfo['company_name'] }}. All rights reserved.
         @endcomponent
     @endslot
 @endcomponent

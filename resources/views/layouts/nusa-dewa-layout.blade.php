@@ -17,15 +17,17 @@
 }">
 
 <head>
-    <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="{{ $description ?? 'Welcome to the Nusa Dewa' }}">
+    <meta name="description" content="{{ $seo['description'] ?? $appInfo['company_description'] }}">
+    <meta name="keywords" content="{{ $seo['keywords'] ?? '' }}">
+    <!-- Favicon -->
+    <link rel="icon" href="{{ $appInfo['companyLogo'] }}" type="image/x-icon">
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ $description ?? 'Nusa Dewa - Aquaculture Innovation' }}</title>
+    <title>{{ $seo['title'] ?? $appInfo['company_name'] }} - {{ $title ?? 'Aquaculture Innovation' }}</title>
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
@@ -67,6 +69,22 @@
             will-change: transform;
         }
 
+        @keyframes bounce-slow {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .animate-bounce-slow {
+            animation: bounce-slow 2s infinite;
+        }
+
         @media (max-width: 1023px) {
             .parallax-bg {
                 background-attachment: scroll;
@@ -80,7 +98,7 @@
 
 </head>
 
-<body class="font-sans antialiased bg-gray-800" x-cloak>
+<body id="top" class="font-sans antialiased bg-gray-800" x-cloak>
 
     <!-- Preloader -->
     <div class="fixed inset-0 z-50 flex items-center justify-center transition-opacity duration-500 bg-white preloader"
@@ -90,7 +108,7 @@
     </div>
 
     <!-- Sidebar Panel -->
-    <x-layouts.sidebar />
+    <x-layouts.sidebar :appInfo="$appInfo" />
 
     <!-- Mobile Menu -->
     <x-layouts.mobile-menu />
@@ -101,7 +119,7 @@
     </main>
 
     <!-- Footer -->
-    <x-layouts.footer />
+    <x-layouts.footer :appInfo="$appInfo ?? null" />
 
     <!-- Back to Top Button -->
     <a href="#top" x-show="scrollY > 300" x-transition.opacity

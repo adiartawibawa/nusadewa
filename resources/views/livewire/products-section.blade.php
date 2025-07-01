@@ -3,14 +3,14 @@
     <div class="mb-12">
         <div class="flex flex-wrap items-center justify-center gap-3">
             <button wire:click="resetFilters"
-                class="px-5 py-2 text-sm font-medium transition-all duration-300 rounded-full {{ !$selectedCategory ? 'bg-blue-500 text-white shadow-lg shadow-blue-500/30' : 'bg-gray-700/80 text-gray-300 hover:bg-gray-600/80' }}">
+                class="px-5 py-2 text-sm font-medium transition-all duration-300 rounded-full {{ !$selectedCategory ? 'bg-gradient-to-r from-blue-500 to-blue-600 text-white shadow-lg shadow-blue-500/30' : 'bg-gray-700/80 text-gray-300 hover:bg-gray-600/80' }}">
                 All Products
             </button>
 
             @foreach ($categories as $category)
                 <div x-data="{ open: false }" class="relative">
                     <button wire:click="filterByCategory('{{ $category->slug }}')" @click="open = !open"
-                        class="flex items-center px-5 py-2 text-sm font-medium transition-all duration-300 rounded-full {{ $selectedCategory === $category->slug ? 'bg-blue-500 text-white shadow-lg shadow-blue-500/30' : 'bg-gray-700/80 text-gray-300 hover:bg-gray-600/80' }}">
+                        class="flex items-center px-5 py-2 text-sm font-medium transition-all duration-300 rounded-full {{ $selectedCategory === $category->slug ? 'bg-gradient-to-r from-blue-500 to-blue-600 text-white shadow-lg shadow-blue-500/30' : 'bg-gray-700/80 text-gray-300 hover:bg-gray-600/80' }}">
                         {{ $category->name }}
                         @if ($category->children->count() > 0)
                             <svg :class="{ 'rotate-180': open }" class="w-4 h-4 ml-1 transition-transform" fill="none"
@@ -26,7 +26,7 @@
                             class="absolute left-0 z-20 mt-2 space-y-1 bg-gray-800 rounded-lg shadow-xl min-w-[200px] border border-gray-700">
                             @foreach ($category->children as $child)
                                 <button wire:click="filterByCategory('{{ $child->slug }}')"
-                                    class="flex items-center justify-between w-full px-4 py-2 text-sm text-left transition-colors hover:bg-gray-700/80">
+                                    class="flex items-center justify-between w-full px-4 py-2 text-sm text-left transition-colors hover:bg-gray-700/80 text-gray-300">
                                     <span>{{ $child->name }}</span>
                                     <span class="text-xs text-gray-400">({{ $child->posts_count }})</span>
                                 </button>
@@ -65,14 +65,14 @@
                 {{ $products->links('vendor.pagination.custom') }}
             </div>
         @else
-            <div class="p-8 text-center bg-gray-800/50 rounded-xl">
+            <div class="p-8 text-center bg-gray-800/50 rounded-xl border border-gray-700">
                 <svg class="w-12 h-12 mx-auto text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
                         d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                 </svg>
                 <p class="mt-4 text-gray-400">No products found matching your criteria</p>
                 @if ($selectedCategory)
-                    <button wire:click="resetFilters" class="mt-4 text-blue-400 hover:text-blue-300">
+                    <button wire:click="resetFilters" class="mt-4 text-blue-400 hover:text-blue-300 transition-colors">
                         Reset Filters
                     </button>
                 @endif

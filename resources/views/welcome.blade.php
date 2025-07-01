@@ -1,34 +1,55 @@
 <x-nusa-dewa-layout>
 
-    <!-- Hero Section with Parallax -->
-    <section class="relative items-center h-screen overflow-hidden">
-        <!-- Header Top -->
+    <!-- Hero Section with Enhanced Parallax -->
+    <section class="relative h-screen overflow-hidden isolate">
+        <!-- Header Components -->
         <x-layouts.top-header />
-
-        <!-- Main Navigation -->
         <x-layouts.main-nav />
 
-        <div class="absolute inset-0 z-10 bg-black opacity-20"></div>
+        <!-- Background Overlay -->
+        <div class="absolute inset-0 z-10 bg-gradient-to-t from-black/60 to-black/30"></div>
 
-        <div class="absolute inset-0 z-0 parallax-bg"
-            :style="`background-image: url('https://images.unsplash.com/photo-1519122295308-bdb40916b529?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'); transform: translateY(${parallaxOffset}px)`">
+        <!-- Dynamic Background Image with Parallax -->
+        <div class="absolute inset-0 z-0 bg-center bg-cover parallax-bg"
+            :style="`background-image: url('{{ $appInfo['hero_image'] ?? 'https://images.unsplash.com/photo-1519122295308-bdb40916b529?ixlib=rb-4.1.0&auto=format&fit=crop&w=1374&q=80' }}'); transform: translateY(${parallaxOffset}px)`">
         </div>
 
+        <!-- Hero Content -->
         <div class="container relative z-20 flex flex-col items-center justify-center h-full px-4 mx-auto text-center">
-            <h1 class="mb-6 text-4xl font-bold text-white md:text-6xl animate-fade-in-up">INNOVATION MEETS AQUACULTURE
-            </h1>
-            <p class="max-w-3xl mx-auto mb-8 text-xl text-gray-300 delay-100 md:text-2xl animate-fade-in-up">
-                Advanced shrimp broodstock breeding combining biotechnology with decades of expertise
-            </p>
-            <a href="#contact"
-                class="inline-block px-8 py-3 font-semibold text-white transition-colors delay-200 rounded-lg bg-primary hover:bg-secondary animate-fade-in-up focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2">
-                Get Started
-            </a>
+            <div class="w-full max-w-4xl transform translate-y-[-5%]"> <!-- Adjust vertical position here -->
+                <h1 class="mb-6 text-4xl font-bold text-white md:text-5xl lg:text-6xl animate-fade-in-up">
+                    {{ $appInfo['hero_title'] ?? 'PIONEERING SHRIMP BIOTECHNOLOGY SOLUTIONS' }}
+                </h1>
+
+                <p
+                    class="max-w-3xl mx-auto mb-8 text-base text-gray-200 delay-100 md:text-lg lg:text-xl animate-fade-in-up">
+                    {{ $appInfo['company_description'] ?? 'Cutting-edge aquaculture innovations for sustainable shrimp farming' }}
+                </p>
+
+                <div class="flex flex-col items-center gap-4 delay-200 sm:flex-row sm:justify-center animate-fade-in-up">
+                    <a href="#contact"
+                        class="inline-flex items-center justify-center px-8 py-3 text-sm font-semibold text-white transition-all duration-300 rounded-lg md:text-base bg-primary hover:bg-secondary focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 hover:shadow-lg hover:-translate-y-1">
+                        Contact Our Experts
+                        <i class="ml-2 fas fa-arrow-right"></i>
+                    </a>
+
+                    <a href="#products"
+                        class="inline-flex items-center justify-center px-8 py-3 text-sm font-semibold text-white transition-all duration-300 bg-transparent border border-white rounded-lg md:text-base hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 hover:shadow-lg hover:-translate-y-1">
+                        Explore Our Products
+                        <i class="ml-2 fas fa-search"></i>
+                    </a>
+                </div>
+            </div>
         </div>
 
-        <div class="absolute left-0 right-0 z-20 text-center bottom-8 animate-bounce">
-            <a href="#innovation" class="text-2xl text-white focus:outline-none">
-                <i class="fas fa-chevron-down"></i>
+        <!-- Enhanced Scroll Indicator -->
+        <div class="absolute bottom-0 left-0 right-0 z-20 flex justify-center">
+            <a href="#innovation" class="flex flex-col items-center justify-center mb-8 transition-all group"
+                aria-label="Scroll down">
+                <div
+                    class="flex items-center justify-center transition-all border-2 rounded-full animate-bounce-slow w-9 h-9 border-white/50 group-hover:border-white">
+                    <i class="text-white transition-transform fas fa-chevron-down group-hover:translate-y-1"></i>
+                </div>
             </a>
         </div>
     </section>
@@ -36,94 +57,131 @@
     <!-- Innovation Section -->
     <section id="innovation" class="py-20 bg-gray-50">
         <div class="container px-4 mx-auto">
-            <div class="mb-4 text-center">
-                <h2 class="mb-4 text-3xl font-bold text-gray-800 md:text-4xl">Our Innovation</h2>
-                <div class="flex justify-center mx-auto my-6">
-                    <span class="inline-block w-40 h-1 bg-blue-500 rounded-full"></span>
-                    <span class="inline-block w-3 h-1 mx-1 bg-blue-500 rounded-full"></span>
-                    <span class="inline-block w-1 h-1 bg-blue-500 rounded-full"></span>
+            <!-- Section Header with Improved Visual Hierarchy -->
+            <div class="mb-12 text-center">
+                <!-- Main Heading -->
+                <h2 class="mb-4 text-3xl font-bold text-gray-800 md:text-4xl lg:text-5xl">
+                    Revolutionary Biotechnology Solutions
+                </h2>
+
+                <!-- Decorative Divider with Meaningful Design -->
+                <div class="flex justify-center mx-auto my-6" aria-hidden="true">
+                    <span class="inline-block w-40 h-1 rounded-full bg-primary-500"></span>
+                    <span class="inline-block w-3 h-1 mx-1 rounded-full bg-primary-300"></span>
+                    <span class="inline-block w-1 h-1 rounded-full bg-primary-200"></span>
                 </div>
-                <p class="max-w-2xl mx-auto text-gray-600">State-of-the-art biotechnology for superior shrimp broodstock
+
+                <!-- Subheading with Value Proposition -->
+                <p class="max-w-3xl mx-auto text-lg text-gray-600 md:text-xl">
+                    Pioneering genetic advancements and sustainable aquaculture technologies
+                    for superior shrimp broodstock performance
                 </p>
             </div>
 
+            <!-- Dynamic Content Component -->
             <livewire:innovation-section />
         </div>
     </section>
 
     <!-- Technology Section -->
-    <section class="relative py-20 overflow-hidden">
-        <div class="container px-4 mx-auto">
-            <div class="mb-4 text-center">
-                <h2 class="mb-4 text-3xl font-bold text-white md:text-4xl">Our Technology</h2>
-                <div class="flex justify-center mx-auto my-6">
-                    <span class="inline-block w-40 h-1 bg-blue-500 rounded-full"></span>
-                    <span class="inline-block w-3 h-1 mx-1 bg-blue-500 rounded-full"></span>
-                    <span class="inline-block w-1 h-1 bg-blue-500 rounded-full"></span>
+    <section id="technology" class="relative py-20 overflow-hidden bg-gray-900">
+        <!-- Background Ornaments - Diadaptasi dari komponen -->
+        <div class="absolute inset-0">
+            <div class="tech-slider__bg-ornament tech-slider__bg-grid"></div>
+            <div class="tech-slider__bg-ornament tech-slider__bg-circles"></div>
+            <div class="tech-slider__blob tech-slider__blob--1"></div>
+            <div class="tech-slider__blob tech-slider__blob--2"></div>
+            <div class="tech-slider__blob tech-slider__blob--3"></div>
+        </div>
+
+        <div class="relative container mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Section Header -->
+            <div class="mb-16 text-center">
+                <!-- Main Heading -->
+                <h2 class="mb-4 text-3xl font-bold text-white md:text-4xl lg:text-5xl">
+                    Advanced Aquaculture Technologies
+                </h2>
+
+                <!-- Decorative Divider - Style konsisten tapi dipertahankan layout asli -->
+                <div class="flex justify-center mx-auto my-6" aria-hidden="true">
+                    <span class="tech-slider__divider-line tech-slider__divider-line--primary w-40"></span>
+                    <span class="tech-slider__divider-line tech-slider__divider-line--secondary w-3 mx-1"></span>
+                    <span class="tech-slider__divider-line tech-slider__divider-line--tertiary w-1"></span>
                 </div>
-                <p class="max-w-2xl mx-auto text-white">State-of-the-art biotechnology for superior shrimp broodstock
+
+                <!-- Subheading -->
+                <p class="max-w-3xl mx-auto text-lg text-gray-300 md:text-xl">
+                    Cutting-edge molecular breeding and precision aquaculture solutions
+                    for optimal shrimp performance
                 </p>
             </div>
+
+            <!-- Technology Content with Card Container -->
+            <div class="relative z-10">
+                <livewire:technologies-section />
+            </div>
         </div>
-        <livewire:technologies-section />
     </section>
 
     <!-- Performance Testing Section -->
-    <section class="py-20 bg-white">
+    <section id="performance" class="py-20 bg-white">
         <div class="container px-4 mx-auto">
             <div class="mb-16 text-center">
-                <h2 class="mb-4 text-3xl font-bold text-gray-800 md:text-4xl">MULTILOCATION PERFORMANCE TEST</h2>
+                <h2 class="mb-4 text-3xl font-bold text-gray-800 md:text-4xl">MULTI-LOCATION PERFORMANCE TESTING</h2>
                 <div class="flex justify-center mx-auto my-6">
                     <span class="inline-block w-40 h-1 bg-blue-500 rounded-full"></span>
                     <span class="inline-block w-3 h-1 mx-1 bg-blue-500 rounded-full"></span>
                     <span class="inline-block w-1 h-1 bg-blue-500 rounded-full"></span>
                 </div>
-                <p class="max-w-4xl mx-auto text-gray-600">Proven adaptability across diverse farming conditions</p>
+                <p class="max-w-4xl mx-auto text-gray-600">Proven Excellence Across Diverse Farming Conditions</p>
             </div>
 
             <div class="flex flex-col items-center gap-12 lg:flex-row">
                 <div class="lg:w-1/2">
                     <div class="relative overflow-hidden shadow-xl rounded-xl">
                         <img src="https://images.unsplash.com/photo-1572015242290-d9132e2b6d52?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                            alt="Performance Testing" class="w-full h-auto">
+                            alt="Vannamei shrimp farming performance testing" class="w-full h-auto">
                         <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
                         <div class="absolute bottom-0 left-0 right-0 p-6 text-white">
                             <h3 class="text-xl font-semibold">Real-World Validation</h3>
-                            <p>Testing across multiple farming environments</p>
+                            <p>Rigorously tested across diverse farming environments for unmatched reliability</p>
                         </div>
                     </div>
                 </div>
 
                 <div class="lg:w-1/2">
                     <div class="space-y-6">
-                        <p class="text-gray-700">At <span class="font-semibold">NUSA DEWA</span>, we go beyond the lab
-                            to ensure real-world success. Our vannamei broodstock is tested across multiple farming
-                            locations—spanning various climates, salinities, and systems—to guarantee consistent
-                            performance wherever they're cultivated.</p>
-                        <p class="text-gray-700">This <span class="font-semibold">Multilocation Performance
-                                Test</span> validates key traits like fast growth, high survival, and disease resistance
-                            under practical conditions. The result? Proven adaptability, lower production risks, and
-                            peace of mind for farmers around the world. With <span class="font-semibold">NUSA
-                                DEWA</span>, field-tested performance isn't just a promise—it's a proven standard.</p>
+                        <p class="text-gray-700">At <span class="font-semibold text-blue-600">NUSA DEWA</span>, we
+                            believe true quality is proven in the field, not just the lab. Our premium vannamei
+                            broodstock undergoes extensive <span class="font-semibold">multi-location performance
+                                testing</span> across varying climates, water salinities, and farming systems to ensure
+                            superior adaptability and consistent results.</p>
 
-                        <div class="grid grid-cols-2 gap-4 mt-8">
-                            <div class="p-4 border border-gray-200 rounded-lg bg-gray-50">
-                                <div class="mb-2 text-3xl font-bold text-primary">98%</div>
-                                <div class="text-gray-600">Survival Rate</div>
+                        <p class="text-gray-700">This rigorous testing protocol validates critical performance
+                            indicators including <span class="font-semibold">growth rate, survival under stress, disease
+                                resistance, and feed efficiency</span>. The outcome? A broodstock solution that delivers
+                            predictable, high-yield performance—regardless of your farm's unique conditions.</p>
+
+                        <div class="grid grid-cols-3 gap-4 mt-8">
+                            <div
+                                class="p-4 border border-gray-200 rounded-lg bg-gray-50 hover:bg-blue-50 transition-colors">
+                                <div class="mb-2 text-3xl font-bold text-blue-600">98%</div>
+                                <div class="text-gray-600">Average Survival Rate</div>
                             </div>
-                            <div class="p-4 border border-gray-200 rounded-lg bg-gray-50">
-                                <div class="mb-2 text-3xl font-bold text-primary">1.8x</div>
-                                <div class="text-gray-600">Growth Efficiency</div>
+                            <div
+                                class="p-4 border border-gray-200 rounded-lg bg-gray-50 hover:bg-blue-50 transition-colors">
+                                <div class="mb-2 text-3xl font-bold text-blue-600">1.8x</div>
+                                <div class="text-gray-600">Faster Growth vs Industry Standard</div>
                             </div>
-                            <div class="p-4 border border-gray-200 rounded-lg bg-gray-50">
-                                <div class="mb-2 text-3xl font-bold text-primary">12+</div>
-                                <div class="text-gray-600">Testing Locations</div>
-                            </div>
-                            <div class="p-4 border border-gray-200 rounded-lg bg-gray-50">
-                                <div class="mb-2 text-3xl font-bold text-primary">24/7</div>
-                                <div class="text-gray-600">Technical Support</div>
+                            <div
+                                class="p-4 border border-gray-200 rounded-lg bg-gray-50 hover:bg-blue-50 transition-colors">
+                                <div class="mb-2 text-3xl font-bold text-blue-600">24/7</div>
+                                <div class="text-gray-600">Dedicated Technical Support</div>
                             </div>
                         </div>
+
+                        <p class="pt-4 text-gray-600 italic">"Our multi-location validation process eliminates
+                            guesswork, giving farmers confidence in every batch."</p>
                     </div>
                 </div>
             </div>
@@ -131,70 +189,98 @@
     </section>
 
     <!-- Global Reach Section with Parallax -->
-    <section class="relative py-20 overflow-hidden">
+    <section id="globalReach" class="relative py-24 overflow-hidden">
+        <!-- Background Elements -->
         <div class="absolute inset-0 z-0 parallax-bg"
             :style="`background-image: url('https://images.unsplash.com/photo-1668243304603-7ecf4eefba6e?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8bGFiJTIwTW9sZWN1bGFyJTIwVGVjaG5vbG9neXxlbnwwfDB8MHx8fDI%3D'); transform: translateY(${parallaxOffset *0.001}px)`">
         </div>
 
         <!-- Gradient Overlay -->
-        <div class="absolute inset-0 bg-gradient-to-b from-dark/10 via-dark/70 to-dark/90 z-5"></div>
+        <div class="absolute inset-0 bg-gradient-to-b from-dark/20 via-dark/80 to-dark/95 z-5"></div>
 
-        <!-- Noise Texture for Depth -->
-        <div class="absolute inset-0 z-10 bg-noise opacity-10"></div>
-        </div>
+        <!-- Noise Texture -->
+        <div class="absolute inset-0 z-10 bg-noise opacity-15"></div>
 
         <!-- Content -->
         <div class="container relative z-20 px-4 mx-auto">
             <div class="max-w-2xl">
-                <h2 class="mb-6 text-3xl font-bold text-white md:text-4xl"
-                    x-transition:enter="transition ease-out duration-700"
-                    x-transition:enter-start="opacity-0 translate-y-10"
-                    x-transition:enter-end="opacity-100 translate-y-0">
-                    WORLDWIDE ACCESS
-                </h2>
-
-                <div class="flex justify-start mx-auto my-6">
-                    <span class="inline-block w-40 h-1 bg-white rounded-full"></span>
-                    <span class="inline-block w-3 h-1 mx-1 bg-white rounded-full"></span>
-                    <span class="inline-block w-1 h-1 bg-white rounded-full"></span>
+                <!-- Header Section -->
+                <div class="mb-8">
+                    <span
+                        class="inline-block px-4 py-1 mb-4 text-xs font-semibold tracking-wider text-blue-300 uppercase bg-blue-900/30 rounded-full">
+                        Indonesian Excellence
+                    </span>
+                    <h2 class="mb-4 text-4xl font-bold leading-tight text-white md:text-5xl">
+                        <span class="text-blue-300">Bali's</span> Genetic<br>Breakthrough
+                    </h2>
+                    <div class="flex justify-start my-6">
+                        <span class="inline-block w-16 h-1 bg-blue-400 rounded-full"></span>
+                        <span class="inline-block w-4 h-1 mx-2 bg-blue-400 rounded-full"></span>
+                        <span class="inline-block w-2 h-1 bg-blue-400 rounded-full"></span>
+                    </div>
                 </div>
 
-                <p class="mb-4 text-gray-300" x-transition:enter="transition ease-out duration-700 delay-100"
-                    x-transition:enter-start="opacity-0 translate-y-10"
-                    x-transition:enter-end="opacity-100 translate-y-0">
-                    Strategically located in Bali, our vannamei broodstock breeding program is designed with global
-                    reach in mind. With international-standard biosecurity, advanced genetics, and streamlined export
-                    capabilities, we offer premium broodstock to aquaculture markets around the world.
-                </p>
+                <!-- Main Content -->
+                <div class="space-y-6">
+                    <p class="text-lg leading-relaxed text-blue-100">
+                        At the heart of Indonesia's shrimp revolution, Nusa Dewa combines cutting-edge genetics with
+                        traditional aquaculture wisdom to deliver broodstock that outperforms global benchmarks.
+                    </p>
 
-                <p class="text-gray-300" x-transition:enter="transition ease-out duration-700 delay-200"
-                    x-transition:enter-start="opacity-0 translate-y-10"
-                    x-transition:enter-end="opacity-100 translate-y-0">
-                    From Southeast Asia to the Americas, <span class="font-semibold text-white">Bali-bred</span>
-                    vannamei shrimp deliver consistent quality, disease resistance, and performance that meets the
-                    demands of modern shrimp farming. Wherever you farm, <span class="font-semibold text-white">Nusa
-                        Dewa broodstock</span> brings Bali's innovation to your pond — reliably, efficiently, and
-                    sustainably.
-                </p>
+                    <!-- Key Metrics -->
+                    <div class="grid grid-cols-2 gap-4 my-8">
+                        <div class="p-4 bg-white/5 backdrop-blur-sm rounded-xl border border-white/10">
+                            <div class="text-3xl font-bold text-blue-300">30+</div>
+                            <div class="text-sm font-medium text-blue-100">Export Countries</div>
+                        </div>
+                        <div class="p-4 bg-white/5 backdrop-blur-sm rounded-xl border border-white/10">
+                            <div class="text-3xl font-bold text-blue-300">12-15%</div>
+                            <div class="text-sm font-medium text-blue-100">Better FCR</div>
+                        </div>
+                        <div class="p-4 bg-white/5 backdrop-blur-sm rounded-xl border border-white/10">
+                            <div class="text-3xl font-bold text-blue-300">2-35</div>
+                            <div class="text-sm font-medium text-blue-100">ppt Salinity Range</div>
+                        </div>
+                        <div class="p-4 bg-white/5 backdrop-blur-sm rounded-xl border border-white/10">
+                            <div class="text-3xl font-bold text-blue-300">28-34°C</div>
+                            <div class="text-sm font-medium text-blue-100">Temperature Tolerance</div>
+                        </div>
+                    </div>
 
-                <div class="flex flex-wrap gap-4 mt-8" x-transition:enter="transition ease-out duration-700 delay-300"
-                    x-transition:enter-start="opacity-0 translate-y-10"
-                    x-transition:enter-end="opacity-100 translate-y-0">
-                    <div
-                        class="px-4 py-2 text-white transition-all duration-300 bg-white border border-white rounded-full hover:bg-opacity-20 bg-opacity-10 backdrop-blur-sm border-opacity-20 hover:border-opacity-40">
-                        <i class="mr-2 fas fa-globe-asia"></i> Southeast Asia
-                    </div>
-                    <div
-                        class="px-4 py-2 text-white transition-all duration-300 bg-white border border-white rounded-full hover:bg-opacity-20 bg-opacity-10 backdrop-blur-sm border-opacity-20 hover:border-opacity-40">
-                        <i class="mr-2 fas fa-globe-americas"></i> Latin America
-                    </div>
-                    <div
-                        class="px-4 py-2 text-white transition-all duration-300 bg-white border border-white rounded-full hover:bg-opacity-20 bg-opacity-10 backdrop-blur-sm border-opacity-20 hover:border-opacity-40">
-                        <i class="mr-2 fas fa-globe-africa"></i> Africa
-                    </div>
-                    <div
-                        class="px-4 py-2 text-white transition-all duration-300 bg-white border border-white rounded-full hover:bg-opacity-20 bg-opacity-10 backdrop-blur-sm border-opacity-20 hover:border-opacity-40">
-                        <i class="mr-2 fas fa-globe-europe"></i> Middle East
+                    <!-- Facility Features -->
+                    <div class="p-6 bg-white/5 backdrop-blur-sm rounded-xl border border-white/10">
+                        <h3 class="mb-4 text-xl font-semibold text-white">World-Class Breeding Facility</h3>
+                        <ul class="space-y-3">
+                            <li class="flex items-start">
+                                <svg class="flex-shrink-0 w-5 h-5 mt-0.5 mr-3 text-blue-300" fill="currentColor"
+                                    viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd"
+                                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                        clip-rule="evenodd"></path>
+                                </svg>
+                                <span class="text-blue-100">AA+ biosecurity exceeding OIE standards with 24/7
+                                    monitoring</span>
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="flex-shrink-0 w-5 h-5 mt-0.5 mr-3 text-blue-300" fill="currentColor"
+                                    viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd"
+                                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                        clip-rule="evenodd"></path>
+                                </svg>
+                                <span class="text-blue-100">SPF/SPR certification with full genomic traceability</span>
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="flex-shrink-0 w-5 h-5 mt-0.5 mr-3 text-blue-300" fill="currentColor"
+                                    viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd"
+                                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                        clip-rule="evenodd"></path>
+                                </svg>
+                                <span class="text-blue-100">Climate-controlled transport ensuring 98%+ survival
+                                    rates</span>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -202,162 +288,313 @@
     </section>
 
     <!-- Expertise Section -->
-    <section class="relative py-20 bg-gray-50">
-        <div class="container px-4 mx-auto overflow-hidden">
-            <!-- Section Title -->
-            <div class="mb-4 text-center">
-                <h2 class="mb-4 text-3xl font-bold text-gray-800 md:text-4xl">SOLID EXPERTISE</h2>
+    <section id="team" class="relative py-20 bg-gradient-to-b from-gray-50 to-white">
+        <div class="container px-4 mx-auto">
+            <!-- Section Header -->
+            <div class="max-w-4xl mx-auto mb-16 text-center">
+                <span
+                    class="inline-block px-4 py-2 mb-4 text-xs font-semibold tracking-wider text-blue-700 uppercase bg-blue-50 rounded-full">
+                    Indonesian Aquaculture Pioneer
+                </span>
+                <h2 class="mb-4 text-3xl font-bold text-gray-900 md:text-4xl">
+                    <span class="text-blue-700">Nusantara's</span> Genetic Legacy
+                </h2>
                 <div class="flex justify-center mx-auto my-6">
-                    <span class="inline-block w-40 h-1 bg-blue-500 rounded-full"></span>
-                    <span class="inline-block w-3 h-1 mx-1 bg-blue-500 rounded-full"></span>
-                    <span class="inline-block w-1 h-1 bg-blue-500 rounded-full"></span>
+                    <span class="inline-block w-24 h-1.5 bg-blue-600 rounded-full"></span>
+                    <span class="inline-block w-4 h-1.5 mx-2 bg-blue-600 rounded-full"></span>
+                    <span class="inline-block w-2 h-1.5 bg-blue-600 rounded-full"></span>
                 </div>
-                <p class="max-w-2xl mx-auto text-gray-600">
-                    At NUSA DEWA, our strength lies in experience. Our breeding
-                    program is led by a multidisciplinary team who have spent years perfecting the science of vannamei
-                    broodstock. Every decision—from genetic selection to performance evaluation—is grounded in proven
-                    research and real-world insight.
+                <p class="text-lg leading-relaxed text-gray-600">
+                    At NUSA DEWA, we combine generations of Indonesian aquaculture wisdom with cutting-edge genetic
+                    science. Our multidisciplinary team of scientists, hatchery specialists, and field experts has
+                    perfected
+                    vannamei broodstock that thrives in Indonesia's diverse ecosystems while meeting global aquaculture
+                    standards.
                 </p>
             </div>
 
-            <!-- Livewire Team Slider Component -->
-            <livewire:team-slider />
+            <!-- National Impact Highlights -->
+            <div class="grid max-w-6xl grid-cols-1 gap-8 mx-auto mb-20 lg:grid-cols-3">
+                <!-- Coverage Card -->
+                <div
+                    class="relative p-8 overflow-hidden bg-white rounded-xl shadow-sm border border-gray-100 group hover:shadow-md transition-shadow">
+                    <div class="absolute top-0 right-0 w-32 h-32 -mr-10 -mt-10 bg-blue-50 rounded-full opacity-40">
+                    </div>
+                    <div class="relative z-10">
+                        <div
+                            class="flex items-center justify-center w-16 h-16 mb-6 text-blue-700 bg-blue-50 rounded-2xl">
+                            <i class="text-2xl fas fa-map-marked-alt"></i>
+                        </div>
+                        <h3 class="mb-3 text-xl font-bold text-gray-800">National Reach</h3>
+                        <p class="mb-4 text-gray-600">
+                            Supporting 250+ hatcheries across all major Indonesian shrimp farming regions
+                        </p>
+
+                    </div>
+                </div>
+
+                <!-- Empowerment Card -->
+                <div
+                    class="relative p-8 overflow-hidden bg-white rounded-xl shadow-sm border border-gray-100 group hover:shadow-md transition-shadow">
+                    <div class="absolute top-0 right-0 w-32 h-32 -mr-10 -mt-10 bg-teal-50 rounded-full opacity-40">
+                    </div>
+                    <div class="relative z-10">
+                        <div
+                            class="flex items-center justify-center w-16 h-16 mb-6 text-teal-700 bg-teal-50 rounded-2xl">
+                            <i class="text-2xl fas fa-users"></i>
+                        </div>
+                        <h3 class="mb-3 text-xl font-bold text-gray-800">Farmer Development</h3>
+                        <p class="mb-4 text-gray-600">
+                            Empowering 5,000+ smallholder farmers through comprehensive training programs
+                        </p>
+
+                    </div>
+                </div>
+
+                <!-- Adaptation Card -->
+                <div
+                    class="relative p-8 overflow-hidden bg-white rounded-xl shadow-sm border border-gray-100 group hover:shadow-md transition-shadow">
+                    <div class="absolute top-0 right-0 w-32 h-32 -mr-10 -mt-10 bg-amber-50 rounded-full opacity-40">
+                    </div>
+                    <div class="relative z-10">
+                        <div
+                            class="flex items-center justify-center w-16 h-16 mb-6 text-amber-700 bg-amber-50 rounded-2xl">
+                            <i class="text-2xl fas fa-seedling"></i>
+                        </div>
+                        <h3 class="mb-3 text-xl font-bold text-gray-800">Ecosystem Adaptation</h3>
+                        <p class="mb-4 text-gray-600">
+                            12 specialized broodstock strains optimized for Indonesia's unique coastal conditions
+                        </p>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- Team Section -->
+            <div class="max-w-6xl mx-auto">
+                <div class="mb-10 text-center">
+                    <h3 class="mb-3 text-2xl font-bold text-gray-800">Our Scientific Leadership</h3>
+                    <p class="max-w-2xl mx-auto text-gray-600">
+                        Homegrown experts with global recognition, advancing Indonesia's shrimp aquaculture
+                    </p>
+                    <div class="flex justify-center mx-auto my-4">
+                        <span class="inline-block w-16 h-1 bg-blue-600 rounded-full"></span>
+                    </div>
+                </div>
+
+                <!-- Livewire Team Slider Component -->
+                <livewire:team-slider />
+            </div>
         </div>
     </section>
 
     <!-- Products Section -->
-    <section class="py-20 bg-dark">
+    <section id="product" class="py-20 bg-gradient-to-b from-gray-900 to-gray-800">
         <div class="container px-4 mx-auto">
-            <div class="mb-16 text-center">
-                <h2 class="mb-4 text-3xl font-bold text-white md:text-4xl">Our Products</h2>
+            <!-- Section Header -->
+            <div class="max-w-3xl mx-auto mb-16 text-center">
+                <span
+                    class="inline-block px-4 py-2 mb-4 text-xs font-semibold tracking-wider text-blue-400 uppercase bg-blue-900/30 rounded-full">
+                    Premium Genetics
+                </span>
+                <h2 class="mb-4 text-3xl font-bold text-white md:text-4xl">
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-300">NUSA
+                        DEWA</span> Product Lines
+                </h2>
                 <div class="flex justify-center mx-auto my-6">
-                    <span class="inline-block w-40 h-1 bg-white rounded-full"></span>
-                    <span class="inline-block w-3 h-1 mx-1 bg-white rounded-full"></span>
-                    <span class="inline-block w-1 h-1 bg-white rounded-full"></span>
+                    <span class="inline-block w-24 h-1 bg-gradient-to-r from-blue-400 to-blue-600 rounded-full"></span>
+                    <span class="inline-block w-4 h-1 mx-2 bg-blue-500 rounded-full"></span>
+                    <span class="inline-block w-2 h-1 bg-blue-400 rounded-full"></span>
                 </div>
-                <p class="max-w-2xl mx-auto text-gray-300">Specialized shrimp strains for diverse aquaculture needs</p>
+                <p class="text-lg leading-relaxed text-gray-300">
+                    Engineered for excellence - our specialized shrimp strains meet diverse aquaculture demands
+                    with superior performance characteristics
+                </p>
             </div>
 
-            <livewire:products-section />
+            <!-- Products Component -->
+            <div class="relative">
+                <div class="absolute inset-0 flex items-center justify-center">
+                    <div class="w-full h-full bg-gradient-to-r from-transparent via-gray-900/50 to-transparent"></div>
+                </div>
+                <livewire:products-section />
+            </div>
         </div>
     </section>
 
     <!-- News Section -->
-    <section class="py-20 bg-white">
+    <section id="news" class="py-20 bg-white">
         <div class="container px-4 mx-auto">
-            <div class="mb-16 text-center">
-                <h2 class="mb-4 text-3xl font-bold text-gray-800 md:text-4xl">Berita & Pembaruan Terkini</h2>
+            <!-- Section Header -->
+            <div class="max-w-4xl mx-auto mb-16 text-center">
+                <span
+                    class="inline-block px-4 py-2 mb-4 text-xs font-semibold tracking-wider text-blue-600 uppercase bg-blue-50 rounded-full">
+                    Industry Insights
+                </span>
+                <h2 class="mb-4 text-3xl font-bold text-gray-800 md:text-4xl">
+                    <span class="text-blue-600">Aquaculture</span> Innovations & Updates
+                </h2>
                 <div class="flex justify-center mx-auto my-6">
-                    <span class="inline-block w-40 h-1 bg-blue-500 rounded-full"></span>
-                    <span class="inline-block w-3 h-1 mx-1 bg-blue-500 rounded-full"></span>
-                    <span class="inline-block w-1 h-1 bg-blue-500 rounded-full"></span>
+                    <span class="inline-block w-24 h-1 bg-blue-500 rounded-full"></span>
+                    <span class="inline-block w-4 h-1 mx-2 bg-blue-500 rounded-full"></span>
+                    <span class="inline-block w-2 h-1 bg-blue-500 rounded-full"></span>
                 </div>
-                <p class="max-w-2xl mx-auto text-gray-600">Ikuti perkembangan terbaru penelitian dan inovasi akuakultur
-                    kami
+                <p class="text-lg leading-relaxed text-gray-600">
+                    Stay informed with our latest research breakthroughs, industry trends, and technological
+                    advancements
+                    in shrimp genetics and sustainable aquaculture practices.
                 </p>
             </div>
 
-            <livewire:news-section />
+            <!-- News Component -->
+            <div class="relative">
+                <div
+                    class="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent">
+                </div>
+                <livewire:news-section />
+                <div
+                    class="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent">
+                </div>
+            </div>
 
+            <!-- Optional CTA -->
+            <div class="mt-12 text-center">
+                <a href="#"
+                    class="inline-flex items-center px-6 py-3 text-sm font-medium text-blue-600 transition-all duration-200 border border-blue-200 rounded-full hover:bg-blue-50 hover:border-blue-300">
+                    View All Updates
+                    <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                    </svg>
+                </a>
+            </div>
+        </div>
     </section>
 
-
     <!-- Contact Section -->
-    <section id="contact" class="py-20 bg-gray-100">
+    <section id="contact" class="py-20 bg-gradient-to-b from-gray-50 to-white">
         <div class="container px-4 mx-auto">
-            <div class="mb-16 text-center">
-                <h2 class="mb-4 text-3xl font-bold text-gray-800 md:text-4xl">Contact Us</h2>
+            <!-- Section Header -->
+            <div class="max-w-3xl mx-auto mb-16 text-center">
+                <span
+                    class="inline-block px-4 py-2 mb-4 text-xs font-semibold tracking-wider text-blue-600 uppercase bg-blue-50 rounded-full">
+                    Connect With Our Experts
+                </span>
+                <h2 class="mb-4 text-3xl font-bold text-gray-900 md:text-4xl">
+                    <span class="text-blue-600">Aquaculture</span> Support & Inquiries
+                </h2>
                 <div class="flex justify-center mx-auto my-6">
-                    <span class="inline-block w-40 h-1 bg-blue-500 rounded-full"></span>
-                    <span class="inline-block w-3 h-1 mx-1 bg-blue-500 rounded-full"></span>
-                    <span class="inline-block w-1 h-1 bg-blue-500 rounded-full"></span>
+                    <span class="inline-block w-24 h-1.5 bg-blue-500 rounded-full"></span>
+                    <span class="inline-block w-4 h-1.5 mx-2 bg-blue-500 rounded-full"></span>
+                    <span class="inline-block w-2 h-1.5 bg-blue-500 rounded-full"></span>
                 </div>
-                <p class="max-w-2xl mx-auto text-gray-600">Get in touch with our aquaculture experts</p>
+                <p class="text-lg leading-relaxed text-gray-600">
+                    {{ $appInfo['company_description'] ?? 'Our team of shrimp genetics specialists is ready to assist with technical questions, product information, and partnership opportunities.' }}
+                </p>
             </div>
 
             <div class="flex flex-col gap-12 lg:flex-row">
+                <!-- Contact Information -->
                 <div class="lg:w-1/2">
-                    <div class="h-full p-8 bg-white shadow-md rounded-xl">
-                        <h3 class="mb-6 text-2xl font-bold text-gray-800">Contact Information</h3>
+                    <div class="h-full p-8 bg-white rounded-xl shadow-sm border border-gray-100">
+                        <div class="flex items-center mb-6">
+                            @if (isset($appInfo['companyLogo']))
+                                <img src="{{ $appInfo['companyLogo'] }}"
+                                    alt="{{ $appInfo['company_name'] ?? 'Nusa Dewa' }} Logo" class="h-12 mr-4">
+                            @endif
+                            <h3 class="text-2xl font-bold text-gray-900">Global Contact Channels</h3>
+                        </div>
 
                         <div class="space-y-6">
+                            <!-- Email -->
                             <div class="flex items-start">
-                                <div class="p-3 mr-4 rounded-full bg-primary bg-opacity-10 text-primary">
-                                    <i class="text-lg fas fa-envelope"></i>
+                                <div class="flex-shrink-0 p-3 mr-4 text-blue-600 bg-blue-50 rounded-xl">
+                                    <i class="text-xl fas fa-envelope"></i>
                                 </div>
                                 <div>
-                                    <h4 class="mb-1 font-semibold text-gray-800">Email</h4>
-                                    <p class="text-gray-600">info@nusadewa.com</p>
-                                    <p class="text-gray-600">sales@nusadewa.com</p>
+                                    <h4 class="mb-2 text-lg font-semibold text-gray-900">Email Support</h4>
+                                    <p class="mb-1 text-gray-600">
+                                        <span class="font-medium">General Inquiries:</span>
+                                        <a href="mailto:{{ $appInfo['email'] ?? 'bpiu2k@gmail.com' }}"
+                                            class="text-blue-600 hover:underline">
+                                            {{ $appInfo['email'] ?? 'bpiu2k@gmail.com' }}
+                                        </a>
+                                    </p>
                                 </div>
                             </div>
 
+                            <!-- Phone -->
                             <div class="flex items-start">
-                                <div class="p-3 mr-4 rounded-full bg-primary bg-opacity-10 text-primary">
-                                    <i class="text-lg fas fa-phone-alt"></i>
+                                <div class="flex-shrink-0 p-3 mr-4 text-blue-600 bg-blue-50 rounded-xl">
+                                    <i class="text-xl fas fa-phone-alt"></i>
                                 </div>
                                 <div>
-                                    <h4 class="mb-1 font-semibold text-gray-800">Phone</h4>
-                                    <p class="text-gray-600">+62 361 1234567 (Office)</p>
-                                    <p class="text-gray-600">+62 812 3456 7890 (Technical Support)</p>
+                                    <h4 class="mb-2 text-lg font-semibold text-gray-900">Phone Support</h4>
+                                    <p class="text-gray-600">
+                                        <span class="font-medium">Main Office:</span>
+                                        {{ $appInfo['phone'] ?? '03632787803' }}
+                                    </p>
                                 </div>
                             </div>
 
+                            <!-- Address -->
                             <div class="flex items-start">
-                                <div class="p-3 mr-4 rounded-full bg-primary bg-opacity-10 text-primary">
-                                    <i class="text-lg fas fa-map-marker-alt"></i>
+                                <div class="flex-shrink-0 p-3 mr-4 text-blue-600 bg-blue-50 rounded-xl">
+                                    <i class="text-xl fas fa-map-marker-alt"></i>
                                 </div>
                                 <div>
-                                    <h4 class="mb-1 font-semibold text-gray-800">Headquarters</h4>
-                                    <p class="text-gray-600">Nusa Dewa Aquaculture Center<br>
-                                        Jl. Raya Pemogan No. 123<br>
-                                        Denpasar, Bali 80361, Indonesia</p>
+                                    <h4 class="mb-2 text-lg font-semibold text-gray-900">Global Headquarters</h4>
+                                    <p class="text-gray-600">
+                                        {{ $appInfo['company_name'] ?? 'Nusa Dewa' }}<br>
+                                        {{ $appInfo['address'] ?? 'Bugbug Road, Manggis District' }}<br>
+                                        {{ $appInfo['city'] ?? 'Karangasem' }}, {{ $appInfo['province'] ?? 'Bali' }}
+                                        {{ $appInfo['postal_code'] ?? '80811' }}<br>
+                                        {{ $appInfo['country'] ?? 'Indonesia' }}
+                                    </p>
+                                    <a href="https://maps.google.com?q={{ urlencode($appInfo['address'] ?? 'Bugbug Road, Manggis District') }}"
+                                        target="_blank"
+                                        class="inline-block mt-2 text-sm text-blue-600 hover:underline">
+                                        Get Directions <i class="ml-1 fas fa-external-link-alt"></i>
+                                    </a>
                                 </div>
                             </div>
 
+                            <!-- Hours -->
                             <div class="flex items-start">
-                                <div class="p-3 mr-4 rounded-full bg-primary bg-opacity-10 text-primary">
-                                    <i class="text-lg fas fa-clock"></i>
+                                <div class="flex-shrink-0 p-3 mr-4 text-blue-600 bg-blue-50 rounded-xl">
+                                    <i class="text-xl fas fa-clock"></i>
                                 </div>
                                 <div>
-                                    <h4 class="mb-1 font-semibold text-gray-800">Operational Hours</h4>
-                                    <p class="text-gray-600">Monday - Friday: 08:00 - 17:00 WITA<br>
-                                        Saturday: 08:00 - 12:00 WITA<br>
-                                        Sunday: Closed</p>
+                                    <h4 class="mb-2 text-lg font-semibold text-gray-900">Operating Hours</h4>
+                                    <p class="text-gray-600">
+                                        {!! $appInfo['formattedHours'] ??
+                                            'Monday-Friday: 7:30AM - 4:00PM<br>Friday: 7:30AM - 4:30PM<br>Saturday-Sunday: Closed' !!}
+                                    </p>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="mt-8">
-                            <h4 class="mb-3 font-semibold text-gray-800">Follow Us</h4>
-                            <div class="flex space-x-4">
-                                <a href="#"
-                                    class="flex items-center justify-center w-10 h-10 text-gray-600 transition-colors bg-gray-100 rounded-full hover:bg-primary hover:text-white">
-                                    <i class="fab fa-facebook-f"></i>
-                                </a>
-                                <a href="#"
-                                    class="flex items-center justify-center w-10 h-10 text-gray-600 transition-colors bg-gray-100 rounded-full hover:bg-primary hover:text-white">
-                                    <i class="fab fa-twitter"></i>
-                                </a>
-                                <a href="#"
-                                    class="flex items-center justify-center w-10 h-10 text-gray-600 transition-colors bg-gray-100 rounded-full hover:bg-primary hover:text-white">
-                                    <i class="fab fa-instagram"></i>
-                                </a>
-                                <a href="#"
-                                    class="flex items-center justify-center w-10 h-10 text-gray-600 transition-colors bg-gray-100 rounded-full hover:bg-primary hover:text-white">
-                                    <i class="fab fa-linkedin-in"></i>
-                                </a>
-                                <a href="#"
-                                    class="flex items-center justify-center w-10 h-10 text-gray-600 transition-colors bg-gray-100 rounded-full hover:bg-primary hover:text-white">
-                                    <i class="fab fa-youtube"></i>
-                                </a>
+                        <!-- Social Media -->
+                        @if (!empty($socialMedia['social_media']))
+                            <div class="pt-8 mt-8 border-t border-gray-200">
+                                <h4 class="mb-4 text-lg font-semibold text-gray-900">Connect With Us</h4>
+                                <div class="flex space-x-3">
+                                    @foreach ($socialMedia['social_media'] as $platform => $url)
+                                        @if ($url)
+                                            <a href="{{ $url }}" target="_blank"
+                                                class="flex items-center justify-center w-10 h-10 text-gray-600 transition-all bg-gray-100 rounded-full hover:bg-blue-600 hover:text-white hover:shadow-md">
+                                                <i class="fab fa-{{ $platform }}"></i>
+                                            </a>
+                                        @endif
+                                    @endforeach
+                                </div>
                             </div>
-                        </div>
+                        @endif
                     </div>
                 </div>
 
+                <!-- Contact Form -->
                 <div class="lg:w-1/2">
-                    <!-- Livewire Contact Form Component -->
                     <livewire:contact-form />
                 </div>
             </div>
