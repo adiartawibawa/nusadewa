@@ -3,6 +3,7 @@
 namespace App\Filament\Clusters\Communications\Resources\ContactMessageResource\Pages;
 
 use App\Filament\Clusters\Communications\Resources\ContactMessageResource;
+use App\Filament\Clusters\Communications\Resources\ContactMessageResource\Widgets\ContactMessageStatsWidget;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
 
@@ -14,6 +15,13 @@ class ListContactMessages extends ListRecords
     {
         return [
             Actions\CreateAction::make(),
+        ];
+    }
+
+    protected function getHeaderWidgets(): array
+    {
+        return [
+            ContactMessageStatsWidget::class,
         ];
     }
 }
