@@ -2,6 +2,7 @@
 
 namespace App\Filament\Pages;
 
+use App\Filament\Clusters\Communications\Resources\ContactMessageResource\Widgets\LatestContactMessages;
 use App\Filament\Clusters\Publishing\Resources\PostResource\Widgets\{
     LatestPostsTable,
     MostViewedPosts,
@@ -27,6 +28,7 @@ class Dashboard extends BaseDashboard
         return [
             PostStatsOverview::class,
             LatestPostsTable::class,
+            LatestContactMessages::class,
         ];
     }
 

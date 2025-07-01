@@ -4,6 +4,7 @@ namespace App\Filament\Clusters\Communications\Resources\ContactMessageResource\
 
 use App\Filament\Clusters\Communications\Resources\ContactMessageResource;
 use App\Filament\Clusters\Communications\Resources\ContactMessageResource\Widgets\ContactMessageStatsWidget;
+use App\Filament\Clusters\Communications\Resources\ContactMessageResource\Widgets\LatestContactMessages;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
 
@@ -22,6 +23,7 @@ class ListContactMessages extends ListRecords
     {
         return [
             ContactMessageStatsWidget::class,
+            LatestContactMessages::class,
         ];
     }
 }
