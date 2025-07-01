@@ -21,6 +21,17 @@ return new class extends Migration
             $table->boolean('is_read')->default(false);
             $table->timestamps();
         });
+
+        Schema::create('contact_message_replies', function (Blueprint $table) {
+            $table->uuid('id')->primary();
+            $table->uuid('contact_message_id');
+            $table->text('message');
+            $table->timestamps();
+
+            $table->foreign('contact_message_id')
+                ->references('id')->on('contact_messages')
+                ->cascadeOnDelete();
+        });
     }
 
     /**
@@ -28,6 +39,7 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::dropIfExists('contact_message_replies');
         Schema::dropIfExists('contact_messages');
     }
 };
