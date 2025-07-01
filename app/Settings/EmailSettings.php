@@ -24,53 +24,37 @@ class EmailSettings extends Settings
     public static function defaults(): array
     {
         return [
-            'from_address' => 'noreply@example.com',
-            'from_name' => 'Nusa Dewa',
-            'mailer' => 'smtp',
-            'host' => 'sandbox.smtp.mailtrap.io',
-            'port' => 2525,
-            'username' => '',
-            'password' => '',
-            'encryption' => 'tls',
-            'test_address' => 'test@example.com',
+            'from_address' => env('MAIL_FROM_ADDRESS', 'noreply@example.com'),
+            'from_name' => env('MAIL_FROM_NAME', env('APP_NAME', 'Nusa Dewa')),
+            'mailer' => env('MAIL_MAILER', 'smtp'),
+            'host' => env('MAIL_HOST', 'sandbox.smtp.mailtrap.io'),
+            'port' => env('MAIL_PORT', 2525),
+            'username' => env('MAIL_USERNAME', ''),
+            'password' => env('MAIL_PASSWORD', ''),
+            'encryption' => env('MAIL_ENCRYPTION', 'tls'),
+            'test_address' => env('MAIL_TEST_ADDRESS', 'test@example.com'),
         ];
     }
-
-    // public static function encrypted(): array
-    // {
-    //     return [
-    //         'password'
-    //     ];
-    // }
-
     public function toMailConfig(): array
     {
-        $config = [
+        return [
             'default' => $this->mailer,
             'from' => [
                 'address' => $this->from_address,
                 'name' => $this->from_name,
             ],
             'mailers' => [
-                $this->mailer => [
+                $this->mailer => array_filter([
                     'transport' => $this->mailer,
                     'host' => $this->host,
                     'port' => $this->port,
-                    'encryption' => $this->encryption ?: null,
+                    'encryption' => $this->encryption,
                     'username' => $this->username,
                     'password' => $this->password,
-                ],
+                    'timeout' => null,
+                    'auth_mode' => null,
+                ])
             ],
         ];
-
-        // Add additional mailers if needed
-        // if ($this->mailer === 'mailgun') {
-        //     $config['mailers']['mailgun'] = [
-        //         'transport' => 'mailgun',
-        //         // Add other mailgun specific config
-        //     ];
-        // }
-
-        return $config;
     }
 }

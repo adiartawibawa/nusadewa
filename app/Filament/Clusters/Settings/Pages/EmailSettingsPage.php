@@ -3,6 +3,7 @@
 namespace App\Filament\Clusters\Settings\Pages;
 
 use App\Filament\Clusters\Settings;
+use App\Mail\TestMail;
 use App\Settings\EmailSettings;
 use Filament\Actions\Action;
 use Filament\Forms\Components\Section;
@@ -167,11 +168,16 @@ class EmailSettingsPage extends Page implements HasForms
                 throw new \Exception('Test email address is required');
             }
 
-            $mailer = $this->data['mailer'] ?? config('mail.default');
+            // Dapatkan settings terbaru dari database
+            $settings = app(EmailSettings::class);
 
-            Mail::mailer($mailer)
+            // Pastikan konfigurasi terbaru diaplikasikan
+            config(['mail' => $settings->toMailConfig()]);
+
+            // Kirim email menggunakan mailer yang dipilih
+            Mail::mailer($settings->mailer)
                 ->to($testAddress)
-                ->send(new \App\Mail\TestMail());
+                ->send(new TestMail());
 
             Notification::make()
                 ->title('Test email sent successfully')
@@ -187,7 +193,8 @@ class EmailSettingsPage extends Page implements HasForms
 
             logger()->error('Test email failed: ' . $e->getMessage(), [
                 'exception' => $e,
-                'test_address' => $this->data['test_address'] ?? null
+                'test_address' => $testAddress,
+                'mail_config' => config('mail')
             ]);
         }
     }

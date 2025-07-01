@@ -8,17 +8,20 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
+use App\Settings\EmailSettings;
 
 class TestMail extends Mailable
 {
     use Queueable, SerializesModels;
+
+    public $emailSettings;
 
     /**
      * Create a new message instance.
      */
     public function __construct()
     {
-        //
+        $this->emailSettings = app(EmailSettings::class);
     }
 
     /**
@@ -27,7 +30,7 @@ class TestMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Test Mail',
+            subject: 'Test Email Configuration - ' . config('app.name'),
         );
     }
 
@@ -38,13 +41,15 @@ class TestMail extends Mailable
     {
         return new Content(
             markdown: 'emails.test',
+            with: [
+                'settings' => $this->emailSettings,
+                'time' => now()->format('Y-m-d H:i:s')
+            ]
         );
     }
 
     /**
      * Get the attachments for the message.
-     *
-     * @return array<int, \Illuminate\Mail\Mailables\Attachment>
      */
     public function attachments(): array
     {
