@@ -23,15 +23,12 @@
                         x-transition:leave-start="opacity-100 translate-y-0"
                         x-transition:leave-end="opacity-0 translate-y-1"
                         class="absolute left-0 z-50 w-48 py-1 mt-2 bg-white border border-gray-100 rounded-md shadow-lg">
-                        <a href="#"
-                            class="block px-4 py-2 text-sm text-gray-800 transition-colors hover:bg-blue-50">Our
-                            Company</a>
-                        <a href="#"
+                        <a href="#innovation"
                             class="block px-4 py-2 text-sm text-gray-800 transition-colors hover:bg-blue-50">Innovation</a>
-                        <a href="#"
+                        <a href="#technology"
                             class="block px-4 py-2 text-sm text-gray-800 transition-colors hover:bg-blue-50">Our
                             Expertise</a>
-                        <a href="#"
+                        <a href="#team"
                             class="block px-4 py-2 text-sm text-gray-800 transition-colors hover:bg-blue-50">Our
                             Team</a>
                     </div>
@@ -123,6 +120,12 @@
 
                 <a href="#contact"
                     class="text-sm font-medium text-white transition-colors hover:text-primary">Contact</a>
+
+                <!-- Dark/Light Switcher -->
+                <button @click="darkMode = !darkMode" class="ml-4 text-white transition-colors hover:text-primary">
+                    <i x-show="!darkMode" class="fas fa-moon"></i>
+                    <i x-show="darkMode" class="fas fa-sun"></i>
+                </button>
 
                 <!-- Language Switcher -->
                 {{-- <div x-data="{ open: false }" class="relative">

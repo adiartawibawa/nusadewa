@@ -1,10 +1,47 @@
 <style>
     :root {
-        /* --primary-bg: #0a0a0a; */
+        /* Light mode colors */
         --grid-opacity: 0.02;
         --blur-size: 40px;
         --dot-size: 12px;
         --animation-duration: 0.3s;
+
+        /* Text colors */
+        --text-color: white;
+        --text-secondary: rgba(255, 255, 255, 0.7);
+        --divider-primary: white;
+        --divider-secondary: rgba(255, 255, 255, 0.5);
+        --divider-tertiary: rgba(255, 255, 255, 0.3);
+
+        /* UI elements */
+        --dot-inactive: rgba(255, 255, 255, 0.2);
+        --dot-hover: rgba(255, 255, 255, 0.5);
+        --dot-active: white;
+        --image-wrapper-bg: rgba(255, 255, 255, 0.1);
+        --button-bg: white;
+        --button-text: #0a0a0a;
+        --button-hover: rgba(255, 255, 255, 0.9);
+
+        /* Shimmer effect */
+        --shimmer-light: #f0f0f0;
+        --shimmer-dark: #e0e0e0;
+    }
+
+    /* Dark mode adjustments */
+    @media (prefers-color-scheme: dark) {
+        :root {
+            --grid-opacity: 0.05;
+            --text-color: #f8f9fa;
+            --text-secondary: rgba(248, 249, 250, 0.8);
+            --divider-primary: #f8f9fa;
+            --divider-secondary: rgba(248, 249, 250, 0.6);
+            --divider-tertiary: rgba(248, 249, 250, 0.4);
+            --image-wrapper-bg: rgba(248, 249, 250, 0.08);
+            --dot-inactive: rgba(248, 249, 250, 0.15);
+            --dot-hover: rgba(248, 249, 250, 0.4);
+            --shimmer-light: #1a1a1a;
+            --shimmer-dark: #2a2a2a;
+        }
     }
 
     /* Animation Styles */
@@ -181,7 +218,7 @@
         height: var(--dot-size);
         border-radius: 50%;
         transition: all var(--animation-duration) ease;
-        background-color: rgba(255, 255, 255, 0.2);
+        background-color: var(--dot-inactive);
         border: none;
         cursor: pointer;
         padding: 0;
@@ -189,14 +226,14 @@
 
     .tech-slider__dot:hover,
     .tech-slider__dot:focus {
-        background-color: rgba(255, 255, 255, 0.5);
+        background-color: var(--dot-hover);
         transform: scale(1.25);
-        outline: 2px solid white;
+        outline: 2px solid var(--dot-active);
         outline-offset: 2px;
     }
 
     .tech-slider__dot--active {
-        background-color: white;
+        background-color: var(--dot-active);
         transform: scale(1.5);
     }
 
@@ -217,7 +254,7 @@
 
     .tech-slider__image-wrapper {
         padding: 1rem;
-        background-color: rgba(255, 255, 255, 0.1);
+        background-color: var(--image-wrapper-bg);
         border-radius: 0.5rem;
         box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
         backdrop-filter: blur(4px);
@@ -227,7 +264,7 @@
         width: 100%;
         height: auto;
         border-radius: 0.5rem;
-        background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+        background: linear-gradient(90deg, var(--shimmer-light) 25%, var(--shimmer-dark) 50%, var(--shimmer-light) 75%);
         background-size: 200% 100%;
         animation: shimmer 1.5s infinite;
     }
@@ -235,7 +272,7 @@
     .tech-slider__title {
         margin-bottom: 1rem;
         font-weight: 700;
-        color: white;
+        color: var(--text-color);
         line-height: 1.2;
         font-size: clamp(1.75rem, 5vw, 3rem);
     }
@@ -253,22 +290,22 @@
 
     .tech-slider__divider-line--primary {
         width: 10rem;
-        background-color: white;
+        background-color: var(--divider-primary);
     }
 
     .tech-slider__divider-line--secondary {
         width: 0.75rem;
         margin: 0 0.25rem;
-        background-color: rgba(255, 255, 255, 0.5);
+        background-color: var(--divider-secondary);
     }
 
     .tech-slider__divider-line--tertiary {
         width: 0.25rem;
-        background-color: rgba(255, 255, 255, 0.3);
+        background-color: var(--divider-tertiary);
     }
 
     .tech-slider__text {
-        color: rgba(255, 255, 255, 0.7);
+        color: var(--text-secondary);
         line-height: 1.6;
         font-size: clamp(0.875rem, 2vw, 1rem);
     }
@@ -280,14 +317,14 @@
         margin-top: 2rem;
         font-size: 0.875rem;
         font-weight: 500;
-        color: var(--primary-bg);
-        background-color: white;
+        color: var(--button-text);
+        background-color: var(--button-bg);
         border-radius: 9999px;
         transition: all var(--animation-duration) ease;
     }
 
     .tech-slider__button:hover {
-        background-color: rgba(255, 255, 255, 0.9);
+        background-color: var(--button-hover);
         padding-left: 2rem;
     }
 

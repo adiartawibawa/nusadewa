@@ -1,20 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" dir="ltr" x-data="{
-    mobileMenuOpen: false,
-    sidebarOpen: false,
-    scrollY: 0,
-    parallaxOffset: 0,
-    currentLocale: '{{ app()->getLocale() }}',
-    init() {
-        window.addEventListener('scroll', () => {
-            this.scrollY = window.scrollY;
-            this.parallaxOffset = this.scrollY * 0.3;
-            requestAnimationFrame(() => {
-                this.parallaxOffset = this.scrollY * 0.3;
-            });
-        });
-    }
-}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" dir="ltr">
 
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -98,7 +83,34 @@
 
 </head>
 
-<body id="top" class="font-sans antialiased bg-gray-800" x-cloak>
+<body id="top"
+    class="font-sans antialiased bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-100 transition-colors duration-300"
+    x-cloak x-data="{
+        mobileMenuOpen: false,
+        sidebarOpen: false,
+        scrollY: 0,
+        parallaxOffset: 0,
+        currentLocale: '{{ app()->getLocale() }}',
+        darkMode: localStorage.getItem('darkMode') === 'true' || (!localStorage.getItem('darkMode') && window.matchMedia('(prefers-color-scheme: dark)').matches),
+        init() {
+            window.addEventListener('scroll', () => {
+                this.scrollY = window.scrollY;
+                this.parallaxOffset = this.scrollY * 0.3;
+                requestAnimationFrame(() => {
+                    this.parallaxOffset = this.scrollY * 0.3;
+                });
+            });
+    
+            // Watch for dark mode changes
+            this.$watch('darkMode', (value) => {
+                localStorage.setItem('darkMode', value);
+                document.documentElement.classList.toggle('dark', value);
+            });
+    
+            // Set initial dark mode
+            document.documentElement.classList.toggle('dark', this.darkMode);
+        }
+    }">
 
     <!-- Preloader -->
     <div class="fixed inset-0 z-50 flex items-center justify-center transition-opacity duration-500 bg-white preloader"
