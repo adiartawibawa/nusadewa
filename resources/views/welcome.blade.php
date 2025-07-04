@@ -471,7 +471,7 @@
     </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="py-20 bg-gradient-to-b from-gray-50 to-white dark:from-gray-800 dark:to-gray-900">
+    <section id="contact" class="py-20 bg-gradient-to-b from-gray-100 to-white dark:from-gray-800 dark:to-gray-900">
         <div class="container px-4 mx-auto">
             <!-- Section Header -->
             <div class="max-w-3xl mx-auto mb-16 text-center">
