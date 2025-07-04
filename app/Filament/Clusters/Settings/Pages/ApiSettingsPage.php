@@ -1,0 +1,169 @@
+<?php
+
+namespace App\Filament\Clusters\Settings\Pages;
+
+use App\Filament\Clusters\Settings;
+use App\Settings\ApiSettings;
+use Filament\Actions\Action;
+use Filament\Forms\Components\KeyValue;
+use Filament\Forms\Components\Repeater;
+use Filament\Forms\Components\Section;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Toggle;
+use Filament\Forms\Concerns\InteractsWithForms;
+use Filament\Forms\Contracts\HasForms;
+use Filament\Forms\Form;
+use Filament\Forms\Get;
+use Filament\Notifications\Notification;
+use Filament\Pages\Page;
+
+class ApiSettingsPage extends Page implements HasForms
+{
+    use InteractsWithForms;
+
+    protected static ?string $navigationIcon = 'heroicon-o-server-stack';
+
+    protected static string $view = 'filament.clusters.settings.pages.api-settings-page';
+
+    protected static ?string $navigationLabel = 'API Integrations';
+
+    protected static ?string $navigationGroup = 'APIs Settings';
+
+    protected static ?int $navigationSort = 4;
+
+    protected static ?string $cluster = Settings::class;
+
+    public ?array $data = [];
+
+    public function mount(): void
+    {
+        $settings = app(ApiSettings::class);
+        $this->form->fill([
+            'api_configurations' => $settings->api_configurations
+        ]);
+    }
+
+    public function form(Form $form): Form
+    {
+        return $form
+            ->schema([
+                Repeater::make('api_configurations')
+                    ->label('API Configurations')
+                    ->schema([
+                        TextInput::make('name')
+                            ->label('API Name')
+                            ->required()
+                            ->columnSpanFull(),
+
+                        TextInput::make('url')
+                            ->label('Endpoint URL')
+                            ->required()
+                            ->url()
+                            ->columnSpanFull(),
+
+                        Select::make('method')
+                            ->options([
+                                'GET' => 'GET',
+                                'POST' => 'POST',
+                                'PUT' => 'PUT',
+                                'PATCH' => 'PATCH',
+                                'DELETE' => 'DELETE'
+                            ])
+                            ->default('GET')
+                            ->required(),
+
+                        Select::make('auth_type')
+                            ->label('Authentication Type')
+                            ->options([
+                                'none' => 'None',
+                                'bearer' => 'Bearer Token',
+                                'basic' => 'Basic Auth',
+                                'oauth2' => 'OAuth 2.0'
+                            ])
+                            ->live()
+                            ->required(),
+
+                        TextInput::make('auth_credentials')
+                            ->label('Auth Credentials')
+                            ->helperText(function (Get $get) {
+                                return match ($get('auth_type')) {
+                                    'bearer' => 'Enter bearer token',
+                                    'basic' => 'Enter "username:password"',
+                                    'oauth2' => 'Enter OAuth2 client credentials',
+                                    default => ''
+                                };
+                            })
+                            ->hidden(fn(Get $get) => $get('auth_type') === 'none'),
+
+                        TextInput::make('api_key')
+                            ->label('API Key (Optional)')
+                            ->password(),
+
+                        TextInput::make('timeout')
+                            ->label('Timeout (seconds)')
+                            ->numeric()
+                            ->minValue(5)
+                            ->maxValue(300)
+                            ->default(30),
+
+                        Toggle::make('verify_ssl')
+                            ->label('Verify SSL Certificate')
+                            ->default(true),
+
+                        Toggle::make('active')
+                            ->label('Active')
+                            ->default(true),
+
+                        KeyValue::make('headers')
+                            ->label('Custom Headers')
+                            ->keyLabel('Header Name')
+                            ->valueLabel('Header Value')
+                            ->columnSpanFull(),
+                    ])
+                    ->columns(2)
+                    ->itemLabel(fn(array $state): string => $state['name'] ?? 'New API')
+                    ->collapsible()
+                    ->cloneable()
+                    ->addActionLabel('Add New API')
+                    ->defaultItems(1)
+            ])
+            ->statePath('data');
+    }
+
+    public function save(): void
+    {
+        try {
+            $data = $this->form->getState();
+
+            $settings = app(ApiSettings::class);
+            $settings->api_configurations = $data['api_configurations'];
+            $settings->save();
+
+            Notification::make()
+                ->title('API Configurations Saved')
+                ->body('All API settings updated successfully')
+                ->success()
+                ->send();
+        } catch (\Exception $e) {
+            Notification::make()
+                ->title('Error')
+                ->body($e->getMessage())
+                ->danger()
+                ->send();
+
+            report($e);
+        }
+    }
+
+    protected function getHeaderActions(): array
+    {
+        return [
+            Action::make('save')
+                ->label('Save All Configurations')
+                ->action('save')
+                ->color('primary')
+                ->icon('heroicon-o-cloud-arrow-up'),
+        ];
+    }
+}
