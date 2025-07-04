@@ -4,10 +4,12 @@ namespace App\Filament\Clusters\Settings\Pages;
 
 use App\Filament\Clusters\Settings;
 use App\Settings\ApiSettings;
+use Carbon\Carbon;
 use Filament\Actions\Action;
+use Filament\Forms\Components\Actions\Action as FormAction;
 use Filament\Forms\Components\KeyValue;
+use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Components\Repeater;
-use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
@@ -17,6 +19,8 @@ use Filament\Forms\Form;
 use Filament\Forms\Get;
 use Filament\Notifications\Notification;
 use Filament\Pages\Page;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\HtmlString;
 
 class ApiSettingsPage extends Page implements HasForms
 {
@@ -120,18 +124,59 @@ class ApiSettingsPage extends Page implements HasForms
                             ->keyLabel('Header Name')
                             ->valueLabel('Header Value')
                             ->columnSpanFull(),
+
+                        Placeholder::make('last_status')
+                            ->label('Last Status')
+                            ->content(fn(Get $get) => match ($get('last_status')) {
+                                'success' => '✅ Success',
+                                'failed' => '❌ Failed',
+                                default => 'Not tested',
+                            }),
+
+                        Placeholder::make('last_message')
+                            ->label('Last Message')
+                            ->content(fn(Get $get) => $get('last_message') ?? '-')
+                            ->extraAttributes(['class' => 'font-mono text-sm']),
+
+                        Placeholder::make('last_checked')
+                            ->label('Last Checked')
+                            ->content(fn(Get $get) => $get('last_checked') ? Carbon::parse($get('last_checked'))->diffForHumans() : '-'),
                     ])
                     ->columns(2)
                     ->itemLabel(fn(array $state): string => $state['name'] ?? 'New API')
                     ->collapsible()
                     ->cloneable()
+                    ->deletable(true)
                     ->addActionLabel('Add New API')
                     ->defaultItems(1)
+                    ->extraItemActions([
+                        FormAction::make('test_connection')
+                            ->label('Test Connection')
+                            ->icon('heroicon-o-wifi')
+                            ->color('gray')
+                            ->action(function (array $arguments, Repeater $component) {
+                                $state = $component->getState();
+                                $index = $arguments['item'];
+
+                                if (!isset($state[$index])) {
+                                    Notification::make()
+                                        ->title('Error')
+                                        ->body('Invalid configuration index')
+                                        ->danger()
+                                        ->send();
+                                    return;
+                                }
+
+                                $config = $state[$index];
+                                $this->testSingleApiConnection($config, $index, $component);
+                            })
+                    ])
+
             ])
             ->statePath('data');
     }
 
-    public function save(): void
+    public function save(bool $silent = false): void
     {
         try {
             $data = $this->form->getState();
@@ -140,11 +185,13 @@ class ApiSettingsPage extends Page implements HasForms
             $settings->api_configurations = $data['api_configurations'];
             $settings->save();
 
-            Notification::make()
-                ->title('API Configurations Saved')
-                ->body('All API settings updated successfully')
-                ->success()
-                ->send();
+            if (!$silent) {
+                Notification::make()
+                    ->title('API Configurations Saved')
+                    ->body('All API settings updated successfully')
+                    ->success()
+                    ->send();
+            }
         } catch (\Exception $e) {
             Notification::make()
                 ->title('Error')
@@ -165,5 +212,85 @@ class ApiSettingsPage extends Page implements HasForms
                 ->color('primary')
                 ->icon('heroicon-o-cloud-arrow-up'),
         ];
+    }
+
+    public function testSingleApiConnection(array $apiConfig, string $index, Repeater $component): void
+    {
+        $status = 'failed';
+        $message = null;
+        $timestamp = now()->toDateTimeString();
+
+        try {
+            if (empty($apiConfig['active'])) {
+                throw new \Exception("API '{$apiConfig['name']}' is disabled.");
+            }
+
+            if (empty($apiConfig['url'])) {
+                throw new \Exception('API URL is missing.');
+            }
+
+            $method = strtoupper($apiConfig['method'] ?? 'GET');
+            $testMethod = $method === 'GET' ? 'HEAD' : $method;
+            $timeout = (int)($apiConfig['timeout'] ?? 10);
+
+            $headers = $apiConfig['headers'] ?? [];
+
+            // Handle authentication
+            if (!empty($apiConfig['auth_type']) && $apiConfig['auth_type'] !== 'none') {
+                switch ($apiConfig['auth_type']) {
+                    case 'bearer':
+                        if (empty($apiConfig['auth_credentials'])) {
+                            throw new \Exception('Bearer token is missing');
+                        }
+                        $headers['Authorization'] = 'Bearer ' . $apiConfig['auth_credentials'];
+                        break;
+                    case 'basic':
+                        if (empty($apiConfig['auth_credentials'])) {
+                            throw new \Exception('Basic auth credentials are missing');
+                        }
+                        $headers['Authorization'] = 'Basic ' . base64_encode($apiConfig['auth_credentials']);
+                        break;
+                }
+            }
+
+            // Optional API Key
+            if (!empty($apiConfig['api_key'])) {
+                $headers['X-API-Key'] = $apiConfig['api_key'];
+            }
+
+            $response = Http::withHeaders($headers)
+                ->timeout($timeout)
+                ->withOptions(['verify' => (bool)($apiConfig['verify_ssl'] ?? true)])
+                ->send($testMethod, $apiConfig['url']);
+
+            $status = $response->successful() ? 'success' : 'failed';
+            $message = $response->successful()
+                ? "Connected successfully to {$apiConfig['url']}"
+                : "API returned status: {$response->status()}";
+        } catch (\Throwable $e) {
+            $message = $e->getMessage();
+            report($e);
+        }
+
+        // Update item state pada index terkait
+        $state = $component->getState();
+
+        if (isset($state[$index])) {
+            $state[$index]['last_status'] = $status;
+            $state[$index]['last_message'] = $message;
+            $state[$index]['last_checked'] = $timestamp;
+
+            $component->state($state); // Simpan ulang ke form state
+
+            // Simpan ke database
+            $this->data['api_configurations'] = $state;
+            $this->save(true);
+        }
+
+        Notification::make()
+            ->title($status === 'success' ? 'Connection Successful' : 'Connection Failed')
+            ->body($message)
+            ->{$status === 'success' ? 'success' : 'danger'}()
+            ->send();
     }
 }

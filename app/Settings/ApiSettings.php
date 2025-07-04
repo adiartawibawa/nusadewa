@@ -18,7 +18,7 @@ class ApiSettings extends Settings
         return [
             'api_configurations' => [
                 'order' => [
-                    'name' => 'Order API',
+                    'name' => 'Order',
                     'url' => 'https://bpiu2k.online/api/orderND',
                     'method' => 'GET',
                     'auth_type' => 'none',
@@ -28,7 +28,10 @@ class ApiSettings extends Settings
                     'timeout' => 30,
                     'verify_ssl' => true,
                     'active' => true,
-                    'last_sync' => null
+                    'last_sync' => null,
+                    'last_status' => null,
+                    'last_message' => null,
+                    'last_checked' => null
                 ]
             ]
         ];
