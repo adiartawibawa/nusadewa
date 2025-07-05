@@ -8,13 +8,15 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Str;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
+use Spatie\Translatable\HasTranslations;
 
 class Post extends Model
 {
-    use SoftDeletes, HasUuids, HasSlug, HasFactory;
+    use SoftDeletes, HasUuids, HasSlug, HasFactory, HasTranslations;
 
     public const DEFAULT_FEATURED_IMAGE = 'default-featured-image.png';
 
@@ -31,9 +33,9 @@ class Post extends Model
         'language',
         'type',
         'is_featured',
-        'is_landing_page',
-        'landing_page_section',
-        'landing_page_order',
+        // 'is_landing_page',
+        // 'landing_page_section',
+        // 'landing_page_order',
         'title',
         'summary',
         'body',
@@ -42,7 +44,7 @@ class Post extends Model
         'featured_image_caption',
         'user_id',
         'meta',
-        'seo_data',
+        // 'seo_data',
         'indexable',
     ];
 
@@ -65,11 +67,17 @@ class Post extends Model
     {
         return  [
             'meta' => 'array',
-            'seo_data' => 'array',
+            // 'seo_data' => 'array',
             'published_at' => 'datetime',
             'type' => PostType::class,
         ];
     }
+
+    public $translatable = [
+        'title',
+        'summary',
+        'body',
+    ];
 
     // RELATIONSHIPS
     /**
@@ -202,10 +210,17 @@ class Post extends Model
      */
     public function getReadTimeAttribute(): string
     {
-        $words = str_word_count(strip_tags($this->body));
-        $minutes = ceil($words / 250);
-        $locale = optional(request()->user())->locale;
+        // Ambil locale aktif saat ini
+        $locale = App::getLocale();
 
+        // Ambil isi body untuk locale aktif
+        $body = $this->getTranslation('body', $locale);
+
+        // Hitung jumlah kata
+        $words = str_word_count(strip_tags($body));
+        $minutes = max(1, ceil($words / 250)); // minimal 1 menit
+
+        // Gunakan fallback ke 'read' dan 'mins' jika tidak ada terjemahan
         return vsprintf(
             '%d %s %s',
             [

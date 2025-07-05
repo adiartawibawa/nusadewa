@@ -18,12 +18,13 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Support\Str;
-use Filament\Forms\Set;
+use Filament\Resources\Concerns\Translatable;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class PostResource extends Resource
 {
+    use Translatable;
+
     protected static ?string $model = Post::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-document-text';
@@ -43,14 +44,15 @@ class PostResource extends Resource
                         Forms\Components\TextInput::make('title')
                             ->required()
                             ->maxLength(255)
-                            ->live(onBlur: true),
+                            ->live(onBlur: true)
+                            ->columnSpanFull(),
 
-                        Forms\Components\Select::make('language')
-                            ->options([
-                                'en' => 'English',
-                                'id' => 'Indonesian',
-                            ])
-                            ->required(),
+                        // Forms\Components\Select::make('language')
+                        //     ->options([
+                        //         'en' => 'English',
+                        //         'id' => 'Indonesian',
+                        //     ])
+                        //     ->required(),
 
                         Forms\Components\Select::make('type')
                             ->options(
@@ -163,15 +165,15 @@ class PostResource extends Resource
                             ->default(true),
                     ]),
 
-                Forms\Components\Section::make('SEO & Metadata')
+                Forms\Components\Section::make('Metadata')
                     ->schema([
                         Forms\Components\KeyValue::make('meta')
                             ->keyLabel('Meta Key')
                             ->valueLabel('Meta Value'),
 
-                        Forms\Components\KeyValue::make('seo_data')
-                            ->keyLabel('SEO Key')
-                            ->valueLabel('SEO Value'),
+                        // Forms\Components\KeyValue::make('seo_data')
+                        //     ->keyLabel('SEO Key')
+                        //     ->valueLabel('SEO Value'),
                     ]),
             ]);
     }
@@ -251,6 +253,9 @@ class PostResource extends Resource
                 Tables\Actions\DeleteAction::make(),
                 Tables\Actions\RestoreAction::make(),
                 Tables\Actions\ForceDeleteAction::make(),
+            ])
+            ->headerActions([
+                Tables\Actions\LocaleSwitcher::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
