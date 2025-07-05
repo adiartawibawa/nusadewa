@@ -84,33 +84,8 @@
 </head>
 
 <body id="top"
-    class="font-sans antialiased bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-100 transition-colors duration-300"
-    x-cloak x-data="{
-        mobileMenuOpen: false,
-        sidebarOpen: false,
-        scrollY: 0,
-        parallaxOffset: 0,
-        currentLocale: '{{ app()->getLocale() }}',
-        darkMode: localStorage.getItem('darkMode') === 'true' || (!localStorage.getItem('darkMode') && window.matchMedia('(prefers-color-scheme: dark)').matches),
-        init() {
-            window.addEventListener('scroll', () => {
-                this.scrollY = window.scrollY;
-                this.parallaxOffset = this.scrollY * 0.3;
-                requestAnimationFrame(() => {
-                    this.parallaxOffset = this.scrollY * 0.3;
-                });
-            });
-    
-            // Watch for dark mode changes
-            this.$watch('darkMode', (value) => {
-                localStorage.setItem('darkMode', value);
-                document.documentElement.classList.toggle('dark', value);
-            });
-    
-            // Set initial dark mode
-            document.documentElement.classList.toggle('dark', this.darkMode);
-        }
-    }">
+    class="font-sans antialiased text-gray-800 transition-colors duration-300 bg-gray-50 dark:bg-gray-900 dark:text-gray-100"
+    x-cloak x-data="appComponent()" x-init="init()">
 
     <!-- Preloader -->
     <div class="fixed inset-0 z-50 flex items-center justify-center transition-opacity duration-500 bg-white preloader"
@@ -138,6 +113,44 @@
         class="fixed z-40 flex items-center justify-center w-12 h-12 text-white transition-all duration-300 transform rounded-full shadow-lg bottom-6 right-6 bg-primary hover:bg-secondary hover:scale-110">
         <i class="fas fa-arrow-up"></i>
     </a>
+
+    <script>
+        function appComponent() {
+            return {
+                mobileMenuOpen: false,
+                sidebarOpen: false,
+                scrollY: 0,
+                parallaxOffset: 0,
+                currentLocale: '{{ app()->getLocale() }}',
+                darkMode: localStorage.getItem('darkMode') === 'true' ||
+                    (!localStorage.getItem('darkMode') && window.matchMedia('(prefers-color-scheme: dark)').matches),
+
+                init() {
+                    // Scroll handler
+                    window.addEventListener('scroll', () => {
+                        this.scrollY = window.scrollY;
+                        requestAnimationFrame(() => {
+                            this.parallaxOffset = this.scrollY * 0.3;
+                        });
+                    });
+
+                    // Dark mode toggle
+                    this.$watch('darkMode', (value) => {
+                        localStorage.setItem('darkMode', value);
+                        document.documentElement.classList.toggle('dark', value);
+                    });
+
+                    // Initial dark mode setting
+                    document.documentElement.classList.toggle('dark', this.darkMode);
+                },
+
+                switchLocale() {
+                    const targetLocale = this.currentLocale === 'en' ? 'id' : 'en';
+                    window.location.href = `/set-locale/${targetLocale}`;
+                }
+            }
+        }
+    </script>
 
     <script>
         // Preloader

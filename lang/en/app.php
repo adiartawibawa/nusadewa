@@ -1,6 +1,6 @@
 <?php
 
 return [
-    'mins' => 'Minutes',
-    'read' => 'Read',
+    'read' => 'read',
+    'mins' => 'min|mins',
 ];

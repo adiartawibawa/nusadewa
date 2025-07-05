@@ -1,6 +1,6 @@
 <?php
 
 return [
-    'mins' => 'Menit',
-    'read' => 'Baca',
+    'read' => 'menit',
+    'mins' => 'menit',
 ];

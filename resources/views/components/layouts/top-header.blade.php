@@ -79,12 +79,12 @@
                 </div>
 
                 <div class="ml-2">
-                    <button x-show="currentLocale === 'en'" class="text-white hover:text-blue-300 focus:outline-none"
-                        title="Switch to Bahasa Indonesia">
+                    <button x-show="currentLocale === 'en'" @click="switchLocale"
+                        class="text-white hover:text-blue-300 focus:outline-none" title="Switch to Bahasa Indonesia">
                         🇮🇩
                     </button>
-                    <button x-show="currentLocale === 'id'" class="text-white hover:text-blue-300 focus:outline-none"
-                        title="Switch to English">
+                    <button x-show="currentLocale === 'id'" @click="switchLocale"
+                        class="text-white hover:text-blue-300 focus:outline-none" title="Switch to English">
                         🇺🇸
                     </button>
                 </div>

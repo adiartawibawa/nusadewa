@@ -5,12 +5,14 @@ namespace App\Providers\Filament;
 use App\Http\Middleware\SetLocale;
 use App\Settings\AppInfoSettings;
 use App\Settings\SystemSettings;
+use App\Support\LocaleManager;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
 use Filament\Panel;
 use Filament\PanelProvider;
+use Filament\SpatieLaravelTranslatablePlugin;
 use Filament\Support\Colors\Color;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
@@ -62,6 +64,10 @@ class AdminPanelProvider extends PanelProvider
             ->authMiddleware([
                 Authenticate::class,
             ])
-            ->unsavedChangesAlerts();
+            ->unsavedChangesAlerts()
+            ->plugins([
+                SpatieLaravelTranslatablePlugin::make()
+                    ->defaultLocales(LocaleManager::getSupportedLocales()),
+            ]);
     }
 }
