@@ -14,6 +14,8 @@ class PostStatsOverview extends BaseWidget
 {
     protected static ?string $pollingInterval = '30s';
 
+    protected ?string $heading = 'Post Statistics Overview';
+
     #[Reactive]
     public ?string $timeRange = '7';
 
