@@ -11,6 +11,8 @@ use Illuminate\Support\Collection;
 
 class OrderStatsWidget extends BaseWidget
 {
+    protected ?string $heading = 'Order Statistics Overview';
+
     protected function getStats(): array
     {
         // Weekly order trend data (last 6 weeks)
