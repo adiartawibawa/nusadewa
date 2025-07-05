@@ -12,6 +12,7 @@ use App\Filament\Clusters\Publishing\Resources\PostResource\Widgets\{
     PostViewsTrend,
     TrafficSourcesWidget
 };
+use App\Filament\Clusters\Transactions\Resources\OrderResource\Widgets\OrderStatsWidget;
 use Filament\Pages\Dashboard as BaseDashboard;
 
 class Dashboard extends BaseDashboard
@@ -26,6 +27,7 @@ class Dashboard extends BaseDashboard
     protected function getHeaderWidgets(): array
     {
         return [
+            OrderStatsWidget::class,
             PostStatsOverview::class,
             LatestPostsTable::class,
             LatestContactMessages::class,
@@ -75,6 +77,6 @@ class Dashboard extends BaseDashboard
 
     public function getTitle(): string
     {
-        return 'Content Performance Dashboard';
+        return 'Performance Overview';
     }
 }
