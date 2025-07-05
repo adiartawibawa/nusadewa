@@ -2,6 +2,7 @@
 
 namespace App\Settings;
 
+use Illuminate\Support\Facades\Cache;
 use Spatie\LaravelSettings\Settings;
 
 class SystemSettings extends Settings
@@ -63,6 +64,19 @@ class SystemSettings extends Settings
     public static function group(): string
     {
         return 'system';
+    }
+
+    public static function make(): static
+    {
+        return Cache::remember('system_settings', 3600, function () {
+            return new static();
+        });
+    }
+
+    // Method untuk clear cache saat settings di-update
+    public static function clearCache(): void
+    {
+        Cache::forget('system_settings');
     }
 
     // Encrypt sensitive fields

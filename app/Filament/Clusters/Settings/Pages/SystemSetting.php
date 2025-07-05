@@ -226,16 +226,14 @@ class SystemSetting extends Page implements HasForms
         ];
     }
 
-    public function save(): void
+    public function save(SystemSettings $settings): void
     {
         try {
             $data = $this->form->getState();
 
-            $settings = app(SystemSettings::class);
             $settings->fill($data);
             $settings->save();
-
-            Cache::forget('system-settings');
+            $settings->clearCache();
 
             Notification::make()
                 ->title('System settings saved successfully')
@@ -250,7 +248,7 @@ class SystemSetting extends Page implements HasForms
 
             logger()->error('System settings save failed: ' . $e->getMessage(), [
                 'exception' => $e,
-                'settings_data' => $this->data
+                'settings_data' => $data
             ]);
         }
     }

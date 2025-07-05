@@ -3,6 +3,8 @@
         {{ $this->form }}
     </x-filament-panels::form>
 
+    <x-filament-actions::actions :actions="$this->getHeaderActions()" class="mt-6" />
+
     @script
         <script>
             document.addEventListener('alpine:init', () => {
