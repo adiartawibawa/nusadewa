@@ -85,7 +85,7 @@ class OrderResource extends Resource
             ])
             ->headerActions([
                 Tables\Actions\Action::make('fetchOrders')
-                    ->label('Fetch Orders from API')
+                    ->label('Fetch Orders from Server')
                     ->icon('heroicon-o-cloud-arrow-down')
                     ->requiresConfirmation()
                     ->modalHeading('Confirm Order Fetch')
