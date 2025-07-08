@@ -18,24 +18,24 @@
         <div class="container relative z-20 flex flex-col items-center justify-center h-full px-4 mx-auto text-center">
             <div class="w-full max-w-4xl transform translate-y-[-5%]">
                 <h1 class="mb-6 text-4xl font-bold text-white md:text-5xl lg:text-6xl animate-fade-in-up">
-                    {{ $appInfo['hero_title'] ?? 'INNOVATION MEETS AQUACULTURE' }}
+                    {{ __('welcome.hero.title') ?? 'INNOVATION MEETS AQUACULTURE' }}
                 </h1>
 
                 <p
                     class="max-w-3xl mx-auto mb-8 text-base text-gray-200 delay-100 md:text-lg lg:text-xl animate-fade-in-up">
-                    {{ $appInfo['company_description'] ?? 'State-of-the-art biotechnology meets decades of aquaculture expertise to produce shrimp that thrive' }}
+                    {{ __('welcome.hero.description') ?? 'State-of-the-art biotechnology meets decades of aquaculture expertise to produce shrimp that thrive' }}
                 </p>
 
                 <div class="flex flex-col items-center gap-4 delay-200 sm:flex-row sm:justify-center animate-fade-in-up">
                     <a href="#contact"
                         class="inline-flex items-center justify-center px-8 py-3 text-sm font-semibold text-white transition-all duration-300 rounded-lg md:text-base bg-primary hover:bg-secondary focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 hover:shadow-lg hover:-translate-y-1">
-                        Contact Our Experts
+                        {{ __('welcome.hero.contact_button') }}
                         <i class="ml-2 fas fa-arrow-right"></i>
                     </a>
 
                     <a href="#product"
                         class="inline-flex items-center justify-center px-8 py-3 text-sm font-semibold text-white transition-all duration-300 bg-transparent border border-white rounded-lg md:text-base hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 hover:shadow-lg hover:-translate-y-1">
-                        Explore Our Products
+                        {{ __('welcome.hero.product_button') }}
                         <i class="ml-2 fas fa-search"></i>
                     </a>
                 </div>
@@ -61,19 +61,23 @@
             <div class="mb-12 text-center">
                 <!-- Main Heading -->
                 <h2 class="mb-4 text-3xl font-bold text-gray-800 dark:text-white md:text-4xl lg:text-5xl">
-                    Molecular Precision in Breeding
+                    {!! str_replace(
+                        ':part1',
+                        '<span class="text-blue-600 dark:text-blue-400">' . __('welcome.innovation.title_part1') . '</span>',
+                        __('welcome.innovation.title'),
+                    ) !!}
                 </h2>
 
                 <!-- Decorative Divider with Meaningful Design -->
                 <div class="flex justify-center mx-auto my-6" aria-hidden="true">
-                    <span class="inline-block w-40 h-1 rounded-full bg-primary-500 dark:bg-blue-600"></span>
-                    <span class="inline-block w-3 h-1 mx-1 rounded-full bg-primary-300 dark:bg-blue-400"></span>
-                    <span class="inline-block w-1 h-1 rounded-full bg-primary-200 dark:bg-blue-300"></span>
+                    <span class="inline-block w-40 h-1 bg-blue-600 rounded-full dark:bg-blue-600"></span>
+                    <span class="inline-block w-3 h-1 mx-1 bg-blue-500 rounded-full dark:bg-blue-400"></span>
+                    <span class="inline-block w-1 h-1 bg-blue-300 rounded-full dark:bg-blue-300"></span>
                 </div>
 
                 <!-- Subheading with Value Proposition -->
                 <p class="max-w-3xl mx-auto text-gray-600 dark:text-gray-300 md:text-lg">
-                    Advanced genomic selection and disease resistance profiling for superior shrimp broodstock
+                    {{ __('welcome.innovation.subtitle') }}
                 </p>
             </div>
 
@@ -97,19 +101,23 @@
             <div class="mb-16 text-center">
                 <!-- Main Heading -->
                 <h2 class="mb-4 text-3xl font-bold text-white md:text-4xl lg:text-5xl">
-                    Multilocation Performance Test
+                    {!! str_replace(
+                        ':part1',
+                        '<span class="text-blue-300">' . __('welcome.technology.title_part1') . '</span>',
+                        __('welcome.technology.title'),
+                    ) !!}
                 </h2>
 
                 <!-- Decorative Divider -->
                 <div class="flex justify-center mx-auto my-6" aria-hidden="true">
-                    <span class="inline-block w-40 h-1 bg-blue-400 rounded-full"></span>
-                    <span class="inline-block w-3 h-1 mx-1 bg-blue-300 rounded-full"></span>
-                    <span class="inline-block w-1 h-1 bg-blue-200 rounded-full"></span>
+                    <span class="inline-block w-40 h-1 bg-blue-600 rounded-full"></span>
+                    <span class="inline-block w-3 h-1 mx-1 bg-blue-500 rounded-full"></span>
+                    <span class="inline-block w-1 h-1 bg-blue-300 rounded-full"></span>
                 </div>
 
                 <!-- Subheading -->
                 <p class="max-w-3xl mx-auto text-gray-300 md:text-lg">
-                    Validated across various climates, salinities, and systems for guaranteed performance
+                    {{ __('welcome.technology.subtitle') }}
                 </p>
             </div>
 
@@ -124,15 +132,16 @@
     <section id="performance" class="py-20 bg-white dark:bg-gray-800">
         <div class="container px-4 mx-auto">
             <div class="mb-16 text-center">
-                <h2 class="mb-4 text-3xl font-bold text-gray-800 dark:text-white md:text-4xl">MULTI-LOCATION PERFORMANCE
-                    TESTING</h2>
+                <h2 class="mb-4 text-3xl font-bold text-gray-800 dark:text-white md:text-4xl">
+                    {{ __('welcome.performance.title') }}</h2>
                 <div class="flex justify-center mx-auto my-6">
                     <span class="inline-block w-40 h-1 bg-blue-500 rounded-full dark:bg-blue-600"></span>
                     <span class="inline-block w-3 h-1 mx-1 bg-blue-500 rounded-full dark:bg-blue-400"></span>
                     <span class="inline-block w-1 h-1 bg-blue-500 rounded-full dark:bg-blue-300"></span>
                 </div>
-                <p class="max-w-4xl mx-auto text-gray-600 dark:text-gray-300 md:text-lg">Proven Excellence Across
-                    Diverse Farming Conditions</p>
+                <p class="max-w-4xl mx-auto text-gray-600 dark:text-gray-300 md:text-lg">
+                    {{ __('welcome.performance.subtitle') }}
+                </p>
             </div>
 
             <div class="flex flex-col items-center gap-12 lg:flex-row">
@@ -143,48 +152,52 @@
                             loading="lazy">
                         <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
                         <div class="absolute bottom-0 left-0 right-0 p-6 text-white">
-                            <h3 class="text-xl font-semibold">Real-World Validation</h3>
-                            <p class="text-gray-200">Rigorously tested across diverse farming environments for unmatched
-                                reliability</p>
+                            <h3 class="text-xl font-semibold">{{ __('welcome.performance.image_caption.title') }}</h3>
+                            <p class="text-gray-200">{{ __('welcome.performance.image_caption.description') }}</p>
                         </div>
                     </div>
                 </div>
 
                 <div class="lg:w-1/2">
                     <div class="space-y-6">
-                        <p class="text-gray-700 dark:text-gray-300">At <span
-                                class="font-semibold text-blue-600 dark:text-blue-400">NUSA DEWA</span>, we believe true
-                            quality is proven in the field, not just the lab. Our premium vannamei broodstock undergoes
-                            extensive <span class="font-semibold">multi-location performance testing</span> across
-                            varying climates, water salinities, and farming systems to ensure superior adaptability and
-                            consistent results.</p>
+                        <p class="text-gray-700 dark:text-gray-300">
+                            {!! str_replace(
+                                [':company', ':testing'],
+                                [
+                                    '<span class="font-semibold text-blue-600 dark:text-blue-400">' .
+                                    __('welcome.performance.placeholders.company') .
+                                    '</span>',
+                                    '<span class="font-semibold">' . __('welcome.performance.placeholders.testing') . '</span>',
+                                ],
+                                __('welcome.performance.content.paragraph1'),
+                            ) !!}
+                        </p>
 
-                        <p class="text-gray-700 dark:text-gray-300">This rigorous testing protocol validates critical
-                            performance indicators including <span class="font-semibold">growth rate, survival under
-                                stress, disease resistance, and feed efficiency</span>. The outcome? A broodstock
-                            solution that delivers predictable, high-yield performance—regardless of your farm's unique
-                            conditions.</p>
+                        <p class="text-gray-700 dark:text-gray-300">
+                            {!! str_replace(
+                                ':indicators',
+                                '<span class="font-semibold">' . __('welcome.performance.placeholders.indicators') . '</span>',
+                                __('welcome.performance.content.paragraph2'),
+                            ) !!}
+                        </p>
 
                         <div class="grid grid-cols-2 gap-4 mt-8 md:grid-cols-3">
-                            <div
-                                class="p-4 transition-colors border border-gray-200 rounded-lg dark:border-gray-700 bg-gray-50 dark:bg-gray-700 hover:bg-blue-50 dark:hover:bg-gray-600">
-                                <div class="mb-2 text-3xl font-bold text-blue-600 dark:text-blue-400">98%</div>
-                                <div class="text-gray-600 dark:text-gray-300">Average Survival Rate</div>
-                            </div>
-                            <div
-                                class="p-4 transition-colors border border-gray-200 rounded-lg dark:border-gray-700 bg-gray-50 dark:bg-gray-700 hover:bg-blue-50 dark:hover:bg-gray-600">
-                                <div class="mb-2 text-3xl font-bold text-blue-600 dark:text-blue-400">1.8x</div>
-                                <div class="text-gray-600 dark:text-gray-300">Faster Growth vs Industry Standard</div>
-                            </div>
-                            <div
-                                class="p-4 transition-colors border border-gray-200 rounded-lg dark:border-gray-700 bg-gray-50 dark:bg-gray-700 hover:bg-blue-50 dark:hover:bg-gray-600">
-                                <div class="mb-2 text-3xl font-bold text-blue-600 dark:text-blue-400">24/7</div>
-                                <div class="text-gray-600 dark:text-gray-300">Dedicated Technical Support</div>
-                            </div>
+                            @foreach (['survival', 'growth', 'support'] as $stat)
+                                <div
+                                    class="p-4 transition-colors border border-gray-200 rounded-lg dark:border-gray-700 bg-gray-50 dark:bg-gray-700 hover:bg-blue-50 dark:hover:bg-gray-600">
+                                    <div class="mb-2 text-3xl font-bold text-blue-600 dark:text-blue-400">
+                                        {{ __('welcome.performance.stats.' . $stat . '.value') }}
+                                    </div>
+                                    <div class="text-gray-600 dark:text-gray-300">
+                                        {{ __('welcome.performance.stats.' . $stat . '.label') }}
+                                    </div>
+                                </div>
+                            @endforeach
                         </div>
 
-                        <p class="pt-4 italic text-gray-600 dark:text-gray-400">"Our multi-location validation process
-                            eliminates guesswork, giving farmers confidence in every batch."</p>
+                        <p class="pt-4 italic text-gray-600 dark:text-gray-400">
+                            {{ __('welcome.performance.quote') }}
+                        </p>
                     </div>
                 </div>
             </div>
@@ -211,10 +224,11 @@
                 <div class="mb-8">
                     <span
                         class="inline-block px-4 py-1 mb-4 text-xs font-semibold tracking-wider text-blue-300 uppercase rounded-full bg-blue-900/30">
-                        Indonesian Excellence
+                        {{ __('welcome.global_reach.badge') }}
                     </span>
                     <h2 class="mb-4 text-4xl font-bold leading-tight text-white md:text-5xl">
-                        <span class="text-blue-300">Bali's</span> Genetic<br>Breakthrough
+                        <span
+                            class="text-blue-300">{{ str_replace(':place', 'Bali\'s', __('welcome.global_reach.title')) }}</span>
                     </h2>
                     <div class="flex justify-start my-6">
                         <span class="inline-block w-16 h-1 bg-blue-400 rounded-full"></span>
@@ -226,33 +240,37 @@
                 <!-- Main Content -->
                 <div class="space-y-6">
                     <p class="text-lg leading-relaxed text-blue-100">
-                        At the heart of Indonesia's shrimp revolution, Nusa Dewa combines cutting-edge genetics with
-                        traditional aquaculture wisdom to deliver broodstock that outperforms global benchmarks.
+                        {{ __('welcome.global_reach.content') }}
                     </p>
 
                     <!-- Key Metrics -->
                     <div class="grid grid-cols-2 gap-4 my-8">
                         <div class="p-4 border bg-white/5 backdrop-blur-sm rounded-xl border-white/10">
                             <div class="text-3xl font-bold text-blue-300">30+</div>
-                            <div class="text-sm font-medium text-blue-100">Export Countries</div>
+                            <div class="text-sm font-medium text-blue-100">
+                                {{ __('welcome.global_reach.stats.countries') }}</div>
                         </div>
                         <div class="p-4 border bg-white/5 backdrop-blur-sm rounded-xl border-white/10">
                             <div class="text-3xl font-bold text-blue-300">12-15%</div>
-                            <div class="text-sm font-medium text-blue-100">Better FCR</div>
+                            <div class="text-sm font-medium text-blue-100">{{ __('welcome.global_reach.stats.fcr') }}
+                            </div>
                         </div>
                         <div class="p-4 border bg-white/5 backdrop-blur-sm rounded-xl border-white/10">
                             <div class="text-3xl font-bold text-blue-300">2-35</div>
-                            <div class="text-sm font-medium text-blue-100">ppt Salinity Range</div>
+                            <div class="text-sm font-medium text-blue-100">
+                                {{ __('welcome.global_reach.stats.salinity') }}</div>
                         </div>
                         <div class="p-4 border bg-white/5 backdrop-blur-sm rounded-xl border-white/10">
                             <div class="text-3xl font-bold text-blue-300">28-34°C</div>
-                            <div class="text-sm font-medium text-blue-100">Temperature Tolerance</div>
+                            <div class="text-sm font-medium text-blue-100">
+                                {{ __('welcome.global_reach.stats.temperature') }}</div>
                         </div>
                     </div>
 
                     <!-- Facility Features -->
                     <div class="p-6 border bg-white/5 backdrop-blur-sm rounded-xl border-white/10">
-                        <h3 class="mb-4 text-xl font-semibold text-white">World-Class Breeding Facility</h3>
+                        <h3 class="mb-4 text-xl font-semibold text-white">
+                            {{ __('welcome.global_reach.facility.title') }}</h3>
                         <ul class="space-y-3">
                             <li class="flex items-start">
                                 <svg class="flex-shrink-0 w-5 h-5 mt-0.5 mr-3 text-blue-300" fill="currentColor"
@@ -261,8 +279,8 @@
                                         d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
                                         clip-rule="evenodd"></path>
                                 </svg>
-                                <span class="text-blue-100">AA+ biosecurity exceeding OIE standards with 24/7
-                                    monitoring</span>
+                                <span
+                                    class="text-blue-100">{{ __('welcome.global_reach.facility.features.0') }}</span>
                             </li>
                             <li class="flex items-start">
                                 <svg class="flex-shrink-0 w-5 h-5 mt-0.5 mr-3 text-blue-300" fill="currentColor"
@@ -271,7 +289,8 @@
                                         d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
                                         clip-rule="evenodd"></path>
                                 </svg>
-                                <span class="text-blue-100">SPF/SPR certification with full genomic traceability</span>
+                                <span
+                                    class="text-blue-100">{{ __('welcome.global_reach.facility.features.1') }}</span>
                             </li>
                             <li class="flex items-start">
                                 <svg class="flex-shrink-0 w-5 h-5 mt-0.5 mr-3 text-blue-300" fill="currentColor"
@@ -280,8 +299,8 @@
                                         d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
                                         clip-rule="evenodd"></path>
                                 </svg>
-                                <span class="text-blue-100">Climate-controlled transport ensuring 98%+ survival
-                                    rates</span>
+                                <span
+                                    class="text-blue-100">{{ __('welcome.global_reach.facility.features.2') }}</span>
                             </li>
                         </ul>
                     </div>
@@ -298,19 +317,27 @@
             <div class="max-w-4xl mx-auto mb-16 text-center">
                 <span
                     class="inline-block px-4 py-2 mb-4 text-xs font-semibold tracking-wider text-blue-700 uppercase rounded-full dark:text-blue-400 bg-blue-50 dark:bg-blue-900/30">
-                    Indonesian Aquaculture Pioneer
+                    {{ __('welcome.expertise.badge') }}
                 </span>
                 <h2 class="mb-4 text-3xl font-bold text-gray-900 dark:text-white md:text-4xl">
-                    <span class="text-blue-700 dark:text-blue-400">Solid Expertise</span> in Shrimp Breeding
+                    @php
+                        $title = str_replace(
+                            ':part1',
+                            '<span class="text-blue-700 dark:text-blue-400">' .
+                                __('welcome.expertise.title_part1') .
+                                '</span>',
+                            __('welcome.expertise.title'),
+                        );
+                        echo $title;
+                    @endphp
                 </h2>
                 <div class="flex justify-center mx-auto my-6">
                     <span class="inline-block w-24 h-1.5 bg-blue-600 rounded-full"></span>
-                    <span class="inline-block w-4 h-1.5 mx-2 bg-blue-600 rounded-full"></span>
-                    <span class="inline-block w-2 h-1.5 bg-blue-600 rounded-full"></span>
+                    <span class="inline-block w-4 h-1.5 mx-2 bg-blue-500 rounded-full"></span>
+                    <span class="inline-block w-2 h-1.5 bg-blue-300 rounded-full"></span>
                 </div>
                 <p class="text-lg leading-relaxed text-gray-600 dark:text-gray-300">
-                    Our multidisciplinary team combines 20+ years of aquaculture experience with cutting-edge genetic
-                    science
+                    {{ __('welcome.expertise.subtitle') }}
                 </p>
             </div>
 
@@ -327,9 +354,10 @@
                             class="flex items-center justify-center w-16 h-16 mb-6 text-blue-700 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20 rounded-2xl">
                             <i class="text-2xl fas fa-map-marked-alt"></i>
                         </div>
-                        <h3 class="mb-3 text-xl font-bold text-gray-800 dark:text-white">National Reach</h3>
+                        <h3 class="mb-3 text-xl font-bold text-gray-800 dark:text-white">
+                            {{ __('welcome.expertise.highlights.reach') }}</h3>
                         <p class="mb-4 text-gray-600 dark:text-gray-300">
-                            Supporting 250+ hatcheries across all major Indonesian shrimp farming regions
+                            {{ __('welcome.expertise.card_contents.reach') }}
                         </p>
                     </div>
                 </div>
@@ -345,9 +373,11 @@
                             class="flex items-center justify-center w-16 h-16 mb-6 text-teal-700 dark:text-teal-400 bg-teal-50 dark:bg-teal-900/20 rounded-2xl">
                             <i class="text-2xl fas fa-users"></i>
                         </div>
-                        <h3 class="mb-3 text-xl font-bold text-gray-800 dark:text-white">Farmer Development</h3>
+                        <h3 class="mb-3 text-xl font-bold text-gray-800 dark:text-white">
+                            {{ __('welcome.expertise.highlights.development') }}
+                        </h3>
                         <p class="mb-4 text-gray-600 dark:text-gray-300">
-                            Empowering 5,000+ smallholder farmers through comprehensive training programs
+                            {{ __('welcome.expertise.card_contents.development') }}
                         </p>
                     </div>
                 </div>
@@ -363,9 +393,11 @@
                             class="flex items-center justify-center w-16 h-16 mb-6 text-amber-700 dark:text-amber-400 bg-amber-50 dark:bg-amber-900/20 rounded-2xl">
                             <i class="text-2xl fas fa-seedling"></i>
                         </div>
-                        <h3 class="mb-3 text-xl font-bold text-gray-800 dark:text-white">Ecosystem Adaptation</h3>
+                        <h3 class="mb-3 text-xl font-bold text-gray-800 dark:text-white">
+                            {{ __('welcome.expertise.highlights.adaptation') }}
+                        </h3>
                         <p class="mb-4 text-gray-600 dark:text-gray-300">
-                            12 specialized broodstock strains optimized for Indonesia's unique coastal conditions
+                            {{ __('welcome.expertise.card_contents.adaptation') }}
                         </p>
                     </div>
                 </div>
@@ -374,9 +406,10 @@
             <!-- Team Section -->
             <div class="max-w-6xl mx-auto">
                 <div class="mb-10 text-center">
-                    <h3 class="mb-3 text-2xl font-bold text-gray-800 dark:text-white">Our Scientific Leadership</h3>
+                    <h3 class="mb-3 text-2xl font-bold text-gray-800 dark:text-white">
+                        {{ __('welcome.expertise.leadership.title') }}</h3>
                     <p class="max-w-2xl mx-auto text-gray-600 dark:text-gray-300">
-                        Homegrown experts with global recognition, advancing Indonesia's shrimp aquaculture
+                        {{ __('welcome.expertise.leadership.subtitle') }}
                     </p>
                     <div class="flex justify-center mx-auto my-4">
                         <span class="inline-block w-16 h-1 bg-blue-600 rounded-full"></span>
@@ -396,20 +429,24 @@
             <div class="max-w-3xl mx-auto mb-16 text-center">
                 <span
                     class="inline-block px-4 py-2 mb-4 text-xs font-semibold tracking-wider text-blue-400 uppercase rounded-full bg-blue-900/30">
-                    Premium Genetics
+                    {{ __('welcome.products.badge') }}
                 </span>
                 <h2 class="mb-4 text-3xl font-bold text-white md:text-4xl">
-                    <span
-                        class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-300">Specialized</span>
-                    Shrimp Strains
+                    {!! str_replace(
+                        ':part1',
+                        '<span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-300">' .
+                            __('welcome.products.title_part1') .
+                            '</span>',
+                        __('welcome.products.title'),
+                    ) !!}
                 </h2>
                 <div class="flex justify-center mx-auto my-6">
                     <span class="inline-block w-24 h-1 rounded-full bg-gradient-to-r from-blue-400 to-blue-600"></span>
                     <span class="inline-block w-4 h-1 mx-2 bg-blue-500 rounded-full"></span>
-                    <span class="inline-block w-2 h-1 bg-blue-400 rounded-full"></span>
+                    <span class="inline-block w-2 h-1 bg-blue-300 rounded-full"></span>
                 </div>
                 <p class="text-lg leading-relaxed text-gray-300">
-                    Genetically optimized broodstock for growth, disease resistance, and sustainability
+                    {{ __('welcome.products.subtitle') }}
                 </p>
             </div>
 
@@ -430,18 +467,22 @@
             <div class="max-w-4xl mx-auto mb-16 text-center">
                 <span
                     class="inline-block px-4 py-2 mb-4 text-xs font-semibold tracking-wider text-blue-600 uppercase rounded-full dark:text-blue-400 bg-blue-50 dark:bg-blue-900/30">
-                    Industry Insights
+                    {{ __('welcome.news.badge') }}
                 </span>
                 <h2 class="mb-4 text-3xl font-bold text-gray-800 dark:text-white md:text-4xl">
-                    <span class="text-blue-600 dark:text-blue-400">Research</span> & Developments
+                    {!! str_replace(
+                        ':part1',
+                        '<span class="text-blue-600 dark:text-blue-400">' . __('welcome.news.title_part1') . '</span>',
+                        __('welcome.news.title'),
+                    ) !!}
                 </h2>
                 <div class="flex justify-center mx-auto my-6">
-                    <span class="inline-block w-24 h-1 bg-blue-500 rounded-full dark:bg-blue-600"></span>
+                    <span class="inline-block w-24 h-1 bg-blue-600 rounded-full dark:bg-blue-600"></span>
                     <span class="inline-block w-4 h-1 mx-2 bg-blue-500 rounded-full dark:bg-blue-400"></span>
-                    <span class="inline-block w-2 h-1 bg-blue-500 rounded-full dark:bg-blue-300"></span>
+                    <span class="inline-block w-2 h-1 bg-blue-300 rounded-full dark:bg-blue-300"></span>
                 </div>
                 <p class="text-lg leading-relaxed text-gray-600 dark:text-gray-300">
-                    Latest advancements in genome editing, SNP resistance, and disease analysis
+                    {{ __('welcome.news.subtitle') }}
                 </p>
             </div>
 
@@ -458,9 +499,9 @@
 
             <!-- Optional CTA -->
             <div class="mt-12 text-center">
-                <a href="#"
+                <a href="{{ route('news.index') }}"
                     class="inline-flex items-center px-6 py-3 text-sm font-medium text-blue-600 transition-all duration-200 border border-blue-200 rounded-full dark:text-blue-400 dark:border-blue-700 hover:bg-blue-50 dark:hover:bg-gray-700 hover:border-blue-300 dark:hover:border-blue-500">
-                    View All Updates
+                    {{ __('welcome.news.cta') }}
                     <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
@@ -477,18 +518,22 @@
             <div class="max-w-3xl mx-auto mb-16 text-center">
                 <span
                     class="inline-block px-4 py-2 mb-4 text-xs font-semibold tracking-wider text-blue-600 uppercase rounded-full dark:text-blue-400 bg-blue-50 dark:bg-blue-900/30">
-                    Connect With Our Experts
+                    {{ __('welcome.contact.badge') }}
                 </span>
                 <h2 class="mb-4 text-3xl font-bold text-gray-900 dark:text-white md:text-4xl">
-                    <span class="text-blue-600 dark:text-blue-400">Aquaculture</span> Support & Inquiries
+                    {!! str_replace(
+                        ':part1',
+                        '<span class="text-blue-600 dark:text-blue-400">' . __('welcome.contact.title_part1') . '</span>',
+                        __('welcome.contact.title'),
+                    ) !!}
                 </h2>
                 <div class="flex justify-center mx-auto my-6">
                     <span class="inline-block w-24 h-1.5 bg-blue-500 dark:bg-blue-600 rounded-full"></span>
                     <span class="inline-block w-4 h-1.5 mx-2 bg-blue-500 dark:bg-blue-400 rounded-full"></span>
-                    <span class="inline-block w-2 h-1.5 bg-blue-500 dark:bg-blue-300 rounded-full"></span>
+                    <span class="inline-block w-2 h-1.5 bg-blue-300 dark:bg-blue-300 rounded-full"></span>
                 </div>
                 <p class="text-lg leading-relaxed text-gray-600 dark:text-gray-300">
-                    {{ $appInfo['company_description'] ?? 'Our team of shrimp genetics specialists is ready to assist with technical questions, product information, and partnership opportunities.' }}
+                    {{ $appInfo['company_description'] ?? __('welcome.contact.subtitle') }}
                 </p>
             </div>
 
@@ -513,10 +558,12 @@
                                     <i class="text-xl fas fa-envelope"></i>
                                 </div>
                                 <div>
-                                    <h4 class="mb-2 text-lg font-semibold text-gray-900 dark:text-white">Email Support
+                                    <h4 class="mb-2 text-lg font-semibold text-gray-900 dark:text-white">
+                                        {{ __('welcome.contact.channels.email') }}
                                     </h4>
                                     <p class="mb-1 text-gray-600 dark:text-gray-300">
-                                        <span class="font-medium">General Inquiries:</span>
+                                        <span
+                                            class="font-medium">{{ __('welcome.contact.labels.general_inquiries') }}</span>
                                         <a href="mailto:{{ $appInfo['email'] ?? 'bpiu2k@gmail.com' }}"
                                             class="text-blue-600 dark:text-blue-400 hover:underline">
                                             {{ $appInfo['email'] ?? 'bpiu2k@gmail.com' }}
@@ -532,10 +579,12 @@
                                     <i class="text-xl fas fa-phone-alt"></i>
                                 </div>
                                 <div>
-                                    <h4 class="mb-2 text-lg font-semibold text-gray-900 dark:text-white">Phone Support
+                                    <h4 class="mb-2 text-lg font-semibold text-gray-900 dark:text-white">
+                                        {{ __('welcome.contact.channels.phone') }}
                                     </h4>
                                     <p class="text-gray-600 dark:text-gray-300">
-                                        <span class="font-medium">Main Office:</span>
+                                        <span
+                                            class="font-medium">{{ __('welcome.contact.labels.main_office') }}</span>
                                         {{ $appInfo['phone'] ?? '03632787803' }}
                                     </p>
                                 </div>
@@ -548,8 +597,9 @@
                                     <i class="text-xl fas fa-map-marker-alt"></i>
                                 </div>
                                 <div>
-                                    <h4 class="mb-2 text-lg font-semibold text-gray-900 dark:text-white">Global
-                                        Headquarters</h4>
+                                    <h4 class="mb-2 text-lg font-semibold text-gray-900 dark:text-white">
+                                        {{ __('welcome.contact.channels.address') }}
+                                    </h4>
                                     <p class="text-gray-600 dark:text-gray-300">
                                         {{ $appInfo['company_name'] ?? 'Nusa Dewa' }}<br>
                                         {{ $appInfo['address'] ?? 'Bugbug Road, Manggis District' }}<br>
@@ -560,7 +610,8 @@
                                     <a href="https://maps.google.com?q={{ urlencode($appInfo['address'] ?? 'Bugbug Road, Manggis District') }}"
                                         target="_blank"
                                         class="inline-block mt-2 text-sm text-blue-600 dark:text-blue-400 hover:underline">
-                                        Get Directions <i class="ml-1 fas fa-external-link-alt"></i>
+                                        {{ __('welcome.contact.labels.get_directions') }} <i
+                                            class="ml-1 fas fa-external-link-alt"></i>
                                     </a>
                                 </div>
                             </div>
@@ -572,8 +623,9 @@
                                     <i class="text-xl fas fa-clock"></i>
                                 </div>
                                 <div>
-                                    <h4 class="mb-2 text-lg font-semibold text-gray-900 dark:text-white">Operating
-                                        Hours</h4>
+                                    <h4 class="mb-2 text-lg font-semibold text-gray-900 dark:text-white">
+                                        {{ __('welcome.contact.channels.hours') }}
+                                    </h4>
                                     <p class="text-gray-600 dark:text-gray-300">
                                         {!! $appInfo['formattedHours'] ??
                                             'Monday-Friday: 7:30AM - 4:00PM<br>Friday: 7:30AM - 4:30PM<br>Saturday-Sunday: Closed' !!}
@@ -585,7 +637,8 @@
                         <!-- Social Media -->
                         @if (!empty($socialMedia['social_media']))
                             <div class="pt-8 mt-8 border-t border-gray-200 dark:border-gray-700">
-                                <h4 class="mb-4 text-lg font-semibold text-gray-900 dark:text-white">Connect With Us
+                                <h4 class="mb-4 text-lg font-semibold text-gray-900 dark:text-white">
+                                    {{ __('welcome.contact.social') }}
                                 </h4>
                                 <div class="flex space-x-3">
                                     @foreach ($socialMedia['social_media'] as $platform => $url)
