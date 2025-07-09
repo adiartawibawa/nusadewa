@@ -1,24 +1,7 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" dir="ltr">
+@extends('layouts.base')
 
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="{{ $seo['description'] ?? $appInfo['company_description'] }}">
-    <meta name="keywords" content="{{ $seo['keywords'] ?? '' }}">
-    <!-- Favicon -->
-    <link rel="icon" href="{{ $appInfo['companyLogo'] }}" type="image/x-icon">
-
-    <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-
-    <title>{{ $seo['title'] ?? $appInfo['company_name'] }} - {{ $title ?? 'Aquaculture Innovation' }}</title>
-
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
+@push('styles')
+    <!-- Global Styles -->
     <style>
         [x-cloak] {
             display: none !important;
@@ -76,44 +59,44 @@
             }
         }
     </style>
+@endpush
 
-    @stack('styles')
+@section('content')
+    <div id="top"
+        class="font-sans antialiased text-gray-800 transition-colors duration-300 bg-gray-50 dark:bg-gray-900 dark:text-gray-100"
+        x-cloak x-data="appComponent()" x-init="init()">
 
-    @livewireStyles
+        <!-- Preloader -->
+        <div class="fixed inset-0 z-50 flex items-center justify-center transition-opacity duration-500 bg-white preloader"
+            x-show="true" x-transition:enter="transition-opacity duration-300"
+            x-transition:leave="transition-opacity duration-300" x-init="setTimeout(() => { $el.remove() }, 1000)">
+            <div class="w-20 h-20 border-t-2 border-b-2 border-blue-500 rounded-full animate-spin"></div>
+        </div>
 
-</head>
+        <!-- Sidebar Panel -->
+        <x-layouts.sidebar :appInfo="$appInfo" />
 
-<body id="top"
-    class="font-sans antialiased text-gray-800 transition-colors duration-300 bg-gray-50 dark:bg-gray-900 dark:text-gray-100"
-    x-cloak x-data="appComponent()" x-init="init()">
+        <!-- Mobile Menu -->
+        <x-layouts.mobile-menu />
 
-    <!-- Preloader -->
-    <div class="fixed inset-0 z-50 flex items-center justify-center transition-opacity duration-500 bg-white preloader"
-        x-show="true" x-transition:enter="transition-opacity duration-300"
-        x-transition:leave="transition-opacity duration-300" x-init="setTimeout(() => { $el.remove() }, 1000)">
-        <div class="w-20 h-20 border-t-2 border-b-2 border-blue-500 rounded-full animate-spin"></div>
+        <!-- Main Content -->
+        <main>
+            {{ $slot }}
+        </main>
+
+        <!-- Footer -->
+        <x-layouts.footer :appInfo="$appInfo ?? null" />
+
+        <!-- Back to Top Button -->
+        <a href="#top" x-show="scrollY > 300" x-transition.opacity
+            class="fixed z-40 flex items-center justify-center w-12 h-12 text-white transition-all duration-300 transform rounded-full shadow-lg bottom-6 right-6 bg-primary hover:bg-secondary hover:scale-110">
+            <i class="fas fa-arrow-up"></i>
+        </a>
+
     </div>
+@endsection
 
-    <!-- Sidebar Panel -->
-    <x-layouts.sidebar :appInfo="$appInfo" />
-
-    <!-- Mobile Menu -->
-    <x-layouts.mobile-menu />
-
-    <!-- Main Content -->
-    <main>
-        {{ $slot }}
-    </main>
-
-    <!-- Footer -->
-    <x-layouts.footer :appInfo="$appInfo ?? null" />
-
-    <!-- Back to Top Button -->
-    <a href="#top" x-show="scrollY > 300" x-transition.opacity
-        class="fixed z-40 flex items-center justify-center w-12 h-12 text-white transition-all duration-300 transform rounded-full shadow-lg bottom-6 right-6 bg-primary hover:bg-secondary hover:scale-110">
-        <i class="fas fa-arrow-up"></i>
-    </a>
-
+@push('scripts')
     <script>
         function appComponent() {
             return {
@@ -142,6 +125,29 @@
 
                     // Initial dark mode setting
                     document.documentElement.classList.toggle('dark', this.darkMode);
+
+                    // Smooth scrolling for anchor links
+                    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                        anchor.addEventListener('click', function(e) {
+                            e.preventDefault();
+
+                            const targetId = this.getAttribute('href');
+                            if (targetId === '#') return;
+
+                            const targetElement = document.querySelector(targetId);
+                            if (targetElement) {
+                                window.scrollTo({
+                                    top: targetElement.offsetTop - 100,
+                                    behavior: 'smooth'
+                                });
+
+                                // Close mobile menu if open (using Alpine store)
+                                if (window.innerWidth < 768) {
+                                    Alpine.store('mobileMenuOpen', false);
+                                }
+                            }
+                        });
+                    });
                 },
 
                 switchLocale() {
@@ -150,9 +156,7 @@
                 }
             }
         }
-    </script>
 
-    <script>
         // Preloader
         window.addEventListener('load', function() {
             const preloader = document.querySelector('.preloader');
@@ -164,35 +168,5 @@
                 }, 1000);
             }
         });
-
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-
-                const targetId = this.getAttribute('href');
-                if (targetId === '#') return;
-
-                const targetElement = document.querySelector(targetId);
-                if (targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 100,
-                        behavior: 'smooth'
-                    });
-
-                    // Close mobile menu if open
-                    if (window.innerWidth < 768) {
-                        Alpine.store('mobileMenuOpen', false);
-                    }
-                }
-            });
-        });
     </script>
-
-    @livewireScripts
-
-    @stack('scripts')
-
-</body>
-
-</html>
+@endpush
