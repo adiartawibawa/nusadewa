@@ -43,8 +43,17 @@ class ApiSettingsPage extends Page implements HasForms
     public function mount(): void
     {
         $settings = app(ApiSettings::class);
+        $configs = $settings->api_configurations ?? [];
+
+        // Transform dari format {'order': {...}} ke array untuk Repeater
+        $repeaterData = [];
+        foreach ($configs as $key => $config) {
+            $config['key'] = $key; // Tambahkan key ke dalam config
+            $repeaterData[] = $config;
+        }
+
         $this->form->fill([
-            'api_configurations' => $settings->api_configurations
+            'api_configurations' => $repeaterData
         ]);
     }
 
@@ -55,6 +64,14 @@ class ApiSettingsPage extends Page implements HasForms
                 Repeater::make('api_configurations')
                     ->label('API Configurations')
                     ->schema([
+                        TextInput::make('key')
+                            ->label('API Key')
+                            ->required()
+                            ->default('order')
+                            ->unique(ignoreRecord: true)
+                            ->columnSpanFull()
+                            ->disabled(fn($operation) => $operation === 'edit'),
+
                         TextInput::make('name')
                             ->label('API Name')
                             ->required()
@@ -181,8 +198,18 @@ class ApiSettingsPage extends Page implements HasForms
         try {
             $data = $this->form->getState();
 
+            // Transform array Repeater ke format yang diinginkan
+            $transformedConfigs = [];
+            foreach ($data['api_configurations'] as $config) {
+                if (!empty($config['key'])) {
+                    $key = $config['key'];
+                    unset($config['key']); // Hapus field key dari config
+                    $transformedConfigs[$key] = $config;
+                }
+            }
+
             $settings = app(ApiSettings::class);
-            $settings->api_configurations = $data['api_configurations'];
+            $settings->api_configurations = $transformedConfigs;
             $settings->save();
 
             if (!$silent) {

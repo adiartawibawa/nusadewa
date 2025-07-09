@@ -7,10 +7,9 @@ use App\Filament\Clusters\Transactions\Resources\OrderResource\Pages;
 use App\Filament\Clusters\Transactions\Resources\OrderResource\RelationManagers;
 use App\Models\Order;
 use App\Settings\ApiSettings;
-use Filament\Actions\Action;
-use Filament\Actions\StaticAction;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Notifications\Actions\Action as NotificationAction;
 use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -94,7 +93,7 @@ class OrderResource extends Resource
                     ->action(function () {
                         static::fetchOrders();
                     })
-                    ->modalCancelAction(fn(StaticAction $action) => $action->label('Cancel'))
+                    ->modalCancelAction(fn($action) => $action->label('Cancel'))
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
@@ -128,13 +127,14 @@ class OrderResource extends Resource
             $apiSettings = app(ApiSettings::class);
             $orderApi = $apiSettings->getApiConfig('order');
 
-            if (!$orderApi || empty($orderApi['active'])) {
+            if (empty($orderApi) || ($orderApi['active'] ?? false) !== true) {
                 Notification::make()
                     ->title('Order API Error')
                     ->body('Order API is not configured or disabled. Please configure it first.')
                     ->danger()
                     ->actions([
-                        Action::make('Go to API Settings')
+                        NotificationAction::make('API Settings')
+                            ->label('Go to API Settings')
                             ->button()
                             ->url(route('filament.admin.settings.pages.api-settings-page'), shouldOpenInNewTab: true)
                     ])
