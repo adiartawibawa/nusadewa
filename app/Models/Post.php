@@ -30,12 +30,8 @@ class Post extends Model
      */
     protected $fillable = [
         'slug',
-        'language',
         'type',
         'is_featured',
-        // 'is_landing_page',
-        // 'landing_page_section',
-        // 'landing_page_order',
         'title',
         'summary',
         'body',
@@ -44,7 +40,6 @@ class Post extends Model
         'featured_image_caption',
         'user_id',
         'meta',
-        // 'seo_data',
         'indexable',
     ];
 

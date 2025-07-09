@@ -1,7 +1,7 @@
 <x-nusa-dewa-layout>
 
     <!-- Hero Section with Enhanced Parallax -->
-    <section class="relative h-screen overflow-hidden isolate">
+    <section id="hero" class="relative h-screen overflow-hidden isolate">
         <!-- Header Components -->
         <x-layouts.top-header />
         <x-layouts.main-nav />
@@ -240,7 +240,7 @@
                 <!-- Main Content -->
                 <div class="space-y-6">
                     <p class="text-lg leading-relaxed text-blue-100">
-                        {{ __('welcome.global_reach.content') }}
+                        {{ str_replace(':company', $appInfo['company_name'], __('welcome.global_reach.content')) }}
                     </p>
 
                     <!-- Key Metrics -->

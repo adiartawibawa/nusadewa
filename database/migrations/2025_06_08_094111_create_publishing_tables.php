@@ -17,23 +17,16 @@ return new class extends Migration
         Schema::create('posts', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('slug');
-            // $table->string('language', 2)->default('id');
             $table->enum('type', ['article', 'news', 'page', 'product', 'technology', 'innovation'])->default('article'); // Jenis konten
             $table->boolean('is_featured')->default(false); // Flag untuk konten unggulan
-            $table->string('landing_page_section')->nullable();
-            $table->integer('landing_page_order')->nullable();
             $table->json('title');
             $table->json('summary')->nullable();
             $table->json('body')->nullable();
-            // $table->string('title');
-            // $table->text('summary')->nullable();
-            // $table->text('body')->nullable();
             $table->dateTime('published_at')->nullable();
             $table->string('featured_image')->nullable();
             $table->string('featured_image_caption')->nullable();
             $table->uuid('user_id')->index();
             $table->json('meta')->nullable();
-            // $table->json('seo_data')->nullable();
             $table->boolean('indexable')->default(true);
             $table->timestamps();
             $table->softDeletes();
