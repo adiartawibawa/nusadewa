@@ -414,7 +414,8 @@
         <link rel="preload" href="{{ $posts[0]['image'] }}" as="image">
 
         <!-- Main scroll container -->
-        <div class="tech-slider" id="tech-scroll-container" role="region" aria-label="Technology slider">
+        <div class="tech-slider" id="tech-scroll-container" role="region"
+            aria-label="{{ __('component.tech_slider.aria_label') }}">
             @foreach ($posts as $index => $post)
                 <!-- Each slide section -->
                 <section class="tech-slider__section" id="tech-section-{{ $index }}"
@@ -450,8 +451,9 @@
                                         <p>{{ $post['summary'] }}</p>
                                     </div>
 
-                                    <a href="{{ route('news.show', $post['slug']) }}" class="tech-slider__button group">
-                                        <span>Learn More</span>
+                                    <a href="{{ route('news.show', $post['slug']) }}"
+                                        class="tech-slider__button group">
+                                        <span>{{ __('component.tech_slider.learn_more') }}</span>
                                         <span class="tech-slider__button-arrow">→</span>
                                     </a>
                                 </div>
@@ -467,7 +469,8 @@
             @foreach ($posts as $index => $post)
                 <button onclick="scrollToTechSection({{ $index }})"
                     class="tech-slider__dot {{ $index === 0 ? 'tech-slider__dot--active' : '' }}"
-                    title="Go to section {{ $index + 1 }}" aria-label="Go to slide {{ $index + 1 }}"
+                    title="{{ str_replace(':number', $index + 1, __('component.tech_slider.navigation.go_to_section')) }}"
+                    aria-label="{{ str_replace(':number', $index + 1, __('component.tech_slider.navigation.go_to_slide')) }}"
                     aria-controls="tech-section-{{ $index }}">
                 </button>
             @endforeach
@@ -586,7 +589,7 @@
         </script>
     @else
         <div class="flex items-center justify-center h-screen p-4">
-            <p class="text-center text-neutral-400">No technology posts available at the moment.</p>
+            <p class="text-center text-neutral-400">{{ __('component.tech_slider.no_posts') }}</p>
         </div>
     @endif
 </div>

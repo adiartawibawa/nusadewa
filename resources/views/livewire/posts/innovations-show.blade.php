@@ -12,8 +12,8 @@
         <x-breadcrumbs :items="[['name' => 'Innovations', 'url' => route('innovations.index')]]" :currentItem="$innovation->title" />
 
         <!-- Main Content -->
-        <div class="container max-w-7xl px-4 mx-auto">
-            <div class="overflow-hidden bg-white dark:bg-gray-800 shadow-xl rounded-xl dark:shadow-gray-700/50">
+        <div class="container px-4 mx-auto max-w-7xl">
+            <div class="overflow-hidden bg-white shadow-xl dark:bg-gray-800 rounded-xl dark:shadow-gray-700/50">
                 <!-- Featured Image -->
                 <div class="relative w-full h-96 md:h-[32rem] overflow-hidden">
                     <img src="{{ $innovation->featured_image_url }}" alt="{{ $innovation->featured_image_caption }}"
@@ -32,7 +32,7 @@
                         <div class="flex flex-wrap gap-2 mb-6">
                             @foreach ($innovation->tags as $tag)
                                 <a href="{{ route('innovations.index', ['tag' => $tag->slug]) }}"
-                                    class="px-3 py-1 text-xs font-medium text-indigo-600 dark:text-indigo-400 transition-colors rounded-full bg-indigo-50 dark:bg-indigo-900/50 hover:bg-indigo-100 dark:hover:bg-indigo-900/70">
+                                    class="px-3 py-1 text-xs font-medium text-indigo-600 transition-colors rounded-full dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-900/50 hover:bg-indigo-100 dark:hover:bg-indigo-900/70">
                                     #{{ $tag->name }}
                                 </a>
                             @endforeach
@@ -49,9 +49,9 @@
                     <div class="flex flex-wrap items-center gap-4 mb-8 text-sm text-gray-500 dark:text-gray-400">
                         @if ($innovation->user)
                             <div class="flex items-center">
-                                <span class="mr-1">By</span>
+                                <span class="mr-1">{{ __('component.innovation_detail.by_author') }}</span>
                                 <a href="#"
-                                    class="font-medium text-indigo-600 dark:text-indigo-400 transition-colors hover:text-indigo-800 dark:hover:text-indigo-300">
+                                    class="font-medium text-indigo-600 transition-colors dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300">
                                     {{ $innovation->user->name }}
                                 </a>
                             </div>
@@ -71,7 +71,8 @@
 
                         <span class="flex items-center">
                             <i class="mr-1 text-gray-400 fas fa-eye"></i>
-                            {{ number_format($innovation->views_count) }} views
+                            {{ number_format($innovation->views_count) }}
+                            {{ __('component.innovation_detail.views') }}
                         </span>
                     </div>
 
@@ -85,25 +86,27 @@
                     <div class="pt-8 mt-12 border-t border-gray-200 dark:border-gray-700">
                         <div class="flex flex-col items-center sm:flex-row sm:justify-between">
                             <div class="flex items-center mb-4 sm:mb-0">
-                                <span class="mr-3 text-sm font-medium text-gray-700 dark:text-gray-300">Share this
-                                    innovation:</span>
+                                <span class="mr-3 text-sm font-medium text-gray-700 dark:text-gray-300">
+                                    {{ __('component.innovation_detail.share_innovation') }}
+                                </span>
                                 <div class="flex space-x-2">
                                     <a href="#"
-                                        class="p-2 text-gray-500 dark:text-gray-400 transition-colors bg-gray-100 dark:bg-gray-700 rounded-full hover:bg-blue-600 hover:text-white">
+                                        class="p-2 text-gray-500 transition-colors bg-gray-100 rounded-full dark:text-gray-400 dark:bg-gray-700 hover:bg-blue-600 hover:text-white">
                                         <i class="fab fa-facebook-f"></i>
                                     </a>
                                     <a href="#"
-                                        class="p-2 text-gray-500 dark:text-gray-400 transition-colors bg-gray-100 dark:bg-gray-700 rounded-full hover:bg-blue-400 hover:text-white">
+                                        class="p-2 text-gray-500 transition-colors bg-gray-100 rounded-full dark:text-gray-400 dark:bg-gray-700 hover:bg-blue-400 hover:text-white">
                                         <i class="fab fa-twitter"></i>
                                     </a>
                                     <a href="#"
-                                        class="p-2 text-gray-500 dark:text-gray-400 transition-colors bg-gray-100 dark:bg-gray-700 rounded-full hover:bg-blue-700 hover:text-white">
+                                        class="p-2 text-gray-500 transition-colors bg-gray-100 rounded-full dark:text-gray-400 dark:bg-gray-700 hover:bg-blue-700 hover:text-white">
                                         <i class="fab fa-linkedin-in"></i>
                                     </a>
                                 </div>
                             </div>
                             <div class="text-sm text-gray-500 dark:text-gray-400">
-                                Innovation published on {{ $innovation->published_at->format('F j, Y') }}
+                                {{ __('component.innovation_detail.published_on') }}
+                                {{ $innovation->published_at->format('F j, Y') }}
                             </div>
                         </div>
                     </div>
@@ -112,16 +115,17 @@
         </div>
 
         <!-- Related Content Sections -->
-        <div class="container max-w-7xl px-4 py-12 mx-auto space-y-12">
+        <div class="container px-4 py-12 mx-auto space-y-12 max-w-7xl">
             <!-- Related Product Categories -->
             @if ($innovation->productCategories->count() > 0)
                 <div class="space-y-6">
-                    <h3 class="font-sans text-2xl font-bold text-gray-900 dark:text-white md:text-3xl">Related Products
+                    <h3 class="font-sans text-2xl font-bold text-gray-900 dark:text-white md:text-3xl">
+                        {{ __('component.innovation_detail.related_products') }}
                     </h3>
                     <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
                         @foreach ($innovation->productCategories as $category)
                             <a href="{{ route('products.category', $category->slug) }}"
-                                class="flex items-start p-4 transition-all bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg hover:shadow-md dark:hover:shadow-gray-700/50 hover:border-indigo-100 dark:hover:border-indigo-900">
+                                class="flex items-start p-4 transition-all bg-white border border-gray-200 rounded-lg dark:bg-gray-800 dark:border-gray-700 hover:shadow-md dark:hover:shadow-gray-700/50 hover:border-indigo-100 dark:hover:border-indigo-900">
                                 @if ($category->image)
                                     <img src="{{ Storage::url($category->image) }}" alt="{{ $category->name }}"
                                         class="flex-shrink-0 object-cover w-16 h-16 rounded-lg">
@@ -141,11 +145,13 @@
             <!-- Related Topics -->
             @if ($innovation->topics->count() > 0)
                 <div class="space-y-6">
-                    <h3 class="text-2xl font-bold text-gray-900 dark:text-white md:text-3xl">Explore More Topics</h3>
+                    <h3 class="text-2xl font-bold text-gray-900 dark:text-white md:text-3xl">
+                        {{ __('component.innovation_detail.explore_topics') }}
+                    </h3>
                     <div class="flex flex-wrap gap-3">
                         @foreach ($innovation->topics as $topic)
                             <a href="{{ route('innovations.index', ['topic' => $topic->slug]) }}"
-                                class="px-4 py-2 text-sm font-medium text-indigo-600 dark:text-indigo-400 transition-colors bg-gray-100 dark:bg-gray-700 rounded-full hover:bg-indigo-100 dark:hover:bg-indigo-900/70">
+                                class="px-4 py-2 text-sm font-medium text-indigo-600 transition-colors bg-gray-100 rounded-full dark:text-indigo-400 dark:bg-gray-700 hover:bg-indigo-100 dark:hover:bg-indigo-900/70">
                                 {{ $topic->name }}
                             </a>
                         @endforeach
@@ -156,12 +162,13 @@
             <!-- Related Innovations -->
             @if ($relatedInnovations->count() > 0)
                 <div class="space-y-6">
-                    <h3 class="font-sans text-2xl font-bold text-gray-900 dark:text-white md:text-3xl">Related
-                        Innovations</h3>
+                    <h3 class="font-sans text-2xl font-bold text-gray-900 dark:text-white md:text-3xl">
+                        {{ __('component.innovation_detail.related_innovations') }}
+                    </h3>
                     <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
                         @foreach ($relatedInnovations as $related)
                             <article
-                                class="overflow-hidden transition-all bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl hover:shadow-lg dark:hover:shadow-gray-700/50">
+                                class="overflow-hidden transition-all bg-white border border-gray-200 dark:bg-gray-800 dark:border-gray-700 rounded-xl hover:shadow-lg dark:hover:shadow-gray-700/50">
                                 <div class="h-48 overflow-hidden">
                                     <img src="{{ $related->featured_image_url }}"
                                         alt="{{ $related->featured_image_caption }}"
@@ -172,7 +179,7 @@
                                     <div class="flex flex-wrap gap-2 mb-3">
                                         @foreach ($related->tags as $tag)
                                             <a href="{{ route('innovations.index', ['tag' => $tag->slug]) }}"
-                                                class="px-2 py-1 text-xs font-medium text-indigo-600 dark:text-indigo-400 transition-colors rounded-full bg-indigo-50 dark:bg-indigo-900/50 hover:bg-indigo-100 dark:hover:bg-indigo-900/70">
+                                                class="px-2 py-1 text-xs font-medium text-indigo-600 transition-colors rounded-full dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-900/50 hover:bg-indigo-100 dark:hover:bg-indigo-900/70">
                                                 {{ $tag->name }}
                                             </a>
                                         @endforeach
@@ -189,8 +196,9 @@
                                         <time
                                             class="text-sm text-gray-500 dark:text-gray-400">{{ $related->published_at->format('M j, Y') }}</time>
                                         <a href="{{ route('innovations.show', $related->slug) }}"
-                                            class="text-sm font-medium text-indigo-600 dark:text-indigo-400 transition-colors hover:text-indigo-800 dark:hover:text-indigo-300">
-                                            Read More <i class="ml-1 fas fa-arrow-right"></i>
+                                            class="text-sm font-medium text-indigo-600 transition-colors dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300">
+                                            {{ __('component.innovation_detail.read_more') }} <i
+                                                class="ml-1 fas fa-arrow-right"></i>
                                         </a>
                                     </div>
                                 </div>

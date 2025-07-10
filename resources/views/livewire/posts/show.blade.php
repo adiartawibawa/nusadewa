@@ -48,7 +48,7 @@
                     <div class="flex flex-wrap items-center gap-4 mb-8 text-sm text-gray-500 dark:text-gray-400">
                         @if ($post->user)
                             <div class="flex items-center">
-                                <span class="mr-1">By</span>
+                                <span class="mr-1">{{ __('component.news_detail.by_author') }}</span>
                                 <a href="#"
                                     class="font-medium text-indigo-600 dark:text-indigo-400 transition-colors hover:text-indigo-800 dark:hover:text-indigo-300">
                                     {{ $post->user->name }}
@@ -70,7 +70,7 @@
 
                         <span class="flex items-center">
                             <i class="mr-1 text-gray-400 fas fa-eye"></i>
-                            {{ number_format($post->views->count()) }} views
+                            {{ number_format($post->views->count()) }} {{ __('component.news_detail.views') }}
                         </span>
                     </div>
 
@@ -84,8 +84,9 @@
                     <div class="pt-8 mt-12 border-t border-gray-200 dark:border-gray-700">
                         <div class="flex flex-col items-center sm:flex-row sm:justify-between">
                             <div class="flex items-center mb-4 sm:mb-0">
-                                <span class="mr-3 text-sm font-medium text-gray-700 dark:text-gray-300">Share this
-                                    article:</span>
+                                <span class="mr-3 text-sm font-medium text-gray-700 dark:text-gray-300">
+                                    {{ __('component.news_detail.share_article') }}
+                                </span>
                                 <div class="flex space-x-2">
                                     <a href="#"
                                         class="p-2 text-gray-500 dark:text-gray-400 transition-colors bg-gray-100 dark:bg-gray-700 rounded-full hover:bg-blue-600 hover:text-white">
@@ -102,7 +103,7 @@
                                 </div>
                             </div>
                             <div class="text-sm text-gray-500 dark:text-gray-400">
-                                Published in
+                                {{ __('component.news_detail.published_in') }}
                                 @if ($post->type)
                                     <span class="font-medium">{{ $post->type->value }}</span>
                                 @endif
@@ -118,7 +119,8 @@
             <!-- Related Product Categories -->
             @if ($post->productCategories->count() > 0)
                 <div class="space-y-6">
-                    <h3 class="font-sans text-2xl font-bold text-gray-900 dark:text-white md:text-3xl">Related Products
+                    <h3 class="font-sans text-2xl font-bold text-gray-900 dark:text-white md:text-3xl">
+                        {{ __('component.news_detail.related_products') }}
                     </h3>
                     <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
                         @foreach ($post->productCategories as $category)
@@ -143,7 +145,9 @@
             <!-- Related Topics -->
             @if ($post->topics->count() > 0)
                 <div class="space-y-6">
-                    <h3 class="text-2xl font-bold text-gray-900 dark:text-white md:text-3xl">Explore More Topics</h3>
+                    <h3 class="text-2xl font-bold text-gray-900 dark:text-white md:text-3xl">
+                        {{ __('component.news_detail.explore_topics') }}
+                    </h3>
                     <div class="flex flex-wrap gap-3">
                         @foreach ($post->topics as $topic)
                             <a href="{{ route('news.index', ['topic' => $topic->slug]) }}"
@@ -158,8 +162,9 @@
             <!-- Related News -->
             @if ($relatedNews->count() > 0)
                 <div class="space-y-6">
-                    <h3 class="font-sans text-2xl font-bold text-gray-900 dark:text-white md:text-3xl">You Might Also
-                        Like</h3>
+                    <h3 class="font-sans text-2xl font-bold text-gray-900 dark:text-white md:text-3xl">
+                        {{ __('component.news_detail.you_might_like') }}
+                    </h3>
                     <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
                         @foreach ($relatedNews as $related)
                             <article
@@ -192,7 +197,8 @@
                                             class="text-sm text-gray-500 dark:text-gray-400">{{ $related->published_at->format('M j, Y') }}</time>
                                         <a href="{{ route('news.show', $related->slug) }}"
                                             class="text-sm font-medium text-indigo-600 dark:text-indigo-400 transition-colors hover:text-indigo-800 dark:hover:text-indigo-300">
-                                            Read More <i class="ml-1 fas fa-arrow-right"></i>
+                                            {{ __('component.news_detail.read_more') }} <i
+                                                class="ml-1 fas fa-arrow-right"></i>
                                         </a>
                                     </div>
                                 </div>

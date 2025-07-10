@@ -5,12 +5,12 @@
             <!-- Navigation Arrows - Updated Position -->
             <button
                 class="absolute z-10 flex items-center justify-center w-10 h-10 text-gray-900 transition-all duration-300 -translate-y-1/2 rounded-full shadow-lg opacity-0 left-4 top-1/2 bg-white/80 dark:bg-gray-800/80 dark:text-white hover:opacity-100 hover:scale-110 backdrop-blur-sm"
-                aria-label="Previous member">
+                aria-label="{{ __('component.team_slider.navigation.previous') }}">
                 ◀
             </button>
             <button
                 class="absolute z-10 flex items-center justify-center w-10 h-10 text-gray-900 transition-all duration-300 -translate-y-1/2 rounded-full shadow-lg opacity-0 right-4 top-1/2 bg-white/80 dark:bg-gray-800/80 dark:text-white hover:opacity-100 hover:scale-110 backdrop-blur-sm"
-                aria-label="Next member">
+                aria-label="{{ __('component.team_slider.navigation.next') }}">
                 ▶
             </button>
 
@@ -30,7 +30,7 @@
                                 @else
                                     <div
                                         class="flex items-center justify-center w-full h-full text-2xl text-gray-500 bg-gray-100 team-member-placeholder dark:bg-gray-700 dark:text-gray-400">
-                                        <span>No Image</span>
+                                        <span>{{ __('component.team_slider.no_image') }}</span>
                                     </div>
                                 @endif
                             </div>
@@ -38,7 +38,7 @@
                             <!-- Member Details -->
                             <div class="flex-1 text-gray-700 team-member-details dark:text-gray-200">
                                 <span class="block mb-2 font-mono text-sm text-gray-500 dark:text-gray-400">
-                                    {{ str_pad($loop->iteration, 2, '0', STR_PAD_LEFT) }} / TEAM
+                                    {{ str_replace(':number', str_pad($loop->iteration, 2, '0', STR_PAD_LEFT), __('component.team_slider.team_counter')) }}
                                 </span>
                                 <h3 class="mb-2 text-3xl font-bold text-gray-900 dark:text-white md:text-5xl">
                                     {{ $member->name }}</h3>
@@ -66,7 +66,7 @@
                                 <!-- Contact Button -->
                                 <a href="#contact"
                                     class="inline-block px-6 py-3 font-medium text-white transition-all bg-blue-500 rounded-full team-contact-button hover:bg-blue-600 hover:-translate-y-1 hover:shadow-lg">
-                                    Contact {{ explode(' ', $member->name)[0] }}
+                                    {{ str_replace(':name', explode(' ', $member->name)[0], __('component.team_slider.contact_button')) }}
                                 </a>
                             </div>
                         </div>
@@ -79,7 +79,8 @@
                 @foreach ($teamMembers as $index => $member)
                     <button
                         class="team-dot w-2.5 h-2.5 rounded-full bg-gray-300 dark:bg-gray-600 transition-all {{ $loop->first ? '!bg-blue-500 scale-130' : '' }}"
-                        aria-label="Go to {{ $member->name }}" data-index="{{ $index }}"></button>
+                        aria-label="{{ str_replace(':name', $member->name, __('component.team_slider.navigation.go_to_member')) }}"
+                        data-index="{{ $index }}"></button>
                 @endforeach
             </div>
         </div>
@@ -90,8 +91,10 @@
             const slider = document.querySelector('.team-slider-track');
             const slides = document.querySelectorAll('.team-slide');
             const dots = document.querySelectorAll('.team-dot');
-            const prevBtn = document.querySelector('button[aria-label="Previous member"]');
-            const nextBtn = document.querySelector('button[aria-label="Next member"]');
+            const prevBtn = document.querySelector(
+                'button[aria-label="{{ __('component.team_slider.navigation.previous') }}"]');
+            const nextBtn = document.querySelector(
+                'button[aria-label="{{ __('component.team_slider.navigation.next') }}"]');
             let currentIndex = 0;
             let isScrolling = false;
             let scrollTimeout;

@@ -12,9 +12,12 @@
         <div class="py-16 bg-gradient-to-r from-blue-900 to-indigo-800 dark:from-blue-950 dark:to-indigo-900">
             <div class="container px-4 mx-auto">
                 <div class="max-w-3xl mx-auto text-center">
-                    <h1 class="text-4xl font-bold text-white md:text-5xl">Latest News & Updates</h1>
-                    <p class="mt-4 text-xl text-blue-100 dark:text-blue-200">Stay informed with our latest research and
-                        company news</p>
+                    <h1 class="text-4xl font-bold text-white md:text-5xl">
+                        {{ __('component.news.page_title') }}
+                    </h1>
+                    <p class="mt-4 text-xl text-blue-100 dark:text-blue-200">
+                        {{ __('component.news.page_subtitle') }}
+                    </p>
                 </div>
             </div>
         </div>
@@ -31,14 +34,16 @@
                     @if ($currentTag)
                         <div
                             class="flex items-center px-6 py-4 mb-6 bg-white dark:bg-gray-800 rounded-xl shadow-sm dark:shadow-gray-700/50">
-                            <span class="text-gray-700 dark:text-gray-300">Filtered by tag:</span>
+                            <span class="text-gray-700 dark:text-gray-300">
+                                {{ __('component.news.filtered_by_tag') }}
+                            </span>
                             <span
                                 class="px-3 py-1 ml-3 text-sm font-medium text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-900/50 rounded-full">
                                 #{{ $currentTag->name }}
                             </span>
                             <button wire:click="clearFilter('tag')"
                                 class="ml-auto text-sm text-indigo-600 dark:text-indigo-400 transition-colors hover:text-indigo-800 dark:hover:text-indigo-300">
-                                <i class="mr-1 fas fa-times"></i> Clear filter
+                                <i class="mr-1 fas fa-times"></i> {{ __('component.news.clear_filter') }}
                             </button>
                         </div>
                     @endif
@@ -95,7 +100,7 @@
                                     <!-- Read More -->
                                     <a href="{{ route('news.show', $post->slug) }}"
                                         class="inline-flex items-center font-medium text-indigo-600 dark:text-indigo-400 transition-colors hover:text-indigo-800 dark:hover:text-indigo-300">
-                                        Read more
+                                        {{ __('component.news.read_more') }}
                                         <i class="ml-2 text-xs fas fa-chevron-right"></i>
                                     </a>
                                 </div>
@@ -103,13 +108,15 @@
                         @empty
                             <div class="col-span-2 py-12 text-center">
                                 <i class="text-5xl text-gray-400 dark:text-gray-500 fas fa-newspaper"></i>
-                                <h3 class="mt-4 text-xl font-medium text-gray-900 dark:text-white">No news articles
-                                    found</h3>
-                                <p class="mt-2 text-gray-500 dark:text-gray-400">Check back later for updates or try
-                                    removing filters</p>
+                                <h3 class="mt-4 text-xl font-medium text-gray-900 dark:text-white">
+                                    {{ __('component.news.no_articles') }}
+                                </h3>
+                                <p class="mt-2 text-gray-500 dark:text-gray-400">
+                                    {{ __('component.news.no_articles_suggestion') }}
+                                </p>
                                 <a href="{{ route('news.index') }}"
                                     class="inline-block px-4 py-2 mt-4 text-sm font-medium text-white transition-colors bg-indigo-600 rounded-md hover:bg-indigo-700 dark:bg-indigo-700 dark:hover:bg-indigo-600">
-                                    View all news
+                                    {{ __('component.news.view_all_news') }}
                                 </a>
                             </div>
                         @endforelse
@@ -128,7 +135,9 @@
                     <!-- Featured News -->
                     @if ($featuredPosts->isNotEmpty())
                         <div class="p-6 mb-6 bg-white dark:bg-gray-800 rounded-xl shadow-sm dark:shadow-gray-700/50">
-                            <h3 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">Featured News</h3>
+                            <h3 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">
+                                {{ __('component.news.featured_news') }}
+                            </h3>
                             <div class="space-y-4">
                                 @foreach ($featuredPosts as $post)
                                     <div class="flex gap-3">
@@ -156,7 +165,9 @@
                     <!-- Popular Tags -->
                     @if ($topTags->isNotEmpty())
                         <div class="p-6 mb-6 bg-white dark:bg-gray-800 rounded-xl shadow-sm dark:shadow-gray-700/50">
-                            <h3 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">Popular Tags</h3>
+                            <h3 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">
+                                {{ __('component.news.popular_tags') }}
+                            </h3>
                             <div class="flex flex-wrap gap-2">
                                 @foreach ($topTags as $tag)
                                     <a href="{{ route('news.index', ['tag' => $tag->slug]) }}"
@@ -171,7 +182,9 @@
                     <!-- Topics -->
                     @if ($topTopics->isNotEmpty())
                         <div class="p-6 bg-white dark:bg-gray-800 rounded-xl shadow-sm dark:shadow-gray-700/50">
-                            <h3 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">Topics</h3>
+                            <h3 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">
+                                {{ __('component.news.topics') }}
+                            </h3>
                             <ul class="space-y-3">
                                 @foreach ($topTopics as $topic)
                                     <li>

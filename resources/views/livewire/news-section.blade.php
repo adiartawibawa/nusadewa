@@ -2,14 +2,17 @@
     <!-- Featured Highlights -->
     @if ($featuredNews->count())
         <div class="mb-16">
-            <h3 class="mb-6 text-2xl font-bold text-gray-800 dark:text-white md:text-3xl">Featured Highlights</h3>
+            <h3 class="mb-6 text-2xl font-bold text-gray-800 dark:text-white md:text-3xl">
+                {{ __('component.news_section.featured_highlights') }}
+            </h3>
             <div class="grid gap-8 md:grid-cols-3">
                 @foreach ($featuredNews as $post)
                     <div
                         class="overflow-hidden transition-all duration-300 bg-white border border-gray-100 shadow-sm dark:bg-gray-800 dark:border-gray-700 rounded-xl hover:shadow-md hover:border-blue-100 dark:hover:border-blue-900/50">
                         @if ($post->featured_image)
                             <img src="{{ asset('storage/' . $post->featured_image) }}"
-                                alt="{{ $post->featured_image_caption }}" class="object-cover w-full h-48" loading="lazy">
+                                alt="{{ $post->featured_image_caption ?? __('component.news_section.default_image_alt') }}"
+                                class="object-cover w-full h-48" loading="lazy">
                         @else
                             <div class="flex items-center justify-center h-48 text-gray-400 bg-gray-50 dark:bg-gray-700">
                                 <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -40,7 +43,7 @@
                                 <span>{{ $post->published_at->format('M d, Y') }} • {{ $post->read_time }}</span>
                                 <a href="{{ route('news.show', $post->slug) }}"
                                     class="font-medium text-blue-600 transition-colors rounded dark:text-blue-400 hover:text-blue-500 dark:hover:text-blue-300 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                                    Read More →
+                                    {{ __('component.news_section.read_more') }}
                                 </a>
                             </div>
                         </div>
@@ -58,7 +61,7 @@
             <button wire:click="resetFilters"
                 class="px-4 py-2 text-sm font-medium rounded-full transition-all duration-200
                     {{ !$selectedTag && !$selectedTopic && !$selectedCategory ? 'bg-blue-600 dark:bg-blue-700 text-white shadow-md' : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600' }}">
-                All News
+                {{ __('component.news_section.all_news') }}
             </button>
             @foreach ($topTags as $tag)
                 <button wire:click="filterByTag('{{ $tag->slug }}')"
@@ -74,7 +77,7 @@
             <button @click="open = !open"
                 class="flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-700 transition-all duration-200 bg-gray-100 rounded-full dark:text-gray-300 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 aria-expanded="false" :aria-expanded="open.toString()">
-                Filter by Topic
+                {{ __('component.news_section.filter_by_topic') }}
                 <svg :class="{ 'rotate-180': open }" class="w-4 h-4 transition-transform" fill="none"
                     stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
@@ -102,7 +105,8 @@
                     class="overflow-hidden transition-all duration-300 bg-white border border-gray-100 shadow-sm dark:bg-gray-800 dark:border-gray-700 rounded-xl hover:shadow-md hover:border-blue-100 dark:hover:border-blue-900/50">
                     @if ($post->featured_image)
                         <img src="{{ asset('storage/' . $post->featured_image) }}"
-                            alt="{{ $post->featured_image_caption }}" class="object-cover w-full h-48" loading="lazy">
+                            alt="{{ $post->featured_image_caption ?? __('component.news_section.default_image_alt') }}"
+                            class="object-cover w-full h-48" loading="lazy">
                     @else
                         <div class="flex items-center justify-center h-48 text-gray-400 bg-gray-50 dark:bg-gray-700">
                             <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -133,7 +137,7 @@
                             <span>{{ $post->published_at->format('M d, Y') }} • {{ $post->read_time }}</span>
                             <a href="{{ route('news.show', $post->slug) }}"
                                 class="font-medium text-blue-600 transition-colors rounded dark:text-blue-400 hover:text-blue-500 dark:hover:text-blue-300 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                                Read More →
+                                {{ __('component.news_section.read_more') }}
                             </a>
                         </div>
                     </div>
@@ -152,11 +156,13 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
                     d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
             </svg>
-            <p class="mt-4 text-gray-600 dark:text-gray-400">No articles found matching your criteria</p>
+            <p class="mt-4 text-gray-600 dark:text-gray-400">
+                {{ __('component.news_section.no_articles') }}
+            </p>
             @if ($selectedTag || $selectedTopic || $selectedCategory)
                 <button wire:click="resetFilters"
                     class="mt-4 font-medium text-blue-600 transition-colors rounded dark:text-blue-400 hover:text-blue-500 dark:hover:text-blue-300 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                    Reset Filters
+                    {{ __('component.news_section.reset_filters') }}
                 </button>
             @endif
         </div>

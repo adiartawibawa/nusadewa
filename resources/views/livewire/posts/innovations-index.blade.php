@@ -10,33 +10,29 @@
 
         <!-- Hero Section -->
         <div class="relative bg-indigo-900 dark:bg-indigo-950">
-            {{-- <div class="absolute inset-0">
-                <img class="object-cover w-full h-full" src="{{ asset('images/innovation-hero.jpg') }}" alt="">
-                <div class="absolute inset-0 bg-indigo-900 dark:bg-indigo-950/90 mix-blend-multiply" aria-hidden="true">
-                </div>
-            </div> --}}
             <div class="relative px-4 py-24 mx-auto max-w-7xl sm:py-32 sm:px-6 lg:px-8">
                 <h1 class="text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl">
-                    Our Innovations
+                    {{ __('component.innovations.page_title') }}
                 </h1>
                 <p class="max-w-3xl mt-6 text-xl text-indigo-100 dark:text-indigo-200">
-                    Cutting-edge solutions and technological breakthroughs in shrimp breeding
+                    {{ __('component.innovations.page_subtitle') }}
                 </p>
             </div>
         </div>
 
         <!-- Main Content -->
-        <div class="container max-w-7xl px-4 py-12 mx-auto">
+        <div class="container px-4 py-12 mx-auto max-w-7xl">
             <div class="lg:grid lg:grid-cols-3 lg:gap-8">
                 <!-- Sidebar -->
                 <div class="lg:col-span-1">
                     <!-- Search -->
                     <div class="mb-8">
-                        <label for="search" class="sr-only">Search innovations</label>
+                        <label for="search"
+                            class="sr-only">{{ __('component.innovations.search_placeholder') }}</label>
                         <div class="relative">
                             <input wire:model.lazy="search" id="search" name="search" type="text"
                                 class="block w-full px-4 py-3 border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:placeholder-gray-400"
-                                placeholder="Search innovations...">
+                                placeholder="{{ __('component.innovations.search_placeholder') }}">
                             <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
                                 <i class="text-gray-400 fas fa-search"></i>
                             </div>
@@ -45,7 +41,9 @@
 
                     <!-- Tags -->
                     <div class="p-6 mb-8 bg-white rounded-lg shadow dark:bg-gray-800">
-                        <h3 class="mb-4 text-lg font-medium text-gray-900 dark:text-white">Innovation Tags</h3>
+                        <h3 class="mb-4 text-lg font-medium text-gray-900 dark:text-white">
+                            {{ __('component.innovations.tags_title') }}
+                        </h3>
                         <div class="flex flex-wrap gap-2">
                             @foreach ($tags as $tag)
                                 <button wire:click="filterByTag('{{ $tag->slug }}')" @class([
@@ -62,14 +60,16 @@
                         @if ($selectedTag)
                             <button wire:click="resetFilters"
                                 class="mt-3 text-sm text-indigo-600 hover:text-indigo-800 dark:text-indigo-400 dark:hover:text-indigo-300">
-                                Clear tag filter
+                                {{ __('component.innovations.clear_tag_filter') }}
                             </button>
                         @endif
                     </div>
 
                     <!-- Topics -->
                     <div class="p-6 bg-white rounded-lg shadow dark:bg-gray-800">
-                        <h3 class="mb-4 text-lg font-medium text-gray-900 dark:text-white">Topics</h3>
+                        <h3 class="mb-4 text-lg font-medium text-gray-900 dark:text-white">
+                            {{ __('component.innovations.topics_title') }}
+                        </h3>
                         <div class="space-y-2">
                             @foreach ($topics as $topic)
                                 <button wire:click="filterByTopic('{{ $topic->slug }}')" @class([
@@ -88,7 +88,7 @@
                         @if ($selectedTopic)
                             <button wire:click="resetFilters"
                                 class="mt-3 text-sm text-indigo-600 hover:text-indigo-800 dark:text-indigo-400 dark:hover:text-indigo-300">
-                                Clear topic filter
+                                {{ __('component.innovations.clear_topic_filter') }}
                             </button>
                         @endif
                     </div>
@@ -99,7 +99,9 @@
                     <!-- Featured Innovations -->
                     @if ($featuredInnovations->count() > 0)
                         <div class="mb-12">
-                            <h2 class="mb-6 text-2xl font-bold text-gray-900 dark:text-white">Featured Innovations</h2>
+                            <h2 class="mb-6 text-2xl font-bold text-gray-900 dark:text-white">
+                                {{ __('component.innovations.featured_innovations') }}
+                            </h2>
                             <div class="grid gap-6 md:grid-cols-2">
                                 @foreach ($featuredInnovations as $innovation)
                                     <div
@@ -112,7 +114,7 @@
                                             <div class="flex flex-wrap gap-2 mb-3">
                                                 @foreach ($innovation->tags->take(3) as $tag)
                                                     <span
-                                                        class="px-2 py-1 text-xs font-medium text-indigo-600 bg-indigo-50 rounded-full dark:text-indigo-300 dark:bg-indigo-900/50">
+                                                        class="px-2 py-1 text-xs font-medium text-indigo-600 rounded-full bg-indigo-50 dark:text-indigo-300 dark:bg-indigo-900/50">
                                                         #{{ $tag->name }}
                                                     </span>
                                                 @endforeach
@@ -127,7 +129,8 @@
                                                 {{ $innovation->summary }}</p>
                                             <a href="{{ route('innovations.show', $innovation->slug) }}"
                                                 class="text-sm font-medium text-indigo-600 hover:text-indigo-800 dark:text-indigo-400 dark:hover:text-indigo-300">
-                                                Read more <i class="ml-1 fas fa-arrow-right"></i>
+                                                {{ __('component.innovations.read_more') }} <i
+                                                    class="ml-1 fas fa-arrow-right"></i>
                                             </a>
                                         </div>
                                     </div>
@@ -137,7 +140,9 @@
                     @endif
 
                     <!-- All Innovations -->
-                    <h2 class="mb-6 text-2xl font-bold text-gray-900 dark:text-white">All Innovations</h2>
+                    <h2 class="mb-6 text-2xl font-bold text-gray-900 dark:text-white">
+                        {{ __('component.innovations.all_innovations') }}
+                    </h2>
 
                     @if ($innovations->count() > 0)
                         <div class="grid gap-6 md:grid-cols-2">
@@ -152,7 +157,7 @@
                                         <div class="flex flex-wrap gap-2 mb-3">
                                             @foreach ($innovation->tags->take(3) as $tag)
                                                 <span
-                                                    class="px-2 py-1 text-xs font-medium text-indigo-600 bg-indigo-50 rounded-full dark:text-indigo-300 dark:bg-indigo-900/50">
+                                                    class="px-2 py-1 text-xs font-medium text-indigo-600 rounded-full bg-indigo-50 dark:text-indigo-300 dark:bg-indigo-900/50">
                                                     #{{ $tag->name }}
                                                 </span>
                                             @endforeach
@@ -171,7 +176,7 @@
                                             </time>
                                             <a href="{{ route('innovations.show', $innovation->slug) }}"
                                                 class="text-sm font-medium text-indigo-600 hover:text-indigo-800 dark:text-indigo-400 dark:hover:text-indigo-300">
-                                                Read more
+                                                {{ __('component.innovations.read_more') }}
                                             </a>
                                         </div>
                                     </div>
@@ -191,16 +196,18 @@
                                     d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z">
                                 </path>
                             </svg>
-                            <h3 class="mt-4 text-lg font-medium text-gray-900 dark:text-white">No innovations found</h3>
+                            <h3 class="mt-4 text-lg font-medium text-gray-900 dark:text-white">
+                                {{ __('component.innovations.no_innovations') }}
+                            </h3>
                             <p class="mt-2 text-gray-500 dark:text-gray-400">
                                 @if ($selectedTag || $selectedTopic || $search)
-                                    Try removing some filters or search terms
+                                    {{ __('component.innovations.no_innovations_suggestion') }}
                                     <button wire:click="resetFilters"
                                         class="mt-2 text-indigo-600 hover:text-indigo-800 dark:text-indigo-400 dark:hover:text-indigo-300">
-                                        Reset all filters
+                                        {{ __('component.innovations.reset_filters') }}
                                     </button>
                                 @else
-                                    Check back later for new innovations
+                                    {{ __('component.innovations.check_back_later') }}
                                 @endif
                             </p>
                         </div>

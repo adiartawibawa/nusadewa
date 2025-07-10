@@ -2,10 +2,10 @@
     <div class="container flex items-center">
         <!-- Left Navigation -->
         @if ($totalInnovations > 1)
-            <div class="hidden md:flex mr-4">
+            <div class="hidden mr-4 md:flex">
                 <button wire:click="previous"
-                    class="p-3 text-white bg-blue-500 rounded-full shadow-lg hover:bg-blue-600 focus:outline-none transition-all duration-300 transform hover:scale-110"
-                    aria-label="Previous">
+                    class="p-3 text-white transition-all duration-300 transform bg-blue-500 rounded-full shadow-lg hover:bg-blue-600 focus:outline-none hover:scale-110"
+                    aria-label="{{ __('component.innovations_carousel.navigation.previous') }}">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
                     </svg>
@@ -34,7 +34,7 @@
                     <div class="h-48 mb-4 overflow-hidden rounded-lg">
                         @if ($card['data']['featured_image'])
                             <img src="{{ asset('storage/' . $card['data']['featured_image']) }}"
-                                alt="{{ $card['data']['title'] }}"
+                                alt="{{ $card['data']['title'] ?? __('component.innovations_carousel.default_image_alt') }}"
                                 class="object-cover w-full h-full transition-transform duration-300 hover:scale-105">
                         @else
                             <div class="flex items-center justify-center w-full h-full bg-gray-100">
@@ -57,7 +57,7 @@
                     @if ($card['position'] == 0)
                         <a href="{{ route('innovations.show', $card['data']['slug']) }}"
                             class="inline-block mt-3 text-blue-500 hover:text-blue-600">
-                            Learn more →
+                            {{ __('component.innovations_carousel.learn_more') }}
                         </a>
                     @endif
                 </div>
@@ -66,10 +66,10 @@
 
         <!-- Right Navigation -->
         @if ($totalInnovations > 1)
-            <div class="hidden md:flex ml-4">
+            <div class="hidden ml-4 md:flex">
                 <button wire:click="next"
-                    class="p-3 text-white bg-blue-500 rounded-full shadow-lg hover:bg-blue-600 focus:outline-none transition-all duration-300 transform hover:scale-110"
-                    aria-label="Next">
+                    class="p-3 text-white transition-all duration-300 transform bg-blue-500 rounded-full shadow-lg hover:bg-blue-600 focus:outline-none hover:scale-110"
+                    aria-label="{{ __('component.innovations_carousel.navigation.next') }}">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                     </svg>
@@ -83,7 +83,7 @@
         <div class="flex items-center justify-center mt-8 space-x-4 md:hidden">
             <button wire:click="previous"
                 class="p-2 text-white bg-blue-500 rounded-full hover:bg-blue-600 focus:outline-none"
-                aria-label="Previous">
+                aria-label="{{ __('component.innovations_carousel.navigation.previous') }}">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
                 </svg>
@@ -93,13 +93,14 @@
                 @foreach ($innovations as $index => $innovation)
                     <button wire:click="selectCard({{ $index }})"
                         class="w-3 h-3 rounded-full transition-all duration-300 {{ $index == $currentIndex ? 'bg-blue-500 w-6' : 'bg-gray-300' }}"
-                        aria-label="Go to card {{ $index + 1 }}">
+                        aria-label="{{ __('component.innovations_carousel.navigation.go_to_card', ['number' => $index + 1]) }}">
                     </button>
                 @endforeach
             </div>
 
             <button wire:click="next"
-                class="p-2 text-white bg-blue-500 rounded-full hover:bg-blue-600 focus:outline-none" aria-label="Next">
+                class="p-2 text-white bg-blue-500 rounded-full hover:bg-blue-600 focus:outline-none"
+                aria-label="{{ __('component.innovations_carousel.navigation.next') }}">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                 </svg>

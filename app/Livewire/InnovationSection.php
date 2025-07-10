@@ -19,6 +19,15 @@ class InnovationSection extends Component
             ->orderByDesc('published_at')
             ->take(7)
             ->get()
+            ->map(function ($post) {
+                return [
+                    'id' => $post->id,
+                    'slug' => $post->slug,
+                    'title' => $post->getTranslation('title', app()->getLocale()), // Convert to string
+                    'summary' => $post->getTranslation('summary', app()->getLocale()),
+                    'featured_image' => $post->featured_image,
+                ];
+            })
             ->toArray();
     }
 

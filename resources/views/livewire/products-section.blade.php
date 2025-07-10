@@ -10,7 +10,7 @@
                     'bg-gray-200 text-gray-800 hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600' => !is_null(
                         $selectedCategory),
                 ])>
-                    All Products
+                    {{ __('component.product_catalog.all_products') }}
                 </button>
 
                 <!-- Category Buttons -->
@@ -41,7 +41,7 @@
                                         class="flex items-center justify-between w-full px-4 py-2 text-sm text-left hover:bg-gray-100 dark:hover:bg-gray-700">
                                         <span class="text-gray-800 dark:text-gray-200">{{ $child->name }}</span>
                                         <span class="text-xs text-gray-500 dark:text-gray-400">
-                                            ({{ $child->posts_count }})
+                                            {{ str_replace(':count', $child->posts_count, __('component.product_catalog.product_count')) }}
                                         </span>
                                     </button>
                                 @endforeach
@@ -56,7 +56,7 @@
         @if ($featuredProducts->isNotEmpty())
             <div class="mb-16">
                 <h2 class="mb-8 text-3xl font-bold text-center text-gray-900 dark:text-white md:text-4xl">
-                    Featured Products
+                    {{ __('component.product_catalog.featured_products') }}
                 </h2>
                 <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
                     @foreach ($featuredProducts as $product)
@@ -72,7 +72,7 @@
         <!-- Product Catalog -->
         <div>
             <h2 class="mb-8 text-3xl font-bold text-center text-gray-900 dark:text-white md:text-4xl">
-                Product Catalog
+                {{ __('component.product_catalog.product_catalog') }}
             </h2>
 
             @if ($products->isNotEmpty())
@@ -96,16 +96,18 @@
                             d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z">
                         </path>
                     </svg>
-                    <h3 class="mt-4 text-lg font-medium text-gray-900 dark:text-gray-200">No products found</h3>
+                    <h3 class="mt-4 text-lg font-medium text-gray-900 dark:text-gray-200">
+                        {{ __('component.product_catalog.no_products') }}
+                    </h3>
                     <p class="mt-2 text-gray-600 dark:text-gray-400">
                         @if ($selectedCategory)
-                            Try adjusting your filters or
+                            {{ __('Try adjusting your filters or') }}
                             <button wire:click="resetFilters"
                                 class="text-blue-600 dark:text-blue-400 hover:underline focus:outline-none">
-                                reset all filters
+                                {{ __('component.product_catalog.reset_filters') }}
                             </button>
                         @else
-                            Check back later for new products
+                            {{ __('component.product_catalog.check_back_later') }}
                         @endif
                     </p>
                 </div>
