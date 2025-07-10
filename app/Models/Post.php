@@ -197,6 +197,11 @@ class Post extends Model
         return $query->where('type', $type);
     }
 
+    public function scopeProductType(Builder $query): Builder
+    {
+        return $query->where('type', PostType::PRODUCT->value);
+    }
+
     // ACCESSORS & MUTATORS
     /**
      * Calculate estimated reading time (accessor)
@@ -220,8 +225,8 @@ class Post extends Model
             '%d %s %s',
             [
                 $minutes,
-                Str::plural(trans('app.mins', [], $locale), $minutes),
-                trans('app.read', [], $locale) ?? 'read',
+                trans_choice('app.mins', $minutes, [], $locale),
+                trans('app.read', [], $locale),
             ]
         );
     }

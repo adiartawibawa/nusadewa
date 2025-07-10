@@ -52,6 +52,7 @@ return [
         'copyright' => 'All Rights Reserved',
         'made_by' => 'Made with ❤️ by',
     ],
-    'read' => 'min',
-    'mins' => 'mins',
+    'read' => 'read',
+    'mins' => 'min', // Singular
+    'min' => 'min', // Optional
 ];

@@ -1,98 +1,115 @@
-<div class="py-8 ">
-    <!-- Category Filter -->
-    <div class="mb-12">
-        <div class="flex flex-wrap items-center justify-center gap-3">
-            <button wire:click="resetFilters"
-                class="px-5 py-2 text-sm font-medium transition-all duration-300 rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 focus:ring-offset-gray-900
-                    {{ !$selectedCategory ? 'bg-gradient-to-r from-blue-500 to-blue-600 text-white shadow-lg shadow-blue-500/30' : 'bg-gray-700/80 dark:bg-gray-700 text-gray-300 hover:bg-gray-600/80 dark:hover:bg-gray-600' }}">
-                All Products
-            </button>
+<div class="py-12 bg-transparent dark:bg-gray-900">
+    <div class="container px-4 mx-auto sm:px-6 lg:px-8">
+        <!-- Category Filter -->
+        <div class="mb-12">
+            <div class="flex flex-wrap items-center justify-center gap-3">
+                <!-- All Products Button -->
+                <button wire:click="resetFilters" @class([
+                    'px-5 py-2 text-sm font-medium rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500',
+                    'bg-blue-600 text-white hover:bg-blue-700' => is_null($selectedCategory),
+                    'bg-gray-200 text-gray-800 hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600' => !is_null(
+                        $selectedCategory),
+                ])>
+                    All Products
+                </button>
 
-            @foreach ($categories as $category)
-                <div x-data="{ open: false }" class="relative">
-                    <button wire:click="filterByCategory('{{ $category->slug }}')" @click="open = !open"
-                        class="flex items-center px-5 py-2 text-sm font-medium transition-all duration-300 rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 focus:ring-offset-gray-900
-                                {{ $selectedCategory === $category->slug ? 'bg-gradient-to-r from-blue-500 to-blue-600 text-white shadow-lg shadow-blue-500/30' : 'bg-gray-700/80 dark:bg-gray-700 text-gray-300 hover:bg-gray-600/80 dark:hover:bg-gray-600' }}"
-                        aria-expanded="false" :aria-expanded="open.toString()" aria-haspopup="true"
-                        aria-controls="submenu-{{ $category->slug }}">
-                        {{ $category->name }}
-                        @if ($category->children->count() > 0)
-                            <svg :class="{ 'rotate-180': open }" class="w-4 h-4 ml-1 transition-transform"
-                                fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M19 9l-7 7-7-7" />
-                            </svg>
+                <!-- Category Buttons -->
+                @foreach ($categories as $category)
+                    <div x-data="{ open: false }" class="relative">
+                        <button wire:click="filterByCategory('{{ $category->slug }}')" @click="open = !open"
+                            @class([
+                                'flex items-center px-5 py-2 text-sm font-medium transition-all duration-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500',
+                                'bg-blue-600 text-white hover:bg-blue-700' =>
+                                    $selectedCategory === $category->slug,
+                                'bg-gray-200 text-gray-800 hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600' =>
+                                    $selectedCategory !== $category->slug,
+                            ])>
+                            {{ $category->name }}
+                            @if ($category->children->isNotEmpty())
+                                <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M19 9l-7 7-7-7" />
+                                </svg>
+                            @endif
+                        </button>
+
+                        @if ($category->children->isNotEmpty())
+                            <div x-show="open" @click.away="open = false" x-transition
+                                class="absolute left-0 z-20 mt-2 space-y-1 bg-white dark:bg-gray-800 rounded-lg shadow-lg min-w-[200px] border border-gray-200 dark:border-gray-700">
+                                @foreach ($category->children as $child)
+                                    <button wire:click="filterByCategory('{{ $child->slug }}')"
+                                        class="flex items-center justify-between w-full px-4 py-2 text-sm text-left hover:bg-gray-100 dark:hover:bg-gray-700">
+                                        <span class="text-gray-800 dark:text-gray-200">{{ $child->name }}</span>
+                                        <span class="text-xs text-gray-500 dark:text-gray-400">
+                                            ({{ $child->posts_count }})
+                                        </span>
+                                    </button>
+                                @endforeach
+                            </div>
                         @endif
-                    </button>
+                    </div>
+                @endforeach
+            </div>
+        </div>
 
-                    @if ($category->children->count() > 0)
-                        <div x-show="open" x-transition @click.outside="open = false"
-                            class="absolute left-0 z-20 mt-2 space-y-1 bg-gray-800 dark:bg-gray-700 rounded-lg shadow-xl min-w-[200px] border border-gray-700 dark:border-gray-600"
-                            id="submenu-{{ $category->slug }}" role="menu">
-                            @foreach ($category->children as $child)
-                                <button wire:click="filterByCategory('{{ $child->slug }}')"
-                                    class="flex items-center justify-between w-full px-4 py-2 text-sm text-left text-gray-300 transition-colors hover:bg-gray-700/80 dark:hover:bg-gray-600 focus:outline-none focus:bg-gray-700/80"
-                                    role="menuitem">
-                                    <span>{{ $child->name }}</span>
-                                    <span
-                                        class="text-xs text-gray-400 dark:text-gray-500">({{ $child->posts_count }})</span>
-                                </button>
-                            @endforeach
-                        </div>
-                    @endif
+        <!-- Featured Products -->
+        @if ($featuredProducts->isNotEmpty())
+            <div class="mb-16">
+                <h2 class="mb-8 text-3xl font-bold text-center text-gray-900 dark:text-white md:text-4xl">
+                    Featured Products
+                </h2>
+                <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+                    @foreach ($featuredProducts as $product)
+                        @include('components.product-card', [
+                            'product' => $product,
+                            'featured' => true,
+                        ])
+                    @endforeach
                 </div>
-            @endforeach
-        </div>
-    </div>
-
-    <!-- Featured Products -->
-    @if ($featuredProducts->isNotEmpty())
-        <div class="mb-16">
-            <h3 class="mb-8 text-2xl font-bold text-center text-gray-900 dark:text-white md:text-3xl">Featured Products
-            </h3>
-            <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-                @foreach ($featuredProducts as $product)
-                    @include('components.product-card', [
-                        'product' => $product,
-                        'featured' => true,
-                        'class' =>
-                            'border-2 border-blue-500 dark:border-blue-600 shadow-lg shadow-blue-500/20 dark:shadow-blue-600/20',
-                    ])
-                @endforeach
-            </div>
-        </div>
-    @endif
-
-    <!-- All Products -->
-    <div>
-        <h3 class="mb-8 text-2xl font-bold text-center text-gray-50 dark:text-white md:text-3xl">Product Catalog</h3>
-
-        @if ($products->isNotEmpty())
-            <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-                @foreach ($products as $product)
-                    @include('components.product-card', ['product' => $product])
-                @endforeach
-            </div>
-
-            <div class="mt-12">
-                {{ $products->links() }}
-            </div>
-        @else
-            <div
-                class="p-8 text-center bg-gray-100 border border-gray-200 dark:bg-gray-800/50 rounded-xl dark:border-gray-700">
-                <svg class="w-12 h-12 mx-auto text-gray-400 dark:text-gray-500" fill="none" stroke="currentColor"
-                    viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                        d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                </svg>
-                <p class="mt-4 text-gray-600 dark:text-gray-400">No products found matching your criteria</p>
-                @if ($selectedCategory)
-                    <button wire:click="resetFilters"
-                        class="mt-4 text-blue-600 transition-colors rounded dark:text-blue-400 hover:text-blue-500 dark:hover:text-blue-300 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                        Reset Filters
-                    </button>
-                @endif
             </div>
         @endif
+
+        <!-- Product Catalog -->
+        <div>
+            <h2 class="mb-8 text-3xl font-bold text-center text-gray-900 dark:text-white md:text-4xl">
+                Product Catalog
+            </h2>
+
+            @if ($products->isNotEmpty())
+                <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                    @foreach ($products as $product)
+                        @include('components.product-card', ['product' => $product])
+                    @endforeach
+                </div>
+
+                <!-- Pagination -->
+                <div class="mt-12">
+                    {{ $products->onEachSide(1)->links() }}
+                </div>
+            @else
+                <!-- Empty State -->
+                <div
+                    class="p-8 text-center bg-gray-100 border border-gray-200 rounded-xl dark:bg-gray-800 dark:border-gray-700">
+                    <svg class="w-12 h-12 mx-auto text-gray-400 dark:text-gray-500" fill="none" stroke="currentColor"
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                            d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z">
+                        </path>
+                    </svg>
+                    <h3 class="mt-4 text-lg font-medium text-gray-900 dark:text-gray-200">No products found</h3>
+                    <p class="mt-2 text-gray-600 dark:text-gray-400">
+                        @if ($selectedCategory)
+                            Try adjusting your filters or
+                            <button wire:click="resetFilters"
+                                class="text-blue-600 dark:text-blue-400 hover:underline focus:outline-none">
+                                reset all filters
+                            </button>
+                        @else
+                            Check back later for new products
+                        @endif
+                    </p>
+                </div>
+            @endif
+        </div>
     </div>
 </div>

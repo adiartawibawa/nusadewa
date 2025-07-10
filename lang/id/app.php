@@ -52,6 +52,7 @@ return [
         'copyright' => 'Hak Cipta Dilindungi',
         'made_by' => 'Dibuat dengan ❤️ oleh',
     ],
-    'read' => 'menit',
+    'read' => 'baca',
     'mins' => 'menit',
+    'min' => 'menit',
 ];

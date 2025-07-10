@@ -33,7 +33,7 @@
                         <i class="ml-2 fas fa-arrow-right"></i>
                     </a>
 
-                    <a href="#product"
+                    <a href="#products"
                         class="inline-flex items-center justify-center px-8 py-3 text-sm font-semibold text-white transition-all duration-300 bg-transparent border border-white rounded-lg md:text-base hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 hover:shadow-lg hover:-translate-y-1">
                         {{ __('welcome.hero.product_button') }}
                         <i class="ml-2 fas fa-search"></i>
@@ -423,27 +423,25 @@
     </section>
 
     <!-- Products Section -->
-    <section id="product" class="py-20 bg-gradient-to-b from-gray-900 to-gray-800">
+    <section id="products" class="py-20 bg-gray-900">
         <div class="container px-4 mx-auto">
             <!-- Section Header -->
             <div class="max-w-3xl mx-auto mb-16 text-center">
                 <span
-                    class="inline-block px-4 py-2 mb-4 text-xs font-semibold tracking-wider text-blue-400 uppercase rounded-full bg-blue-900/30">
+                    class="inline-block px-4 py-2 mb-4 text-xs font-semibold tracking-wider text-blue-400 uppercase rounded-full bg-gray-800">
                     {{ __('welcome.products.badge') }}
                 </span>
                 <h2 class="mb-4 text-3xl font-bold text-white md:text-4xl">
                     {!! str_replace(
                         ':part1',
-                        '<span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-300">' .
-                            __('welcome.products.title_part1') .
-                            '</span>',
+                        '<span class="text-blue-400">' . __('welcome.products.title_part1') . '</span>',
                         __('welcome.products.title'),
                     ) !!}
                 </h2>
                 <div class="flex justify-center mx-auto my-6">
-                    <span class="inline-block w-24 h-1 rounded-full bg-gradient-to-r from-blue-400 to-blue-600"></span>
+                    <span class="inline-block w-24 h-1 rounded-full bg-blue-600"></span>
                     <span class="inline-block w-4 h-1 mx-2 bg-blue-500 rounded-full"></span>
-                    <span class="inline-block w-2 h-1 bg-blue-300 rounded-full"></span>
+                    <span class="inline-block w-2 h-1 bg-blue-400 rounded-full"></span>
                 </div>
                 <p class="text-lg leading-relaxed text-gray-300">
                     {{ __('welcome.products.subtitle') }}
@@ -453,7 +451,7 @@
             <!-- Products Component -->
             <div class="relative">
                 <div class="absolute inset-0 flex items-center justify-center">
-                    <div class="w-full h-full bg-gradient-to-r from-transparent via-gray-900/50 to-transparent"></div>
+                    <div class="w-full h-full"></div>
                 </div>
                 <livewire:products-section />
             </div>
