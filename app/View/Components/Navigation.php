@@ -26,7 +26,7 @@ class Navigation extends Component
             ->map(function ($item) {
                 return [
                     'label' => $item->title,
-                    'url' => route('news.show', $item->slug)
+                    'url' => route('products.show', $item->slug)
                 ];
             });
 
@@ -37,7 +37,7 @@ class Navigation extends Component
             ->map(function ($item) {
                 return [
                     'label' => $item->title,
-                    'url' => route('news.show', $item->slug)
+                    'url' => route('innovations.show', $item->slug)
                 ];
             });
 
