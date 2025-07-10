@@ -6,6 +6,9 @@ use App\Livewire\Posts\InnovationsIndex;
 use App\Livewire\Posts\InnovationsShow;
 use App\Livewire\Posts\PostsIndex;
 use App\Livewire\Posts\PostsShow;
+use App\Livewire\Posts\ProductIndex;
+use App\Livewire\Posts\ProductShow;
+use App\Livewire\ProductsSection;
 use App\Support\LocaleManager;
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
@@ -37,24 +40,20 @@ Route::group([
 
     // News routes
     Route::prefix('news')->name('news.')->group(function () {
-
         Route::get('/', PostsIndex::class)->name('index');
-
         Route::get('{post:slug}', PostsShow::class)->name('show');
     });
 
     // Innovation routes
     Route::prefix('innovations')->name('innovations.')->group(function () {
-
         Route::get('/', InnovationsIndex::class)->name('index');
-
         Route::get('{post:slug}', InnovationsShow::class)->name('show');
     });
 
-    Route::prefix('products')->group(function () {
-        Route::get('/', [ProductController::class, 'index'])->name('products.index');
-        Route::get('{post:slug}', [ProductController::class, 'show'])->name('products.show');
-        Route::get('category/{category:slug}', [ProductController::class, 'category'])->name('products.category');
+    Route::prefix('products')->name('products.')->group(function () {
+        Route::get('/', ProductIndex::class)->name('index');
+        Route::get('{post:slug}', ProductShow::class)->name('show');
+        Route::get('category/{category:slug}', ProductsSection::class)->name('category');
     });
 
     // Newsletter routes
