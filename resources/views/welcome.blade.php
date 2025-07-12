@@ -11,7 +11,7 @@
 
         <!-- Dynamic Background Image with Parallax -->
         <div class="absolute inset-0 z-0 bg-center bg-cover parallax-bg"
-            :style="`background-image: url('{{ $appInfo['hero_image'] ?? 'https://images.unsplash.com/photo-1519122295308-bdb40916b529?ixlib=rb-4.1.0&auto=format&fit=crop&w=1374&q=80' }}'); transform: translateY(${parallaxOffset}px)`">
+            :style="`background-image: url('{{ $appInfo['hero_image'] ?? asset('images/hero.jpg') }}'); transform: translateY(${parallaxOffset}px)`">
         </div>
 
         <!-- Hero Content -->
@@ -135,9 +135,9 @@
                 <h2 class="mb-4 text-3xl font-bold text-gray-800 dark:text-white md:text-4xl">
                     {{ __('welcome.performance.title') }}</h2>
                 <div class="flex justify-center mx-auto my-6">
-                    <span class="inline-block w-40 h-1 bg-blue-500 rounded-full dark:bg-blue-600"></span>
-                    <span class="inline-block w-3 h-1 mx-1 bg-blue-500 rounded-full dark:bg-blue-400"></span>
-                    <span class="inline-block w-1 h-1 bg-blue-500 rounded-full dark:bg-blue-300"></span>
+                    <span class="inline-block w-40 h-1 bg-blue-600 rounded-full dark:bg-blue-600"></span>
+                    <span class="inline-block w-3 h-1 mx-1 bg-blue-500 rounded-full dark:bg-blue-500"></span>
+                    <span class="inline-block w-1 h-1 bg-blue-300 rounded-full dark:bg-blue-300"></span>
                 </div>
                 <p class="max-w-4xl mx-auto text-gray-600 dark:text-gray-300 md:text-lg">
                     {{ __('welcome.performance.subtitle') }}
@@ -147,7 +147,7 @@
             <div class="flex flex-col items-center gap-12 lg:flex-row">
                 <div class="lg:w-1/2">
                     <div class="relative overflow-hidden shadow-xl rounded-xl">
-                        <img src="https://images.unsplash.com/photo-1572015242290-d9132e2b6d52?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                        <img src="{{ asset('images/performance-testing.JPG') }}"
                             alt="Vannamei shrimp farming performance testing" class="object-cover w-full h-auto"
                             loading="lazy">
                         <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
@@ -208,7 +208,7 @@
     <section id="globalReach" class="relative py-24 overflow-hidden">
         <!-- Background Elements -->
         <div class="absolute inset-0 z-0 parallax-bg"
-            :style="`background-image: url('https://images.unsplash.com/photo-1668243304603-7ecf4eefba6e?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8bGFiJTIwTW9sZWN1bGFyJTIwVGVjaG5vbG9neXxlbnwwfDB8MHx8fDI%3D'); transform: translateY(${parallaxOffset *0.001}px)`">
+            :style="`background-image: url({{ asset('images/technology-section.JPG') }}); transform: translateY(${parallaxOffset *0.001}px)`">
         </div>
 
         <!-- Gradient Overlay -->
@@ -428,7 +428,7 @@
             <!-- Section Header -->
             <div class="max-w-3xl mx-auto mb-16 text-center">
                 <span
-                    class="inline-block px-4 py-2 mb-4 text-xs font-semibold tracking-wider text-blue-400 uppercase rounded-full bg-gray-800">
+                    class="inline-block px-4 py-2 mb-4 text-xs font-semibold tracking-wider text-blue-400 uppercase bg-gray-800 rounded-full">
                     {{ __('welcome.products.badge') }}
                 </span>
                 <h2 class="mb-4 text-3xl font-bold text-white md:text-4xl">
@@ -439,7 +439,7 @@
                     ) !!}
                 </h2>
                 <div class="flex justify-center mx-auto my-6">
-                    <span class="inline-block w-24 h-1 rounded-full bg-blue-600"></span>
+                    <span class="inline-block w-24 h-1 bg-blue-600 rounded-full"></span>
                     <span class="inline-block w-4 h-1 mx-2 bg-blue-500 rounded-full"></span>
                     <span class="inline-block w-2 h-1 bg-blue-400 rounded-full"></span>
                 </div>

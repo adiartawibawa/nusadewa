@@ -16,6 +16,31 @@ return [
             'youtube' => 'Subscribe on YouTube'
         ]
     ],
+    'menu' => [
+        'home' => [
+            'label' => 'Home',
+        ],
+        'about' => [
+            'label' => 'About Us',
+            'children' => [
+                'innovation' => 'Innovation',
+                'expertise' => 'Our Expertise',
+                'team' => 'Our Team',
+            ],
+        ],
+        'products' => [
+            'label' => 'Products',
+        ],
+        'technology' => [
+            'label' => 'Technology',
+        ],
+        'news' => [
+            'label' => 'News',
+        ],
+        'contact' => [
+            'label' => 'Contact',
+        ],
+    ],
     'footer' => [
         'navigation' => [
             'home' => [

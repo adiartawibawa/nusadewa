@@ -58,7 +58,7 @@
                 <h2 class="mb-8 text-3xl font-bold text-center text-gray-900 dark:text-white md:text-4xl">
                     {{ __('component.product_catalog.featured_products') }}
                 </h2>
-                <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+                <div class="grid gap-8 md:grid-cols-1 lg:grid-cols-3">
                     @foreach ($featuredProducts as $product)
                         @include('components.product-card', [
                             'product' => $product,
@@ -76,7 +76,7 @@
             </h2>
 
             @if ($products->isNotEmpty())
-                <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
                     @foreach ($products as $product)
                         @include('components.product-card', ['product' => $product])
                     @endforeach

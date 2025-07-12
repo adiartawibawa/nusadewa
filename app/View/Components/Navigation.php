@@ -45,38 +45,44 @@ class Navigation extends Component
             'home' => [
                 'route' => route('home'),
                 'children' => false,
+                'label' => __('app.menu.home.label')
             ],
             'about' => [
                 'route' => '#',
+                'label' => __('app.menu.about.label'),
                 'children' => [
                     [
-                        'label' => __('Innovation'),
+                        'label' => __('app.menu.about.children.innovation'),
                         'url' => '#innovation'
                     ],
                     [
-                        'label' => __('Our Expertise'),
+                        'label' => __('app.menu.about.children.expertise'),
                         'url' => '#technology'
                     ],
                     [
-                        'label' => __('Our Team'),
+                        'label' => __('app.menu.about.children.team'),
                         'url' => '#team'
                     ],
                 ],
             ],
             'products' => [
                 'route' => '#',
+                'label' => __('app.menu.products.label'),
                 'children' => $products,
             ],
             'technology' => [
                 'route' => '#',
+                'label' => __('app.menu.technology.label'),
                 'children' => $technologies,
             ],
             'news' => [
                 'route' => '#news',
+                'label' => __('app.menu.news.label'),
                 'children' => false,
             ],
             'contact' => [
                 'route' => '#contact',
+                'label' => __('app.menu.contact.label'),
                 'children' => false,
             ],
         ];

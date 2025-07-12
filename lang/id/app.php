@@ -16,6 +16,31 @@ return [
             'youtube' => 'Subscribe di YouTube'
         ]
     ],
+    'menu' => [
+        'home' => [
+            'label' => 'Beranda',
+        ],
+        'about' => [
+            'label' => 'Tentang Kami',
+            'children' => [
+                'innovation' => 'Inovasi',
+                'expertise' => 'Keahlian Kami',
+                'team' => 'Tim Kami',
+            ],
+        ],
+        'products' => [
+            'label' => 'Produk',
+        ],
+        'technology' => [
+            'label' => 'Teknologi',
+        ],
+        'news' => [
+            'label' => 'Berita',
+        ],
+        'contact' => [
+            'label' => 'Kontak',
+        ],
+    ],
     'footer' => [
         'navigation' => [
             'home' => [

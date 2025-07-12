@@ -9,13 +9,13 @@
             @if (!$item['children'])
                 <a href="{{ $item['route'] }}"
                     class="text-sm font-medium text-white transition-colors hover:text-primary">
-                    {{ __(ucfirst($key)) }}
+                    {{ $item['label'] }}
                 </a>
             @else
                 <div x-data="{ open: false }" class="relative">
                     <button @click="open = !open"
                         class="flex items-center text-sm font-medium text-white transition-colors hover:text-primary">
-                        {{ __(ucfirst($key)) }} <i class="ml-1 text-xs transition-transform fas fa-chevron-down"
+                        {{ $item['label'] }} <i class="ml-1 text-xs transition-transform fas fa-chevron-down"
                             :class="{ 'transform rotate-180': open }"></i>
                     </button>
                     <div x-show="open" @click.away="open = false" x-transition:enter="transition ease-out duration-200"
@@ -28,7 +28,7 @@
                         @foreach ($item['children'] as $child)
                             <a href="{{ $child['url'] ?? '#' }}"
                                 class="block px-4 py-2 text-sm text-gray-800 transition-colors hover:bg-blue-50">
-                                {{ $child['label'] ?? __(ucfirst($key)) }}
+                                {{ $child['label'] }}
                             </a>
                         @endforeach
                     </div>
@@ -57,21 +57,20 @@
             @if (!$item['children'])
                 <a href="{{ $item['route'] }}"
                     class="block pb-3 text-sm font-medium text-gray-800 transition-colors border-b border-gray-100 sm:pb-4 dark:border-gray-700 sm:text-base dark:text-gray-100 hover:text-primary">
-                    {{ __(ucfirst($key)) }}
+                    {{ $item['label'] }}
                 </a>
             @else
                 <div x-data="{ open: false }" class="pb-3 border-b border-gray-100 sm:pb-4 dark:border-gray-700">
                     <button @click="open = !open"
                         class="flex items-center justify-between w-full text-sm font-medium text-gray-800 transition-colors sm:text-base dark:text-gray-100 hover:text-primary">
-                        {{ __(ucfirst($key)) }} <i
-                            class="ml-2 text-xs transition-transform sm:text-sm fas fa-chevron-down"
+                        {{ $item['label'] }} <i class="ml-2 text-xs transition-transform sm:text-sm fas fa-chevron-down"
                             :class="{ 'transform rotate-180': open }"></i>
                     </button>
                     <div x-show="open" class="pl-3 mt-2 space-y-2 sm:pl-4 sm:space-y-3">
                         @foreach ($item['children'] as $child)
                             <a href="{{ $child['url'] ?? '#' }}"
                                 class="block text-xs text-gray-600 transition-colors sm:text-sm dark:text-gray-300 hover:text-primary">
-                                {{ $child['label'] ?? __(ucfirst($key)) }}
+                                {{ $child['label'] }}
                             </a>
                         @endforeach
                     </div>
