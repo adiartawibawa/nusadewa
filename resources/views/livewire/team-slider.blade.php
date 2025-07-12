@@ -6,12 +6,18 @@
             <button
                 class="absolute z-10 flex items-center justify-center w-10 h-10 text-gray-900 transition-all duration-300 -translate-y-1/2 rounded-full shadow-lg opacity-0 left-4 top-1/2 bg-white/80 dark:bg-gray-800/80 dark:text-white hover:opacity-100 hover:scale-110 backdrop-blur-sm"
                 aria-label="{{ __('component.team_slider.navigation.previous') }}">
-                ◀
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor" class="size-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
+                </svg>
             </button>
             <button
                 class="absolute z-10 flex items-center justify-center w-10 h-10 text-gray-900 transition-all duration-300 -translate-y-1/2 rounded-full shadow-lg opacity-0 right-4 top-1/2 bg-white/80 dark:bg-gray-800/80 dark:text-white hover:opacity-100 hover:scale-110 backdrop-blur-sm"
                 aria-label="{{ __('component.team_slider.navigation.next') }}">
-                ▶
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor" class="size-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+                </svg>
             </button>
 
             <!-- Slider Content -->

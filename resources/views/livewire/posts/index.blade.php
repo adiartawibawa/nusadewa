@@ -26,23 +26,23 @@
         <x-breadcrumbs :items="[['name' => 'News', 'url' => route('news.index')]]" />
 
         <!-- Main Content -->
-        <div class="container max-w-7xl px-4 mx-auto pb-12">
+        <div class="container px-4 pb-12 mx-auto max-w-7xl">
             <div class="flex flex-col gap-8 lg:flex-row">
                 <!-- Main Content (75% width on large screens) -->
                 <div class="lg:w-3/4">
                     <!-- Filter Indicator -->
                     @if ($currentTag)
                         <div
-                            class="flex items-center px-6 py-4 mb-6 bg-white dark:bg-gray-800 rounded-xl shadow-sm dark:shadow-gray-700/50">
+                            class="flex items-center px-6 py-4 mb-6 bg-white shadow-sm dark:bg-gray-800 rounded-xl dark:shadow-gray-700/50">
                             <span class="text-gray-700 dark:text-gray-300">
                                 {{ __('component.news.filtered_by_tag') }}
                             </span>
                             <span
-                                class="px-3 py-1 ml-3 text-sm font-medium text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-900/50 rounded-full">
+                                class="px-3 py-1 ml-3 text-sm font-medium text-indigo-600 rounded-full dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-900/50">
                                 #{{ $currentTag->name }}
                             </span>
-                            <button wire:click="clearFilter('tag')"
-                                class="ml-auto text-sm text-indigo-600 dark:text-indigo-400 transition-colors hover:text-indigo-800 dark:hover:text-indigo-300">
+                            <button wire:click.prevent="clearFilter('tag')"
+                                class="ml-auto text-sm text-indigo-600 transition-colors dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300">
                                 <i class="mr-1 fas fa-times"></i> {{ __('component.news.clear_filter') }}
                             </button>
                         </div>
@@ -52,7 +52,7 @@
                     <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
                         @forelse($posts as $post)
                             <article
-                                class="overflow-hidden transition-all bg-white dark:bg-gray-800 rounded-xl shadow-sm hover:shadow-md dark:hover:shadow-gray-700/50">
+                                class="overflow-hidden transition-all bg-white shadow-sm dark:bg-gray-800 rounded-xl hover:shadow-md dark:hover:shadow-gray-700/50">
                                 <!-- Featured Image -->
                                 <a href="{{ route('news.show', $post->slug) }}" class="block overflow-hidden">
                                     <img src="{{ $post->featured_image_url }}"
@@ -67,7 +67,7 @@
                                         <div class="flex flex-wrap gap-2 mb-3">
                                             @foreach ($post->tags->take(3) as $tag)
                                                 <a href="{{ route('news.index', ['tag' => $tag->slug]) }}"
-                                                    class="px-3 py-1 text-xs font-medium text-indigo-600 dark:text-indigo-400 transition-colors rounded-full bg-indigo-50 dark:bg-indigo-900/50 hover:bg-indigo-100 dark:hover:bg-indigo-900/70">
+                                                    class="px-3 py-1 text-xs font-medium text-indigo-600 transition-colors rounded-full dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-900/50 hover:bg-indigo-100 dark:hover:bg-indigo-900/70">
                                                     #{{ $tag->name }}
                                                 </a>
                                             @endforeach
@@ -99,7 +99,7 @@
 
                                     <!-- Read More -->
                                     <a href="{{ route('news.show', $post->slug) }}"
-                                        class="inline-flex items-center font-medium text-indigo-600 dark:text-indigo-400 transition-colors hover:text-indigo-800 dark:hover:text-indigo-300">
+                                        class="inline-flex items-center font-medium text-indigo-600 transition-colors dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300">
                                         {{ __('component.news.read_more') }}
                                         <i class="ml-2 text-xs fas fa-chevron-right"></i>
                                     </a>
@@ -125,7 +125,7 @@
                     <!-- Pagination -->
                     @if ($posts->hasPages())
                         <div class="mt-10">
-                            {{ $posts->links('vendor.pagination.tailwind') }}
+                            {{ $posts->links() }}
                         </div>
                     @endif
                 </div>
@@ -134,7 +134,7 @@
                 <div class="lg:w-1/4">
                     <!-- Featured News -->
                     @if ($featuredPosts->isNotEmpty())
-                        <div class="p-6 mb-6 bg-white dark:bg-gray-800 rounded-xl shadow-sm dark:shadow-gray-700/50">
+                        <div class="p-6 mb-6 bg-white shadow-sm dark:bg-gray-800 rounded-xl dark:shadow-gray-700/50">
                             <h3 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">
                                 {{ __('component.news.featured_news') }}
                             </h3>
@@ -149,7 +149,7 @@
                                         @endif
                                         <div>
                                             <a href="{{ route('news.show', $post->slug) }}"
-                                                class="font-medium text-gray-900 dark:text-white transition-colors hover:text-indigo-600 dark:hover:text-indigo-400">
+                                                class="font-medium text-gray-900 transition-colors dark:text-white hover:text-indigo-600 dark:hover:text-indigo-400">
                                                 {{ Str::limit($post->title, 50) }}
                                             </a>
                                             <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">
@@ -164,14 +164,14 @@
 
                     <!-- Popular Tags -->
                     @if ($topTags->isNotEmpty())
-                        <div class="p-6 mb-6 bg-white dark:bg-gray-800 rounded-xl shadow-sm dark:shadow-gray-700/50">
+                        <div class="p-6 mb-6 bg-white shadow-sm dark:bg-gray-800 rounded-xl dark:shadow-gray-700/50">
                             <h3 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">
                                 {{ __('component.news.popular_tags') }}
                             </h3>
                             <div class="flex flex-wrap gap-2">
                                 @foreach ($topTags as $tag)
                                     <a href="{{ route('news.index', ['tag' => $tag->slug]) }}"
-                                        class="px-3 py-1 text-sm font-medium text-indigo-600 dark:text-indigo-400 transition-colors bg-indigo-50 dark:bg-indigo-900/50 rounded-full hover:bg-indigo-100 dark:hover:bg-indigo-900/70">
+                                        class="px-3 py-1 text-sm font-medium text-indigo-600 transition-colors rounded-full dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-900/50 hover:bg-indigo-100 dark:hover:bg-indigo-900/70">
                                         #{{ $tag->name }} ({{ $tag->posts_count }})
                                     </a>
                                 @endforeach
@@ -181,7 +181,7 @@
 
                     <!-- Topics -->
                     @if ($topTopics->isNotEmpty())
-                        <div class="p-6 bg-white dark:bg-gray-800 rounded-xl shadow-sm dark:shadow-gray-700/50">
+                        <div class="p-6 bg-white shadow-sm dark:bg-gray-800 rounded-xl dark:shadow-gray-700/50">
                             <h3 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">
                                 {{ __('component.news.topics') }}
                             </h3>
@@ -192,7 +192,7 @@
                                             class="flex items-center justify-between p-2 -mx-2 transition-colors rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700">
                                             <span class="text-gray-700 dark:text-gray-300">{{ $topic->name }}</span>
                                             <span
-                                                class="px-2 py-1 text-xs font-medium text-gray-600 dark:text-gray-300 bg-gray-100 dark:bg-gray-700 rounded-full">
+                                                class="px-2 py-1 text-xs font-medium text-gray-600 bg-gray-100 rounded-full dark:text-gray-300 dark:bg-gray-700">
                                                 {{ $topic->posts_count }}
                                             </span>
                                         </a>

@@ -427,7 +427,7 @@
                                 <div class="tech-slider__image-wrapper">
                                     <img src="{{ $post['image'] }}" alt="{{ $post['title'] }}"
                                         class="tech-slider__image" loading="{{ $index === 0 ? 'eager' : 'lazy' }}"
-                                        decoding="async" width="800" height="600">
+                                        decoding="async" width="800" height="600" />
                                 </div>
                             </div>
 

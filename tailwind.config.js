@@ -13,7 +13,7 @@ export default {
     theme: {
         extend: {
             fontFamily: {
-                sans: ["Inter", "sans-serif"],
+                sans: ["Roboto", ...defaultTheme.fontFamily.sans],
             },
             colors: {
                 primary: "#1a56db",

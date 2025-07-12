@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\NewsletterController;
-use App\Http\Controllers\ProductController;
 use App\Livewire\Posts\InnovationsIndex;
 use App\Livewire\Posts\InnovationsShow;
 use App\Livewire\Posts\PostsIndex;
@@ -11,12 +10,19 @@ use App\Livewire\Posts\ProductShow;
 use App\Livewire\ProductsSection;
 use App\Support\LocaleManager;
 use Illuminate\Support\Facades\Route;
+use Livewire\Livewire;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 Route::group([
     'prefix' => LaravelLocalization::setLocale(),
     'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath']
 ], function () {
+
+    // Livewire will know to use this endpoint for all component updates
+    // https://livewire.laravel.com/docs/installation#configuring-livewires-update-endpoint
+    Livewire::setUpdateRoute(function ($handle) {
+        return Route::post('/livewire/update', $handle);
+    });
 
     Route::get('/set-locale/{locale}', function ($locale) {
         if (!in_array($locale, LocaleManager::getSupportedLocales())) {
