@@ -58,12 +58,19 @@
                 <h2 class="mb-8 text-3xl font-bold text-center text-gray-900 dark:text-white md:text-4xl">
                     {{ __('component.product_catalog.featured_products') }}
                 </h2>
-                <div class="grid gap-8 md:grid-cols-1 lg:grid-cols-3">
-                    @foreach ($featuredProducts as $product)
-                        @include('components.product-card', [
-                            'product' => $product,
-                            'featured' => true,
-                        ])
+
+                <!-- SKELETON LOADER -->
+                {{-- <div class="grid gap-8 md:grid-cols-1 lg:grid-cols-3" wire:loading>
+                    @for ($i = 0; $i < 3; $i++)
+                        <x-card :skeleton="true" />
+                    @endfor
+                </div> --}}
+
+                <!-- ACTUAL DATA -->
+                <div class="grid gap-8 md:grid-cols-1 lg:grid-cols-3" wire:loading.remove>
+                    @foreach ($featuredProducts as $post)
+                        <x-card :item="$post" route="products.show" :featured="$post->is_featured" :read-time="$post->read_time"
+                            :labels="$post->productCategories" label-action="filterByCategory" :use-tags="false" />
                     @endforeach
                 </div>
             </div>
@@ -75,21 +82,30 @@
                 {{ __('component.product_catalog.product_catalog') }}
             </h2>
 
-            @if ($products->isNotEmpty())
-                <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-                    @foreach ($products as $product)
-                        @include('components.product-card', ['product' => $product])
-                    @endforeach
-                </div>
+            <!-- SKELETON LOADER -->
+            {{-- <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3" wire:loading>
+                @for ($i = 0; $i < 6; $i++)
+                    <x-card :skeleton="true" />
+                @endfor
+            </div> --}}
 
-                <!-- Pagination -->
-                <div class="mt-12">
-                    {{ $products->onEachSide(1)->links() }}
-                </div>
-            @else
-                <!-- Empty State -->
+            <!-- ACTUAL DATA -->
+            <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3" wire:loading.remove>
+                @foreach ($products as $post)
+                    <x-card :item="$post" route="products.show" :featured="$post->is_featured" :read-time="$post->read_time"
+                        :labels="$post->productCategories" label-action="filterByCategory" :use-tags="false" />
+                @endforeach
+            </div>
+
+            <!-- Pagination -->
+            <div class="mt-12" wire:loading.remove>
+                {{ $products->onEachSide(1)->links() }}
+            </div>
+
+            <!-- Empty State -->
+            @if ($products->isEmpty())
                 <div
-                    class="p-8 text-center bg-gray-100 border border-gray-200 rounded-xl dark:bg-gray-800 dark:border-gray-700">
+                    class="p-8 mt-12 text-center bg-gray-100 border border-gray-200 rounded-xl dark:bg-gray-800 dark:border-gray-700">
                     <svg class="w-12 h-12 mx-auto text-gray-400 dark:text-gray-500" fill="none" stroke="currentColor"
                         viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
@@ -103,7 +119,7 @@
                         @if ($selectedCategory)
                             {{ __('Try adjusting your filters or') }}
                             <button wire:click="resetFilters"
-                                class="text-blue-600 dark:text-blue-400 hover:underline focus:outline-none">
+                                class="mt-4 font-medium text-blue-600 transition-colors rounded dark:text-blue-400 hover:text-blue-500 dark:hover:text-blue-300 focus:outline-none focus:ring-2 focus:ring-blue-500">
                                 {{ __('component.product_catalog.reset_filters') }}
                             </button>
                         @else

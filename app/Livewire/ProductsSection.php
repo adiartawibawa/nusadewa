@@ -12,6 +12,8 @@ class ProductsSection extends Component
 {
     use WithPagination;
 
+    public $selectedTag = null;
+    public $selectedTopic = null;
     public ?string $selectedCategory = null;
     public string $language;
     public string $postType = PostType::PRODUCT->value;
@@ -84,6 +86,22 @@ class ProductsSection extends Component
     public function resetFilters()
     {
         $this->resetPage();
+        $this->selectedCategory = null;
+    }
+
+    public function filterByTag($slug)
+    {
+        $this->resetPage();
+        $this->selectedTag = $slug;
+        $this->selectedTopic = null;
+        $this->selectedCategory = null;
+    }
+
+    public function filterByTopic($slug)
+    {
+        $this->resetPage();
+        $this->selectedTopic = $slug;
+        $this->selectedTag = null;
         $this->selectedCategory = null;
     }
 }

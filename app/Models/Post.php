@@ -62,7 +62,7 @@ class Post extends Model
     {
         return  [
             'meta' => 'array',
-            // 'seo_data' => 'array',
+            'is_featured' => 'boolean',
             'published_at' => 'datetime',
             'type' => PostType::class,
         ];
