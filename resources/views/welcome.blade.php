@@ -344,63 +344,19 @@
             <!-- National Impact Highlights -->
             <div class="grid max-w-6xl grid-cols-1 gap-8 mx-auto mb-20 md:grid-cols-2 lg:grid-cols-3">
                 <!-- Coverage Card -->
-                <div
-                    class="relative p-8 overflow-hidden transition-shadow bg-white border border-gray-100 shadow-sm dark:bg-gray-800 rounded-xl dark:border-gray-700 group hover:shadow-md">
-                    <div
-                        class="absolute top-0 right-0 w-32 h-32 -mt-10 -mr-10 rounded-full bg-blue-50 dark:bg-blue-900/20 opacity-40">
-                    </div>
-                    <div class="relative z-10">
-                        <div
-                            class="flex items-center justify-center w-16 h-16 mb-6 text-blue-700 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20 rounded-2xl">
-                            <i class="text-2xl fas fa-map-marked-alt"></i>
-                        </div>
-                        <h3 class="mb-3 text-xl font-bold text-gray-800 dark:text-white">
-                            {{ __('welcome.expertise.highlights.reach') }}</h3>
-                        <p class="mb-4 text-gray-600 dark:text-gray-300">
-                            {{ __('welcome.expertise.card_contents.reach') }}
-                        </p>
-                    </div>
-                </div>
+                <x-highlight-card title="{{ __('welcome.expertise.highlights.reach') }}"
+                    description="{{ __('welcome.expertise.card_contents.reach') }}" icon="map-marked-alt"
+                    color="sky" />
 
                 <!-- Empowerment Card -->
-                <div
-                    class="relative p-8 overflow-hidden transition-shadow bg-white border border-gray-100 shadow-sm dark:bg-gray-800 rounded-xl dark:border-gray-700 group hover:shadow-md">
-                    <div
-                        class="absolute top-0 right-0 w-32 h-32 -mt-10 -mr-10 rounded-full bg-teal-50 dark:bg-teal-900/20 opacity-40">
-                    </div>
-                    <div class="relative z-10">
-                        <div
-                            class="flex items-center justify-center w-16 h-16 mb-6 text-teal-700 dark:text-teal-400 bg-teal-50 dark:bg-teal-900/20 rounded-2xl">
-                            <i class="text-2xl fas fa-users"></i>
-                        </div>
-                        <h3 class="mb-3 text-xl font-bold text-gray-800 dark:text-white">
-                            {{ __('welcome.expertise.highlights.development') }}
-                        </h3>
-                        <p class="mb-4 text-gray-600 dark:text-gray-300">
-                            {{ __('welcome.expertise.card_contents.development') }}
-                        </p>
-                    </div>
-                </div>
+                <x-highlight-card title="{{ __('welcome.expertise.highlights.development') }}"
+                    description="{{ __('welcome.expertise.card_contents.development') }}" icon="users"
+                    color="teal" />
 
                 <!-- Adaptation Card -->
-                <div
-                    class="relative p-8 overflow-hidden transition-shadow bg-white border border-gray-100 shadow-sm dark:bg-gray-800 rounded-xl dark:border-gray-700 group hover:shadow-md">
-                    <div
-                        class="absolute top-0 right-0 w-32 h-32 -mt-10 -mr-10 rounded-full bg-amber-50 dark:bg-amber-900/20 opacity-40">
-                    </div>
-                    <div class="relative z-10">
-                        <div
-                            class="flex items-center justify-center w-16 h-16 mb-6 text-amber-700 dark:text-amber-400 bg-amber-50 dark:bg-amber-900/20 rounded-2xl">
-                            <i class="text-2xl fas fa-seedling"></i>
-                        </div>
-                        <h3 class="mb-3 text-xl font-bold text-gray-800 dark:text-white">
-                            {{ __('welcome.expertise.highlights.adaptation') }}
-                        </h3>
-                        <p class="mb-4 text-gray-600 dark:text-gray-300">
-                            {{ __('welcome.expertise.card_contents.adaptation') }}
-                        </p>
-                    </div>
-                </div>
+                <x-highlight-card title="{{ __('welcome.expertise.highlights.adaptation') }}"
+                    description="{{ __('welcome.expertise.card_contents.adaptation') }}" icon="seedling"
+                    color="amber" />
             </div>
 
             <!-- Team Section -->
