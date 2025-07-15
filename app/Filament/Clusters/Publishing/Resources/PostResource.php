@@ -198,6 +198,7 @@ class PostResource extends Resource
                         PostType::PAGE => 'success',
                         PostType::PRODUCT => 'warning',
                         PostType::TECHNOLOGY => 'gray',
+                        PostType::INNOVATION => 'sky',
                         default => 'blue',
                     }),
 
@@ -225,6 +226,7 @@ class PostResource extends Resource
                         'page' => 'Page',
                         'product' => 'Product',
                         'technology' => 'Technology',
+                        'innovation' => 'Innovation',
                     ]),
 
                 Tables\Filters\SelectFilter::make('language')

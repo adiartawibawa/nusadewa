@@ -55,7 +55,7 @@
     </section>
 
     <!-- Innovation Section -->
-    <section id="innovation" class="py-20 bg-gray-50 dark:bg-gray-900">
+    <section id="innovation" class="py-20 bg-gradient-to-b from-gray-200 to-white dark:from-gray-800 dark:to-gray-900">
         <div class="container px-4 mx-auto">
             <!-- Section Header with Improved Visual Hierarchy -->
             <div class="mb-12 text-center">
@@ -87,7 +87,7 @@
     </section>
 
     <!-- Technology Section -->
-    <section id="technology" class="relative py-20 overflow-hidden bg-gray-900">
+    {{-- <section id="technology" class="relative py-20 overflow-hidden bg-gray-900">
         <div class="absolute inset-0">
             <div class="tech-slider__bg-ornament tech-slider__bg-grid"></div>
             <div class="tech-slider__bg-ornament tech-slider__bg-circles"></div>
@@ -126,7 +126,7 @@
                 <livewire:technologies-section />
             </div>
         </div>
-    </section>
+    </section> --}}
 
     <!-- Performance Testing Section -->
     <section id="performance" class="py-20 bg-white dark:bg-gray-800">
@@ -510,7 +510,7 @@
     </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="py-20 bg-gradient-to-b from-gray-100 to-white dark:from-gray-800 dark:to-gray-900">
+    <section id="contact" class="py-20 bg-gradient-to-b from-white to-gray-200 dark:from-gray-800 dark:to-gray-900">
         <div class="container px-4 mx-auto">
             <!-- Section Header -->
             <div class="max-w-3xl mx-auto mb-16 text-center">

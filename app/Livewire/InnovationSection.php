@@ -8,65 +8,33 @@ use Livewire\Component;
 
 class InnovationSection extends Component
 {
-    public $currentIndex = 1;
-    public $innovations;
+    public $innovations = [];
+
+    public bool $useAccordion = false;
 
     public function mount()
     {
-        $this->innovations = Post::with(['user', 'tags'])
-            ->where('type', PostType::INNOVATION->value)
+        $this->innovations = Post::where('type', PostType::INNOVATION->value)
             ->published()
             ->orderByDesc('published_at')
-            ->take(7)
+            ->take(10)
             ->get()
             ->map(function ($post) {
                 return [
                     'id' => $post->id,
-                    'slug' => $post->slug,
-                    'title' => $post->getTranslation('title', app()->getLocale()), // Convert to string
+                    'title' => $post->getTranslation('title', app()->getLocale()),
                     'summary' => $post->getTranslation('summary', app()->getLocale()),
-                    'featured_image' => $post->featured_image,
+                    'image' => $post->featured_image,
+                    'slug' => $post->slug,
                 ];
             })
             ->toArray();
-    }
 
-    public function next()
-    {
-        $this->currentIndex = ($this->currentIndex + 1) % count($this->innovations);
-    }
-
-    public function previous()
-    {
-        $this->currentIndex = ($this->currentIndex - 1 + count($this->innovations)) % count($this->innovations);
-    }
-
-    public function selectCard($index)
-    {
-        $this->currentIndex = $index;
+        $this->useAccordion = count($this->innovations) <= 3;
     }
 
     public function render()
     {
-        $cards = [];
-        $count = count($this->innovations);
-
-        if ($count > 0) {
-            for ($i = -2; $i <= 2; $i++) {
-                $index = ($this->currentIndex + $i + $count) % $count;
-                $cards[] = [
-                    'data' => $this->innovations[$index],
-                    'position' => $i,
-                    'zIndex' => 30 - abs($i) * 5,
-                    'opacity' => 1 - abs($i) * 0.2,
-                    'scale' => 1 - abs($i) * 0.1
-                ];
-            }
-        }
-
-        return view('livewire.innovation-section', [
-            'cards' => $cards,
-            'totalInnovations' => $count
-        ]);
+        return view('livewire.innovation-section');
     }
 }
