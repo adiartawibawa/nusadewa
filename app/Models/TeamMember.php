@@ -13,10 +13,18 @@ class TeamMember extends Model
 
     protected $table = 'team_members';
 
-    protected $casts = [
-        'social_links' => 'array',
-        'skills' => 'array',
-    ];
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'social_links' => 'array',
+            'skills' => 'array',
+        ];
+    }
 
     protected $fillable = [
         'name',
