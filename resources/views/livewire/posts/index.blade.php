@@ -9,16 +9,20 @@
 
     <div class="bg-gray-50 dark:bg-gray-900">
         <!-- Page Header -->
-        <div class="py-16 bg-gradient-to-r from-blue-900 to-indigo-800 dark:from-blue-950 dark:to-indigo-900">
-            <div class="container px-4 mx-auto">
-                <div class="max-w-3xl mx-auto text-center">
-                    <h1 class="text-4xl font-bold text-white md:text-5xl">
-                        {{ __('component.news.page_title') }}
-                    </h1>
-                    <p class="mt-4 text-xl text-blue-100 dark:text-blue-200">
-                        {{ __('component.news.page_subtitle') }}
-                    </p>
-                </div>
+        <div class="relative bg-cover bg-center bg-no-repeat min-h-[40vh] sm:min-h-[50vh] lg:min-h-[60vh]"
+            style="background-image: url('{{ asset('images/hero.jpg') }}')">
+
+            <!-- Overlay -->
+            <div class="absolute inset-0 bg-indigo-900/40 dark:bg-indigo-950/40"></div>
+
+            <!-- Content Wrapper -->
+            <div class="relative z-10 px-4 py-20 mx-auto max-w-7xl sm:py-28 sm:px-6 lg:py-36 lg:px-8">
+                <h1 class="text-3xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl">
+                    {{ __('component.news.page_title') }}
+                </h1>
+                <p class="max-w-3xl mt-4 text-lg text-indigo-100 sm:text-xl dark:text-indigo-200">
+                    {{ __('component.news.page_subtitle') }}
+                </p>
             </div>
         </div>
 

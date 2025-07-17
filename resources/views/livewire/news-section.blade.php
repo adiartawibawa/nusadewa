@@ -4,14 +4,6 @@
         <h3 class="mb-6 text-2xl font-bold text-gray-800 dark:text-white md:text-3xl">
             {{ __('component.news_section.featured_highlights') }}
         </h3>
-
-        <!-- SKELETON STATE -->
-        {{-- <div class="grid gap-8 md:grid-cols-3" wire:loading>
-            @for ($i = 0; $i < 3; $i++)
-                <x-card :skeleton="true" />
-            @endfor
-        </div> --}}
-
         <!-- ACTUAL DATA -->
         <div class="grid gap-8 md:grid-cols-3" wire:loading.remove>
             @foreach ($featuredNews as $post)
@@ -67,13 +59,6 @@
 
     <!-- Latest News -->
     <div>
-        <!-- SKELETON -->
-        {{-- <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3" wire:loading>
-            @for ($i = 0; $i < 15; $i++)
-                <x-card :skeleton="true" />
-            @endfor
-        </div> --}}
-
         <!-- DATA -->
         <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3" wire:loading.remove>
             @foreach ($latestNews as $post)

@@ -55,16 +55,9 @@
         <!-- Featured Products -->
         @if ($featuredProducts->isNotEmpty())
             <div class="mb-16">
-                <h2 class="mb-8 text-3xl font-bold text-center text-gray-900 dark:text-white md:text-4xl">
+                <h2 class="mb-8 text-3xl font-bold text-center text-white dark:text-white md:text-4xl">
                     {{ __('component.product_catalog.featured_products') }}
                 </h2>
-
-                <!-- SKELETON LOADER -->
-                {{-- <div class="grid gap-8 md:grid-cols-1 lg:grid-cols-3" wire:loading>
-                    @for ($i = 0; $i < 3; $i++)
-                        <x-card :skeleton="true" />
-                    @endfor
-                </div> --}}
 
                 <!-- ACTUAL DATA -->
                 <div class="grid gap-8 md:grid-cols-1 lg:grid-cols-3" wire:loading.remove>
@@ -81,13 +74,6 @@
             <h2 class="mb-8 text-3xl font-bold text-center text-gray-900 dark:text-white md:text-4xl">
                 {{ __('component.product_catalog.product_catalog') }}
             </h2>
-
-            <!-- SKELETON LOADER -->
-            {{-- <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3" wire:loading>
-                @for ($i = 0; $i < 6; $i++)
-                    <x-card :skeleton="true" />
-                @endfor
-            </div> --}}
 
             <!-- ACTUAL DATA -->
             <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3" wire:loading.remove>

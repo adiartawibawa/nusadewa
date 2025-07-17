@@ -2,6 +2,7 @@
 
 namespace App\View\Components;
 
+use App\Enums\PostType;
 use Illuminate\View\Component;
 use App\Models\Post;
 
@@ -17,9 +18,14 @@ class Navigation extends Component
         $this->prepareMenuItems();
     }
 
+    protected function rootUrlWithLocale(): string
+    {
+        return url(app()->getLocale());
+    }
+
     protected function prepareMenuItems()
     {
-        $products = Post::where('type', 'product')
+        $products = Post::where('type', PostType::PRODUCT->value)
             ->whereNotNull('published_at')
             ->orderBy('published_at', 'desc')
             ->get(['id', 'slug', 'title', 'type'])
@@ -30,7 +36,7 @@ class Navigation extends Component
                 ];
             });
 
-        $technologies = Post::where('type', 'technology')
+        $technologies = Post::where('type', PostType::INNOVATION->value)
             ->whereNotNull('published_at')
             ->orderBy('published_at', 'desc')
             ->get(['id', 'slug', 'title', 'type'])
@@ -48,40 +54,40 @@ class Navigation extends Component
                 'label' => __('app.menu.home.label')
             ],
             'about' => [
-                'route' => '#',
+                'route' => $this->rootUrlWithLocale() . '#about',
                 'label' => __('app.menu.about.label'),
                 'children' => [
                     [
                         'label' => __('app.menu.about.children.innovation'),
-                        'url' => '#innovation'
+                        'url' => $this->rootUrlWithLocale() . '#innovation'
                     ],
                     [
                         'label' => __('app.menu.about.children.expertise'),
-                        'url' => '#technology'
+                        'url' => $this->rootUrlWithLocale() . '#technology'
                     ],
                     [
                         'label' => __('app.menu.about.children.team'),
-                        'url' => '#team'
+                        'url' => $this->rootUrlWithLocale() . '#team'
                     ],
                 ],
             ],
             'products' => [
-                'route' => '#',
+                'route' => $this->rootUrlWithLocale() . '#products',
                 'label' => __('app.menu.products.label'),
                 'children' => $products,
             ],
             'technology' => [
-                'route' => '#',
+                'route' => $this->rootUrlWithLocale() . '#technology',
                 'label' => __('app.menu.technology.label'),
                 'children' => $technologies,
             ],
             'news' => [
-                'route' => '#news',
+                'route' => $this->rootUrlWithLocale() . '#news',
                 'label' => __('app.menu.news.label'),
                 'children' => false,
             ],
             'contact' => [
-                'route' => '#contact',
+                'route' => $this->rootUrlWithLocale() . '#contact',
                 'label' => __('app.menu.contact.label'),
                 'children' => false,
             ],

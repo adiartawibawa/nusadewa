@@ -380,7 +380,7 @@
 
     <!-- Products Section -->
     <section id="products" class="py-20 bg-gray-900">
-        <div class="container px-4 mx-auto">
+        <div class="container relative px-4 mx-auto">
             <!-- Section Header -->
             <div class="max-w-3xl mx-auto mb-16 text-center">
                 <span
@@ -449,18 +449,19 @@
                 <div
                     class="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-gray-200 dark:via-gray-700 to-transparent">
                 </div>
-            </div>
 
-            <!-- Optional CTA -->
-            <div class="mt-12 text-center">
-                <a href="{{ route('news.index') }}"
-                    class="inline-flex items-center px-6 py-3 text-sm font-medium text-blue-600 transition-all duration-200 border border-blue-200 rounded-full dark:text-blue-400 dark:border-blue-700 hover:bg-blue-50 dark:hover:bg-gray-700 hover:border-blue-300 dark:hover:border-blue-500">
-                    {{ __('welcome.news.cta') }}
-                    <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
-                    </svg>
-                </a>
+                <!-- Optional CTA -->
+                <div class="pb-20 mt-12 text-center">
+                    <a href="{{ route('news.index') }}"
+                        class="inline-flex items-center px-6 py-3 text-sm font-medium text-blue-600 transition-all duration-200 border border-blue-200 rounded-full dark:text-blue-400 dark:border-blue-700 hover:bg-blue-50 dark:hover:bg-gray-700 hover:border-blue-300 dark:hover:border-blue-500">
+                        {{ __('welcome.news.cta') }}
+                        <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                        </svg>
+                    </a>
+                </div>
+
             </div>
         </div>
     </section>

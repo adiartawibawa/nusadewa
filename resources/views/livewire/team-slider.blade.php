@@ -70,7 +70,7 @@
                             </p>
 
                             <a href="#contact"
-                                class="inline-block w-full px-6 py-3 mt-auto font-medium text-white transition bg-blue-500 rounded-full hover:bg-blue-600 hover:-translate-y-1 hover:shadow-lg">
+                                class="inline-flex items-center justify-center w-full px-6 py-3 mt-auto font-medium text-white transition bg-blue-500 rounded-full hover:bg-blue-600 hover:-translate-y-1 hover:shadow-lg">
                                 {{ __('Contact :name', ['name' => explode(' ', $member['name'])[0]]) }}
                             </a>
                         </div>

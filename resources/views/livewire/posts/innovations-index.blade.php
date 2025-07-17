@@ -5,20 +5,26 @@
     </div>
 
     <div class="bg-gray-50 dark:bg-gray-900">
-        <!-- Breadcrumbs -->
-        <x-breadcrumbs :items="[['name' => 'Innovations', 'url' => route('innovations.index')]]" />
+        <!-- Page Header -->
+        <div class="relative bg-cover bg-center bg-no-repeat min-h-[40vh] sm:min-h-[50vh] lg:min-h-[60vh]"
+            style="background-image: url('{{ asset('images/hero.jpg') }}')">
 
-        <!-- Hero Section -->
-        <div class="relative bg-indigo-900 dark:bg-indigo-950">
-            <div class="relative px-4 py-24 mx-auto max-w-7xl sm:py-32 sm:px-6 lg:px-8">
-                <h1 class="text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl">
+            <!-- Overlay -->
+            <div class="absolute inset-0 bg-indigo-900/40 dark:bg-indigo-950/40"></div>
+
+            <!-- Content Wrapper -->
+            <div class="relative z-10 px-4 py-20 mx-auto max-w-7xl sm:py-28 sm:px-6 lg:py-36 lg:px-8">
+                <h1 class="text-3xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl">
                     {{ __('component.innovations.page_title') }}
                 </h1>
-                <p class="max-w-3xl mt-6 text-xl text-indigo-100 dark:text-indigo-200">
+                <p class="max-w-3xl mt-4 text-lg text-indigo-100 sm:text-xl dark:text-indigo-200">
                     {{ __('component.innovations.page_subtitle') }}
                 </p>
             </div>
         </div>
+
+        <!-- Breadcrumbs -->
+        <x-breadcrumbs :items="[['name' => 'Innovations', 'url' => route('innovations.index')]]" />
 
         <!-- Main Content -->
         <div class="container px-4 py-12 mx-auto max-w-7xl">

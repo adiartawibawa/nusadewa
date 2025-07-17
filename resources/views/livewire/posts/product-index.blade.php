@@ -5,19 +5,30 @@
     </div>
 
     <div class="bg-gray-50 dark:bg-gray-900">
+        <!-- Page Header -->
+        <div class="relative bg-cover bg-center bg-no-repeat min-h-[40vh] sm:min-h-[50vh] lg:min-h-[60vh]"
+            style="background-image: url('{{ asset('images/hero.jpg') }}')">
+
+            <!-- Overlay -->
+            <div class="absolute inset-0 bg-indigo-900/40 dark:bg-indigo-950/40"></div>
+
+            <!-- Content Wrapper -->
+            <div class="relative z-10 px-4 py-20 mx-auto max-w-7xl sm:py-28 sm:px-6 lg:py-36 lg:px-8">
+                <h1 class="text-3xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl">
+                    {{ __('component.products.page_title') }}
+                </h1>
+                <p class="max-w-3xl mt-4 text-lg text-indigo-100 sm:text-xl dark:text-indigo-200">
+                    {{ __('component.products.page_subtitle') }}
+                </p>
+            </div>
+        </div>
+
         <!-- Breadcrumbs -->
         <x-breadcrumbs :items="[['name' => 'Innovations', 'url' => route('innovations.index')]]" />
 
         <div class="px-6 mx-auto max-w-7xl lg:px-8">
             <!-- Header and Filters -->
             <div class="mb-8">
-                <h1 class="text-3xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-4xl">
-                    {{ __('component.products.page_title') }}
-                </h1>
-                <p class="mt-2 text-lg leading-8 text-gray-600 dark:text-gray-300">
-                    {{ __('component.products.page_subtitle') }}
-                </p>
-
                 <!-- Search and Filter Bar -->
                 <div class="mt-6 sm:flex sm:items-center sm:justify-between">
                     <!-- Search Input -->
@@ -165,39 +176,12 @@
 
             <!-- Product Grid -->
             @if ($products->count() > 0)
-                <div class="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
+                <div class="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
                     @foreach ($products as $product)
-                        <div class="relative group">
-                            <div
-                                class="w-full overflow-hidden bg-gray-200 rounded-lg aspect-h-1 aspect-w-1 dark:bg-gray-800 xl:aspect-h-8 xl:aspect-w-7">
-                                <img src="{{ $product->featured_image_url }}" alt="{{ $product->title }}"
-                                    class="object-cover object-center w-full h-full transition-opacity duration-300 group-hover:opacity-75"
-                                    loading="lazy">
-                            </div>
-                            <div class="flex justify-between mt-4">
-                                <div>
-                                    <h3 class="text-sm font-medium text-gray-900 dark:text-white">
-                                        <a href="{{ route('products.show', $product) }}">
-                                            <span aria-hidden="true" class="absolute inset-0"></span>
-                                            {{ $product->title }}
-                                        </a>
-                                    </h3>
-                                    @if ($product->productCategories->count())
-                                        <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
-                                            {{ $product->productCategories->first()->name }}
-                                        </p>
-                                    @endif
-                                </div>
-                                <div class="text-right">
-                                    <p class="text-sm font-medium text-gray-900 dark:text-white">
-                                        {{ $product->read_time }}
-                                    </p>
-                                    <p class="text-xs text-gray-500 dark:text-gray-400">
-                                        {{ $product->views_count }} {{ __('component.products.views') }}
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
+                        <x-card :item="$product" route="products.show" :categories="$product->productCategories" :tags="$product->tags ?? []"
+                            :readTime="$product->read_time" :viewsCount="$product->views_count" titleKey="title" summaryKey="summary"
+                            imageKey="featured_image_url" slugKey="slug" publishedAtKey="published_at"
+                            :featured="$loop->first" />
                     @endforeach
                 </div>
 
