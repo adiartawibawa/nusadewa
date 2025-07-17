@@ -19,7 +19,7 @@ NUSA DEWA adalah platform web yang mendukung program pemuliaan induk udang vanna
 1. **Clone Repository**
 
     ```bash
-    git clone https://github.com/your-repo/nusa-dewa.git
+    git clone https://github.com/adiartawibawa/nusadewa.git
     cd nusa-dewa
     ```
 
@@ -39,6 +39,7 @@ NUSA DEWA adalah platform web yang mendukung program pemuliaan induk udang vanna
     ```
 
 4. **Konfigurasi Database**
+
     - Buat database baru di MySQL/MariaDB
     - Update file `.env` dengan kredensial database:
         ```env
@@ -46,6 +47,14 @@ NUSA DEWA adalah platform web yang mendukung program pemuliaan induk udang vanna
         DB_USERNAME=username
         DB_PASSWORD=password
         ```
+
+5. **Buat Symlink Storage (untuk akses file publik)**
+
+    ```bash
+    php artisan storage:link
+    ```
+
+    > ⛓️ Perintah ini membuat `public/storage` sebagai link ke `storage/app/public` agar file seperti gambar atau dokumen bisa diakses via web.
 
 ### Migrasi Database dan Seeding
 
@@ -68,9 +77,11 @@ NUSA DEWA adalah platform web yang mendukung program pemuliaan induk udang vanna
     - `PostSeeder`: Konten dasar platform
 
 3. **Untuk development, jalankan:**
+
     ```bash
     php artisan migrate:fresh --seed
     ```
+
     _Perintah ini akan me-reset database dan mengisi data dummy_
 
 ## 🔐 Default Login
