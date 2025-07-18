@@ -30,9 +30,8 @@ return new class extends Migration
             $table->boolean('indexable')->default(true);
             $table->timestamps();
             $table->softDeletes();
-            $table->unique(['slug', 'user_id', 'language']);
+            $table->unique(['slug', 'user_id']);
             $table->index(['type', 'is_featured']);
-            $table->index(['is_featured', 'landing_page_section']);
         });
 
         // Table untuk kategori produk

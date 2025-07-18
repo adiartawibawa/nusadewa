@@ -3,17 +3,19 @@
 namespace App\Providers;
 
 use App\Settings\EmailSettings;
-use Illuminate\Support\Facades\Config;
+use Illuminate\Contracts\Support\DeferrableProvider;
 use Illuminate\Support\ServiceProvider;
 
-class EmailConfigServiceProvider extends ServiceProvider
+class EmailConfigServiceProvider extends ServiceProvider implements DeferrableProvider
 {
     /**
      * Register services.
      */
     public function register(): void
     {
-        //
+        $this->app->singleton(EmailSettings::class, function ($app) {
+            return $app->make(EmailSettings::class)->toMailConfig();
+        });
     }
 
     /**
@@ -21,10 +23,11 @@ class EmailConfigServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        // Ambil pengaturan dari database
-        $emailSettings = app(EmailSettings::class);
+        //
+    }
 
-        // Update konfigurasi Laravel
-        Config::set('mail', $emailSettings->toMailConfig());
+    public function provides()
+    {
+        return ['email.config'];
     }
 }
