@@ -1,5 +1,6 @@
 <?php
 
+use App\Settings\AppearanceSettings;
 use App\Settings\AppInfoSettings;
 use App\Settings\EmailSettings;
 use App\Settings\SystemSettings;
@@ -14,6 +15,7 @@ return [
         SystemSettings::class,
         EmailSettings::class,
         AppInfoSettings::class,
+        AppearanceSettings::class,
     ],
 
     /*

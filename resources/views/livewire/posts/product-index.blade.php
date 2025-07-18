@@ -7,7 +7,7 @@
     <div class="bg-gray-50 dark:bg-gray-900">
         <!-- Page Header -->
         <div class="relative bg-cover bg-center bg-no-repeat min-h-[40vh] sm:min-h-[50vh] lg:min-h-[60vh]"
-            style="background-image: url('{{ asset('images/hero.jpg') }}')">
+            style="background-image: url('{{ $appearance['getSectionByName']('Product Header')['image_url'] ?? asset('images/hero.jpg') }}')">
 
             <!-- Overlay -->
             <div class="absolute inset-0 bg-indigo-900/40 dark:bg-indigo-950/40"></div>

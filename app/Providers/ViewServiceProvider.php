@@ -30,6 +30,7 @@ class ViewServiceProvider extends ServiceProvider
                     'systemInfo' => $layoutComponent->getPublicSystemInfo(),
                     'socialMedia' => $layoutComponent->getSocialMediaInfo(),
                     'seo' => $layoutComponent->getSeoInfo(),
+                    'appearance' => $layoutComponent->getAppearanceSetting(),
                 ]
             );
         });

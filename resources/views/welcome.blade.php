@@ -11,7 +11,7 @@
 
         <!-- Dynamic Background Image with Parallax -->
         <div class="absolute inset-0 z-0 bg-center bg-cover parallax-bg"
-            :style="`background-image: url('{{ $appInfo['hero_image'] ?? asset('images/hero.jpg') }}'); transform: translateY(${parallaxOffset}px)`">
+            :style="`background-image: url('{{ $appearance['getSectionByName']('Homepage Hero Section')['image_url'] ?? asset('images/hero.jpg') }}'); transform: translateY(${parallaxOffset}px)`">
         </div>
 
         <!-- Hero Content -->
@@ -147,7 +147,7 @@
             <div class="flex flex-col items-center gap-12 lg:flex-row">
                 <div class="lg:w-1/2">
                     <div class="relative overflow-hidden shadow-xl rounded-xl">
-                        <img src="{{ asset('images/performance-testing.JPG') }}"
+                        <img src="{{ $appearance['getSectionByName']('Performance Testing Section')['image_url'] ?? asset('images/performance-testing.JPG') }}"
                             alt="Vannamei shrimp farming performance testing" class="object-cover w-full h-auto"
                             loading="lazy">
                         <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
@@ -208,7 +208,7 @@
     <section id="globalReach" class="relative py-24 overflow-hidden">
         <!-- Background Elements -->
         <div class="absolute inset-0 z-0 parallax-bg"
-            :style="`background-image: url({{ asset('images/technology-section.JPG') }}); transform: translateY(${parallaxOffset *0.001}px)`">
+            :style="`background-image: url({{ $appearance['getSectionByName']('Global Reach Section')['image_url'] ?? asset('images/technology-section.JPG') }}); transform: translateY(${parallaxOffset *0.001}px)`">
         </div>
 
         <!-- Gradient Overlay -->

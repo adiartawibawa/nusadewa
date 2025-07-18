@@ -2,6 +2,7 @@
 
 namespace App\View\Components;
 
+use App\Settings\AppearanceSettings;
 use App\Settings\AppInfoSettings;
 use App\Settings\SystemSettings;
 use Closure;
@@ -14,14 +15,16 @@ class NusaDewaLayout extends Component
 
     public $appInfoSettings;
     public $systemSettings;
+    public $appearanceSettings;
 
     /**
      * Create a new component instance.
      */
-    public function __construct(AppInfoSettings $appInfoSettings, SystemSettings $systemSettings)
+    public function __construct(AppInfoSettings $appInfoSettings, SystemSettings $systemSettings, AppearanceSettings $appearanceSettings)
     {
         $this->appInfoSettings = $appInfoSettings;
-        $this->systemSettings = $systemSettings;;
+        $this->systemSettings = $systemSettings;
+        $this->appearanceSettings = $appearanceSettings;
     }
 
     /**
@@ -34,6 +37,7 @@ class NusaDewaLayout extends Component
             'systemInfo' => $this->getPublicSystemInfo(),
             'socialMedia' => $this->getSocialMediaInfo(),
             'seo' => $this->getSeoInfo(),
+            'appearance' => $this->getAppearanceSetting(),
         ]);
     }
 
@@ -117,6 +121,38 @@ class NusaDewaLayout extends Component
             'enable_google_analytics' => $this->systemSettings->enable_google_analytics ?? false,
             'google_analytics_id' => $this->systemSettings->google_analytics_id,
             'google_tag_manager_id' => $this->systemSettings->google_tag_manager_id
+        ];
+    }
+
+    /**
+     * Get the appearance settings information.
+     *
+     * @return array
+     */
+    public function getAppearanceSetting(): array
+    {
+        $sections = $this->appearanceSettings->sections ?? [];
+
+        // Process sections to include proper image URLs
+        $processedSections = array_map(function ($section) {
+            // Tambahkan image_url yang bisa diakses publik
+            $section['image_url'] = !empty($section['image'])
+                ? Storage::url($section['image'])
+                : null;
+            return $section;
+        }, $sections);
+
+        return [
+            'sections' => $processedSections,
+            'getSectionByName' => function (string $name) use ($processedSections) {
+                // Cari di sections yang sudah diproses
+                foreach ($processedSections as $section) {
+                    if (strcasecmp($section['name'], $name) === 0) {
+                        return $section;
+                    }
+                }
+                return null;
+            },
         ];
     }
 
