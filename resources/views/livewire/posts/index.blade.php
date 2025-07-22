@@ -13,14 +13,14 @@
             style="background-image: url('{{ $appearance['getSectionByName']('News Header')['image_url'] ?? asset('images/hero.jpg') }}')">
 
             <!-- Overlay -->
-            <div class="absolute inset-0 bg-indigo-900/40 dark:bg-indigo-950/40"></div>
+            <div class="absolute inset-0 bg-blue-900/40 dark:bg-blue-950/40"></div>
 
             <!-- Content Wrapper -->
             <div class="relative z-10 px-4 py-20 mx-auto max-w-7xl sm:py-28 sm:px-6 lg:py-36 lg:px-8">
                 <h1 class="text-3xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl">
                     {{ __('component.news.page_title') }}
                 </h1>
-                <p class="max-w-3xl mt-4 text-lg text-indigo-100 sm:text-xl dark:text-indigo-200">
+                <p class="max-w-3xl mt-4 text-lg text-blue-100 sm:text-xl dark:text-blue-200">
                     {{ __('component.news.page_subtitle') }}
                 </p>
             </div>
@@ -42,11 +42,11 @@
                                 {{ __('component.news.filtered_by_tag') }}
                             </span>
                             <span
-                                class="px-3 py-1 ml-3 text-sm font-medium text-indigo-600 rounded-full dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-900/50">
+                                class="px-3 py-1 ml-3 text-sm font-medium text-blue-600 rounded-full dark:text-blue-400 bg-blue-50 dark:bg-blue-900/50">
                                 #{{ $currentTag->name }}
                             </span>
                             <button wire:click.prevent="clearFilter('tag')"
-                                class="ml-auto text-sm text-indigo-600 transition-colors dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300">
+                                class="ml-auto text-sm text-blue-600 transition-colors dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300">
                                 <i class="mr-1 fas fa-times"></i> {{ __('component.news.clear_filter') }}
                             </button>
                         </div>
@@ -71,7 +71,7 @@
                                         <div class="flex flex-wrap gap-2 mb-3">
                                             @foreach ($post->tags->take(3) as $tag)
                                                 <a href="{{ route('news.index', ['tag' => $tag->slug]) }}"
-                                                    class="px-3 py-1 text-xs font-medium text-indigo-600 transition-colors rounded-full dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-900/50 hover:bg-indigo-100 dark:hover:bg-indigo-900/70">
+                                                    class="px-3 py-1 text-xs font-medium text-blue-600 transition-colors rounded-full dark:text-blue-400 bg-blue-50 dark:bg-blue-900/50 hover:bg-blue-100 dark:hover:bg-blue-900/70">
                                                     #{{ $tag->name }}
                                                 </a>
                                             @endforeach
@@ -81,7 +81,7 @@
                                     <!-- Title -->
                                     <h2 class="mb-3 text-xl font-bold leading-tight text-gray-900 dark:text-white">
                                         <a href="{{ route('news.show', $post->slug) }}"
-                                            class="transition-colors hover:text-indigo-600 dark:hover:text-indigo-400">
+                                            class="transition-colors hover:text-blue-600 dark:hover:text-blue-400">
                                             {{ $post->title }}
                                         </a>
                                     </h2>
@@ -103,7 +103,7 @@
 
                                     <!-- Read More -->
                                     <a href="{{ route('news.show', $post->slug) }}"
-                                        class="inline-flex items-center font-medium text-indigo-600 transition-colors dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300">
+                                        class="inline-flex items-center font-medium text-blue-600 transition-colors dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300">
                                         {{ __('component.news.read_more') }}
                                         <i class="ml-2 text-xs fas fa-chevron-right"></i>
                                     </a>
@@ -119,7 +119,7 @@
                                     {{ __('component.news.no_articles_suggestion') }}
                                 </p>
                                 <a href="{{ route('news.index') }}"
-                                    class="inline-block px-4 py-2 mt-4 text-sm font-medium text-white transition-colors bg-indigo-600 rounded-md hover:bg-indigo-700 dark:bg-indigo-700 dark:hover:bg-indigo-600">
+                                    class="inline-block px-4 py-2 mt-4 text-sm font-medium text-white transition-colors bg-blue-600 rounded-md hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-600">
                                     {{ __('component.news.view_all_news') }}
                                 </a>
                             </div>
@@ -153,7 +153,7 @@
                                         @endif
                                         <div>
                                             <a href="{{ route('news.show', $post->slug) }}"
-                                                class="font-medium text-gray-900 transition-colors dark:text-white hover:text-indigo-600 dark:hover:text-indigo-400">
+                                                class="font-medium text-gray-900 transition-colors dark:text-white hover:text-blue-600 dark:hover:text-blue-400">
                                                 {{ Str::limit($post->title, 50) }}
                                             </a>
                                             <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">
@@ -175,7 +175,7 @@
                             <div class="flex flex-wrap gap-2">
                                 @foreach ($topTags as $tag)
                                     <a href="{{ route('news.index', ['tag' => $tag->slug]) }}"
-                                        class="px-3 py-1 text-sm font-medium text-indigo-600 transition-colors rounded-full dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-900/50 hover:bg-indigo-100 dark:hover:bg-indigo-900/70">
+                                        class="px-3 py-1 text-sm font-medium text-blue-600 transition-colors rounded-full dark:text-blue-400 bg-blue-50 dark:bg-blue-900/50 hover:bg-blue-100 dark:hover:bg-blue-900/70">
                                         #{{ $tag->name }} ({{ $tag->posts_count }})
                                     </a>
                                 @endforeach

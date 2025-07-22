@@ -10,21 +10,21 @@
             style="background-image: url('{{ $appearance['getSectionByName']('Product Header')['image_url'] ?? asset('images/hero.jpg') }}')">
 
             <!-- Overlay -->
-            <div class="absolute inset-0 bg-indigo-900/40 dark:bg-indigo-950/40"></div>
+            <div class="absolute inset-0 bg-blue-900/40 dark:bg-blue-950/40"></div>
 
             <!-- Content Wrapper -->
             <div class="relative z-10 px-4 py-20 mx-auto max-w-7xl sm:py-28 sm:px-6 lg:py-36 lg:px-8">
                 <h1 class="text-3xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl">
                     {{ __('component.products.page_title') }}
                 </h1>
-                <p class="max-w-3xl mt-4 text-lg text-indigo-100 sm:text-xl dark:text-indigo-200">
+                <p class="max-w-3xl mt-4 text-lg text-blue-100 sm:text-xl dark:text-blue-200">
                     {{ __('component.products.page_subtitle') }}
                 </p>
             </div>
         </div>
 
         <!-- Breadcrumbs -->
-        <x-breadcrumbs :items="[['name' => 'Innovations', 'url' => route('innovations.index')]]" />
+        <x-breadcrumbs :items="[['name' => 'Products', 'url' => route('products.index')]]" />
 
         <div class="px-6 mx-auto max-w-7xl lg:px-8">
             <!-- Header and Filters -->
@@ -44,7 +44,7 @@
                                 </svg>
                             </div>
                             <input wire:model.debounce.300ms="search" id="search" name="search" type="search"
-                                class="block w-full rounded-md border-0 bg-white dark:bg-gray-800 py-1.5 pl-10 pr-3 text-gray-900 dark:text-white ring-1 ring-inset ring-gray-300 dark:ring-gray-600 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                class="block w-full rounded-md border-0 bg-white dark:bg-gray-800 py-1.5 pl-10 pr-3 text-gray-900 dark:text-white ring-1 ring-inset ring-gray-300 dark:ring-gray-600 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
                                 placeholder="{{ __('component.products.search_placeholder') }}">
                         </div>
                     </div>
@@ -74,7 +74,7 @@
                                             <div class="flex items-center h-6">
                                                 <input wire:model="selectedCategories" id="category-{{ $category->id }}"
                                                     name="categories[]" value="{{ $category->id }}" type="checkbox"
-                                                    class="w-4 h-4 text-indigo-600 border-gray-300 rounded dark:border-gray-600 focus:ring-indigo-600 dark:focus:ring-indigo-500 dark:bg-gray-700">
+                                                    class="w-4 h-4 text-blue-600 border-gray-300 rounded dark:border-gray-600 focus:ring-blue-600 dark:focus:ring-blue-500 dark:bg-gray-700">
                                             </div>
                                             <div class="ml-3">
                                                 <label for="category-{{ $category->id }}"
@@ -97,10 +97,10 @@
                             </span>
                             @if ($search)
                                 <span
-                                    class="inline-flex items-center rounded-full bg-indigo-100 dark:bg-indigo-900 px-2.5 py-0.5 text-xs font-medium text-indigo-800 dark:text-indigo-100">
+                                    class="inline-flex items-center rounded-full bg-blue-100 dark:bg-blue-900 px-2.5 py-0.5 text-xs font-medium text-blue-800 dark:text-blue-100">
                                     Search: {{ $search }}
                                     <button wire:click="$set('search', '')" type="button"
-                                        class="ml-1.5 inline-flex text-indigo-400 hover:text-indigo-500">
+                                        class="ml-1.5 inline-flex text-blue-400 hover:text-blue-500">
                                         <span class="sr-only">Remove filter</span>
                                         <svg class="h-3.5 w-3.5" viewBox="0 0 20 20" fill="currentColor"
                                             aria-hidden="true">
@@ -129,7 +129,7 @@
                                 @endif
                             @endforeach
                             <button wire:click="resetFilters" type="button"
-                                class="text-sm font-medium text-indigo-600 dark:text-indigo-400 hover:text-indigo-500">
+                                class="text-sm font-medium text-blue-600 dark:text-blue-400 hover:text-blue-500">
                                 {{ __('component.products.clear_all') }}
                             </button>
                         </div>
@@ -147,7 +147,7 @@
                         {{ __('component.products.sort_by') }}
                     </label>
                     <select wire:model="sortField" id="sort"
-                        class="py-1 pl-2 pr-8 text-base text-gray-900 border-gray-300 rounded-md dark:border-gray-600 dark:bg-gray-800 dark:text-white focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
+                        class="py-1 pl-2 pr-8 text-base text-gray-900 border-gray-300 rounded-md dark:border-gray-600 dark:bg-gray-800 dark:text-white focus:border-blue-500 focus:outline-none focus:ring-blue-500 sm:text-sm">
                         @foreach (__('component.products.sort_options') as $value => $label)
                             <option value="{{ $value }}">{{ $label }}</option>
                         @endforeach
@@ -204,7 +204,7 @@
                     </p>
                     <div class="mt-6">
                         <button wire:click="resetFilters" type="button"
-                            class="inline-flex items-center px-3 py-2 text-sm font-semibold text-white bg-indigo-600 rounded-md shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                            class="inline-flex items-center px-3 py-2 text-sm font-semibold text-white bg-blue-600 rounded-md shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600">
                             {{ __('component.products.reset_filters') }}
                         </button>
                     </div>

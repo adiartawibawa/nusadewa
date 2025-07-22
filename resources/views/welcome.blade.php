@@ -208,7 +208,7 @@
     <section id="globalReach" class="relative py-24 overflow-hidden">
         <!-- Background Elements -->
         <div class="absolute inset-0 z-0 parallax-bg"
-            :style="`background-image: url({{ $appearance['getSectionByName']('Global Reach Section')['image_url'] ?? asset('images/technology-section.JPG') }}); transform: translateY(${parallaxOffset *0.001}px)`">
+            :style="`background-image: url({{ $appearance['getSectionByName']('Global Reach Section')['image_url'] ?? asset('images/global-reach.JPG') }}); transform: translateY(${parallaxOffset *0.001}px)`">
         </div>
 
         <!-- Gradient Overlay -->
