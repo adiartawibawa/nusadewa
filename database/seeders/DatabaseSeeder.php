@@ -25,10 +25,10 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('password')
         ]);
 
-        $this->call([
-            TeamMemberSeeder::class,
-            PostSeeder::class,
-        ]);
+        // $this->call([
+        //     TeamMemberSeeder::class,
+        //     PostSeeder::class,
+        // ]);
 
         $this->command->info('Database seeded successfully!');
     }
