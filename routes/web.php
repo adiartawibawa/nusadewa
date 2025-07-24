@@ -13,6 +13,23 @@ use Illuminate\Support\Facades\Route;
 use Livewire\Livewire;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
+Route::get('/set-locale/{locale}', function ($locale) {
+    if (!in_array($locale, LocaleManager::getSupportedLocales())) {
+        abort(400); // prevent invalid locale
+    }
+
+    session(['locale' => $locale]);
+
+    // Redirect ke URL sebelumnya dengan prefix locale baru
+    $previous = url()->previous();
+    $parsed = parse_url($previous);
+    $path = $parsed['path'] ?? '/';
+
+    $newUrl = LaravelLocalization::getLocalizedURL($locale, $path);
+
+    return redirect($newUrl);
+})->name('set-locale');
+
 Route::group([
     'prefix' => LaravelLocalization::setLocale(),
     'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath']
@@ -23,22 +40,6 @@ Route::group([
     Livewire::setUpdateRoute(function ($handle) {
         return Route::post('/livewire/update', $handle);
     });
-
-    Route::get('/set-locale/{locale}', function ($locale) {
-        if (!in_array($locale, LocaleManager::getSupportedLocales())) {
-            abort(400); // prevent invalid locale
-        }
-
-        session(['locale' => $locale]);
-
-        // Redirect ke URL yang sama tapi dengan prefix baru
-        $previous = url()->previous();
-        $parsed = parse_url($previous);
-        $path = $parsed['path'] ?? '/';
-        $newUrl = LaravelLocalization::getLocalizedURL($locale, $path);
-
-        return redirect($newUrl);
-    })->name('set-locale');
 
     Route::get('/', function () {
         return view('welcome');
