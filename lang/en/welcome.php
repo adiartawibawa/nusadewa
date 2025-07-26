@@ -3,7 +3,7 @@
 return [
     'hero' => [
         'title' => 'INNOVATION MEETS AQUACULTURE',
-        'description' => 'State-of-the-art biotechnology meets decades of aquaculture expertise to produce shrimp that thrive',
+        'description' => 'State-of-the-art biotechnology meets decades of aquaculture expertise to produce the best adaptive shrimp strain',
         'contact_button' => 'Contact Our Experts',
         'product_button' => 'Explore Our Products',
     ],
@@ -33,11 +33,11 @@ return [
         ],
         'stats' => [
             'survival' => [
-                'value' => '98%',
+                'value' => '95%',
                 'label' => 'Average Survival Rate',
             ],
             'growth' => [
-                'value' => '1.8x',
+                'value' => '1.3x',
                 'label' => 'Faster Growth vs Industry Standard',
             ],
             'support' => [
@@ -84,9 +84,9 @@ return [
             'adaptation' => 'Ecosystem Adaptation',
         ],
         'card_contents' => [
-            'reach' => 'Supporting 250+ hatcheries across all major Indonesian shrimp farming regions',
-            'development' => 'Empowering 5,000+ smallholder farmers through comprehensive training programs',
-            'adaptation' => '12 specialized broodstock strains optimized for Indonesia\'s unique coastal conditions',
+            'reach' => 'Supporting 50+ hatcheries across all major Indonesian shrimp farming regions',
+            'development' => 'Empowering 1,000+ smallholder farmers through comprehensive training programs',
+            'adaptation' => '8 specialized broodstock strains optimized for Indonesia\'s unique coastal environments',
         ],
         'leadership' => [
             'title' => 'Our Scientific Leadership',

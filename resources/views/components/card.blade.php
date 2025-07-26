@@ -115,12 +115,12 @@
             <h3
                 class="mb-2 text-xl font-bold text-gray-800 transition-colors dark:text-white hover:text-blue-600 dark:hover:text-blue-400">
                 <a href="{{ $link }}" class="rounded focus:outline-none focus:ring-2 focus:ring-blue-500">
-                    {{ $title }}
+                    {!! $title !!}
                 </a>
             </h3>
 
             @if ($summary)
-                <p class="mb-4 text-gray-600 dark:text-gray-300 line-clamp-2">{{ $summary }}</p>
+                <p class="mb-4 text-gray-600 dark:text-gray-300 line-clamp-2">{!! $summary !!}</p>
             @endif
 
             <div class="flex items-center justify-between text-xs text-gray-500 dark:text-gray-400">

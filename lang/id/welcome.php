@@ -3,7 +3,7 @@
 return [
     'hero' => [
         'title' => 'INOVASI BERBALUT AKUAKULTUR',
-        'description' => 'Bioteknologi mutakhir bertemu dengan keahlian akuakultur puluhan tahun untuk menghasilkan udang yang berkembang pesat',
+        'description' => 'Bioteknologi tercanggih berpadu dengan puluhan tahun keahlian akuakultur untuk menghasilkan strain udang adaptif terbaik.',
         'contact_button' => 'Hubungi Ahli Kami',
         'product_button' => 'Jelajahi Produk Kami',
     ],
@@ -33,11 +33,11 @@ return [
         ],
         'stats' => [
             'survival' => [
-                'value' => '98%',
+                'value' => '95%',
                 'label' => 'Tingkat Kelangsungan Hidup Rata-rata',
             ],
             'growth' => [
-                'value' => '1.8x',
+                'value' => '1.3x',
                 'label' => 'Pertumbuhan Lebih Cepat vs Standar Industri',
             ],
             'support' => [
@@ -84,9 +84,9 @@ return [
             'adaptation' => 'Adaptasi Ekosistem',
         ],
         'card_contents' => [
-            'reach' => 'Mendukung 250+ hatcheri di seluruh wilayah budidaya udang utama Indonesia',
-            'development' => 'Memberdayakan 5.000+ petambak kecil melalui program pelatihan komprehensif',
-            'adaptation' => '12 strain induk khusus yang dioptimalkan untuk kondisi pesisir unik Indonesia',
+            'reach' => 'Mendukung 50+ hatcheri di seluruh wilayah budidaya udang utama Indonesia',
+            'development' => 'Memberdayakan 1.000+ petambak kecil melalui program pelatihan komprehensif',
+            'adaptation' => '8 strain induk khusus yang dioptimalkan untuk kondisi pesisir unik Indonesia',
         ],
         'leadership' => [
             'title' => 'Kepemimpinan Ilmiah Kami',

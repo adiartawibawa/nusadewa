@@ -51,7 +51,7 @@
 @endphp
 
 <div
-    class="relative px-6 pt-10 pb-8 overflow-hidden transition-all duration-300 bg-white shadow-xl cursor-pointer group ring-1 ring-gray-900/5 hover:-translate-y-1 hover:shadow-2xl sm:mx-auto sm:max-w-sm sm:rounded-lg sm:px-10">
+    class="relative px-6 pt-10 pb-8 overflow-hidden transition-all duration-300 bg-white rounded-lg shadow-xl cursor-pointer group ring-1 ring-gray-900/5 hover:-translate-y-1 hover:shadow-2xl sm:mx-auto sm:max-w-full sm:rounded-lg sm:px-10">
     <!-- Background Bubble -->
     <span
         class="absolute top-10 z-0 h-20 w-20 rounded-full {{ $theme['bg'] }} transition-all duration-300 group-hover:scale-[10]"></span>

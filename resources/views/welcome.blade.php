@@ -246,7 +246,7 @@
                     <!-- Key Metrics -->
                     <div class="grid grid-cols-2 gap-4 my-8">
                         <div class="p-4 border bg-white/5 backdrop-blur-sm rounded-xl border-white/10">
-                            <div class="text-3xl font-bold text-blue-300">30+</div>
+                            <div class="text-3xl font-bold text-blue-300">3+</div>
                             <div class="text-sm font-medium text-blue-100">
                                 {{ __('welcome.global_reach.stats.countries') }}</div>
                         </div>
@@ -256,7 +256,7 @@
                             </div>
                         </div>
                         <div class="p-4 border bg-white/5 backdrop-blur-sm rounded-xl border-white/10">
-                            <div class="text-3xl font-bold text-blue-300">2-35</div>
+                            <div class="text-3xl font-bold text-blue-300">10-35</div>
                             <div class="text-sm font-medium text-blue-100">
                                 {{ __('welcome.global_reach.stats.salinity') }}</div>
                         </div>
@@ -355,8 +355,7 @@
 
                 <!-- Adaptation Card -->
                 <x-highlight-card title="{{ __('welcome.expertise.highlights.adaptation') }}"
-                    description="{{ __('welcome.expertise.card_contents.adaptation') }}" icon="seedling"
-                    color="amber" />
+                    description="{!! __('welcome.expertise.card_contents.adaptation') !!}" icon="seedling" color="amber" />
             </div>
 
             <!-- Team Section -->
