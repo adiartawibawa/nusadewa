@@ -6,13 +6,13 @@ use Spatie\LaravelSettings\Settings;
 
 class EmailSettings extends Settings
 {
-    public string $from_address;
-    public string $from_name;
-    public string $mailer;
-    public string $host;
+    public ?string $from_address;
+    public ?string $from_name;
+    public ?string $mailer;
+    public ?string $host;
     public int $port;
-    public string $username;
-    public string $password;
+    public ?string $username;
+    public ?string $password;
     public ?string $encryption;
     public ?string $test_address;
 

@@ -98,10 +98,10 @@
                 <div class="px-6 mx-auto mt-32 max-w-7xl lg:px-8">
                     <div class="max-w-2xl mx-auto lg:mx-0">
                         <h2 class="text-3xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-4xl">
-                            {{ __('component.product_detail.related_products.title') }}
+                            {{ __('component.product_detail.related_products_title') }}
                         </h2>
                         <p class="mt-6 text-lg leading-8 text-gray-600 dark:text-gray-300">
-                            {{ __('component.product_detail.related_products.description') }}
+                            {{ __('component.product_detail.related_products_description') }}
                         </p>
                     </div>
 

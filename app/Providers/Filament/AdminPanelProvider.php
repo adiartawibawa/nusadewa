@@ -98,14 +98,14 @@ class AdminPanelProvider extends PanelProvider
 
     protected function getSupportedLocales(): array
     {
-        try {
-            if (Schema::hasTable('locales')) {
-                return LocaleManager::getSupportedLocales();
-            }
-        } catch (\Exception $e) {
-            Log::error('Failed to retrieve locales: ' . $e->getMessage());
-        }
+        // try {
+        //     if (Schema::hasTable('locales')) {
+        return LocaleManager::getSupportedLocales();
+        // }
+        // } catch (\Exception $e) {
+        //     Log::error('Failed to retrieve locales: ' . $e->getMessage());
+        // }
 
-        return ['en'];
+        // return ['en'];
     }
 }
