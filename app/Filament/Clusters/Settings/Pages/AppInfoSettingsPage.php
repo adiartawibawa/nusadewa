@@ -88,6 +88,11 @@ class AppInfoSettingsPage extends Page implements HasForms
                             ->required()
                             ->columnSpanFull(),
 
+                        TextInput::make('email')
+                            ->email()
+                            ->required()
+                            ->columnSpanFull(),
+
                         TextInput::make('city')
                             ->required(),
 

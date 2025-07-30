@@ -10,6 +10,7 @@ class AppInfoSettings extends Settings
     public ?string $company_description;
     public ?string $company_logo;
     public ?string $address;
+    public ?string $email;
     public ?string $city;
     public ?string $province;
     public ?string $postal_code;
@@ -29,6 +30,7 @@ class AppInfoSettings extends Settings
             'company_description' => 'Sebagai pusat pembenihan udang vaname terkemuka di Bali, kami siap membantu Anda dengan solusi akuakultur berbasis bioteknologi.',
             'company_logo' => '',
             'address' => 'Jalan Raya Bugbug, Kec. Manggis',
+            'email' => 'bpiu2k@gmail.com',
             'city' => 'Karangasem',
             'province' => 'Bali',
             'postal_code' => '80811',
