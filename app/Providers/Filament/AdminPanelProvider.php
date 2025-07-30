@@ -70,42 +70,31 @@ class AdminPanelProvider extends PanelProvider
     protected function getBrandName(): string
     {
         try {
-            if (Schema::hasTable('system_settings')) {
-                return app(SystemSettings::class)->site_name ?? config('app.name');
-            }
-        } catch (\Exception $e) {
+            $systemSettings = app(SystemSettings::class);
+            return $systemSettings->site_name ?: config('app.name');
+        } catch (\Throwable $e) {
             Log::error('Failed to retrieve brand name: ' . $e->getMessage());
+            return config('app.name');
         }
-
-        return config('app.name');
     }
 
     protected function getFavicon(): string
     {
         try {
-            if (Schema::hasTable('app_info_settings')) {
-                $logo = app(AppInfoSettings::class)->company_logo;
-                if ($logo && Storage::exists($logo)) {
-                    return Storage::url($logo);
-                }
+            $appInfoSettings = app(AppInfoSettings::class);
+            if (!empty($appInfoSettings->company_logo)) {
+                return Storage::url($appInfoSettings->company_logo);
             }
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
             Log::error('Failed to retrieve favicon: ' . $e->getMessage());
         }
 
-        return 'favicon.ico';
+        // fallback default favicon
+        return asset('favicon.ico');
     }
 
     protected function getSupportedLocales(): array
     {
-        // try {
-        //     if (Schema::hasTable('locales')) {
         return LocaleManager::getSupportedLocales();
-        // }
-        // } catch (\Exception $e) {
-        //     Log::error('Failed to retrieve locales: ' . $e->getMessage());
-        // }
-
-        // return ['en'];
     }
 }
